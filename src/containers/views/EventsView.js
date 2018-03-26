@@ -52,6 +52,7 @@ class EventsView extends Component {
 
     return <ActivityIndicator />;
   };
+  // render
 
   changeSortOrder = () => {};
 
