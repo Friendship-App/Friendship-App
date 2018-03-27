@@ -2,7 +2,8 @@ import React from 'react';
 import { TabNavigator } from 'react-navigation';
 import { IconImage } from '../../components/Layout/Layout';
 
-import StackChat from './StackChat';
+import InboxChat from './InboxChat';
+import PeopleChat from './PeopleChat';
 import PeopleView from '../views/PeopleView';
 import InboxView from '../views/Chat/ChatInbox';
 import MyProfile from '../views/MyProfileView';
@@ -83,11 +84,11 @@ export default TabNavigator(
       screen: EventsView,
     },
     People: {
-      screen: PeopleView,
+      screen: PeopleChat,
       navigationOptions: tabNavigationOptions('People'),
     },
     Inbox: {
-      screen: StackChat,
+      screen: InboxChat,
       navigationOptions: tabNavigationOptions('Inbox'),
     },
     MyProfile: {

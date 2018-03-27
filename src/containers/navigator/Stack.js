@@ -5,10 +5,8 @@ import Header from './Header';
 // ## View Imports ##
 import Tabs from './Tabs';
 import WelcomeView from '../views/WelcomeView';
-import PeopleView from '../views/PeopleView';
 import SignInView from '../views/SignIn/SignInView';
 import SignUpView from '../views/SignUp/SignUpView';
-import ProfileUser from '../views/PeopleProfileView';
 import SignUpMatching from '../views/SignUp/SignUpMatching';
 import SignUpLocation from '../views/SignUp/SignUpLocation';
 import SignUpPersonality from '../views/SignUp/SignUpPersonality';
@@ -76,10 +74,6 @@ export default StackNavigator(
       screen: UsersForTagView,
       navigationOptions: { title: 'Search page' },
     },
-    People: {
-      screen: PeopleView,
-      navigationOptions: { title: 'People page' },
-    },
     SignIn: {
       screen: SignInView,
       navigationOptions: { header: () => null },
@@ -90,10 +84,6 @@ export default StackNavigator(
     },
     SignUpPersonality: {
       screen: SignUpPersonality,
-      navigationOptions: { header: () => null },
-    },
-    ProfileUser: {
-      screen: ProfileUser,
       navigationOptions: { header: () => null },
     },
     ChatView: {
