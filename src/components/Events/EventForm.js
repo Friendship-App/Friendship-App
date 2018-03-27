@@ -40,10 +40,12 @@ class EventForm extends Component {
     participantsMix: 1,
     error: false,
     validationError: '',
+    hostId: '',
   };
 
   componentWillMount() {
     this.props.getLocations();
+    this.setState({ hostId: this.props.hostId });
     if (this.props.edit) {
       this.setState({
         id: this.props.eventDetails.id,
@@ -94,6 +96,7 @@ class EventForm extends Component {
       maxParticipants,
       participantsMix,
       eventImage,
+      hostId,
     } = this.state;
 
     let eventData = {
@@ -104,6 +107,7 @@ class EventForm extends Component {
       minParticipants,
       maxParticipants,
       participantsMix,
+      hostId,
     };
 
     if (!title || !city || !address) {
@@ -156,7 +160,6 @@ class EventForm extends Component {
   }
 
   render() {
-    console.log(this.props.eventDetails);
     const cities = this.props.locations.data.map(city => {
       return { value: city.name };
     });

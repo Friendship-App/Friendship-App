@@ -17,7 +17,6 @@ import EventsList from '../../components/Events/EventsList';
 const mapStateToProps = state => ({
   events: state.events,
   auth: state.auth,
-  changeOrder: state.changeOrder,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -32,7 +31,7 @@ const mapDispatchToProps = dispatch => ({
 
 class EventsView extends Component {
   state = {
-    changeOrder: false,
+    initialOrder: true,
   };
   static navigationOptions = {
     title: 'Events',
@@ -56,7 +55,9 @@ class EventsView extends Component {
 
   renderContent = () => {
     const { events } = this.props;
-
+    if (!this.state.initialOrder) {
+      events.data.reverse();
+    }
     if (!events.loading) {
       return <EventsList events={events} />;
     }
@@ -65,8 +66,9 @@ class EventsView extends Component {
   };
   // render
 
-  changeSortOrder = () => {};
-
+  changeSortOrder = () => {
+    this.setState({ initialOrder: false });
+  };
   render = () => {
     if (!this.props.auth.data.decoded) {
       return (
