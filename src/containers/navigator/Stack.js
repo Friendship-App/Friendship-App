@@ -15,6 +15,8 @@ import ChatRequest from '../views/Chat/ChatRequest';
 import SignUpYeahAndNaah from '../views/SignUp/SignUpYeahAndNaah';
 import UsersForTagView from '../views/UsersForTagView';
 import EventDetailView from '../views/EventDetailView';
+import EventCreateView from '../views/EventCreateView';
+import EventEditView from '../views/EventEditView';
 import Report from '../views/Report/Report';
 import Feedback from '../views/Feedback/Feedback';
 
@@ -94,6 +96,14 @@ export default StackNavigator(
     },
     EventDetailView: {
       screen: EventDetailView,
+      navigationOptions: { header: () => null },
+    },
+    EventCreateView: {
+      screen: EventCreateView,
+      navigationOptions: { header: () => null },
+    },
+    EventEditView: {
+      screen: EventEditView,
       navigationOptions: { header: () => null },
     },
     Report: {
