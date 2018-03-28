@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="19px" viewBox="0 0 18 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-profile</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="navbar/none" transform="translate(-315.000000, -11.000000)" fill="#2A343C">
+            <g id="icon/profile_dark" transform="translate(315.000000, 11.000000)">
+                <path d="M0.177397637,18.384685 C-0.333602363,14.260735 -0.401602363,8.737435 9.58139764,8.737435 C18.7463976,8.737435 17.1313976,18.053135 17.1313976,18.053135 L0.177397637,18.384685 Z M10.6277976,0.395675 C13.9437976,1.652525 13.5527976,5.902825 10.6167976,7.400025 C8.13979764,8.663525 3.33279764,6.951625 3.94279764,3.760575 C4.23579764,2.229175 5.11479764,0.854525 6.70379764,0.287375 C7.81179764,-0.107825 9.05779764,-0.071725 10.1907976,0.251275 C10.3397976,0.294025 10.4857976,0.341525 10.6277976,0.395675 Z" id="icon-profile"></path>
+            </g>
+        </g>
+    </g>
+</svg>

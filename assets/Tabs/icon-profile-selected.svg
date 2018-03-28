@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="19px" viewBox="0 0 18 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-profile-selected</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon/profile_selected" fill="#FF8A65">
+            <path d="M0.1775,18.38459 C-0.3335,14.26064 -0.4015,8.73734 9.5815,8.73734 C18.7465,8.73734 17.1315,18.05304 17.1315,18.05304 L0.1775,18.38459 Z M10.6279,0.39558 C13.9439,1.65243 13.5529,5.90273 10.6169,7.39993 C8.1399,8.66343 3.3329,6.95153 3.9429,3.76048 C4.2359,2.22908 5.1149,0.85443 6.7039,0.28728 C7.8119,-0.10792 9.0579,-0.07182 10.1909,0.25118 C10.3399,0.29393 10.4859,0.34143 10.6279,0.39558 Z" id="icon-profile"></path>
+        </g>
+    </g>
+</svg>

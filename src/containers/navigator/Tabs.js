@@ -8,48 +8,46 @@ import PeopleView from '../views/PeopleView';
 import InboxView from '../views/Chat/ChatInbox';
 import MyProfile from '../views/MyProfileView';
 import EventsView from '../views/EventsView';
-import HomeView from '../views/HomeView';
+
+import TabIcons from './TabIcons';
+import Svg, { Path } from 'react-native-svg';
 
 const tabNavigationOptions = title => {
   switch (title) {
-    case 'Home':
-      return {
-        title,
-        tabBarIcon: ({ tintColor }) => (
-          <IconImage
-            source={require('../../../assets/tab-icon-home.png')}
-            tintColor={tintColor}
-          />
-        ),
-      };
     case 'People':
       return {
         title,
-        tabBarIcon: ({ tintColor }) => (
-          <IconImage
-            source={require('../../../assets/tab-icon-people.png')}
-            tintColor={tintColor}
-          />
+        tabBarIcon: ({ focused, tintColor }) => (
+          <Svg width="20" height="19">
+            <Path d={TabIcons[2].path} fill={focused ? '#FF8A65' : null} />
+          </Svg>
         ),
       };
     case 'Inbox':
       return {
         title,
-        tabBarIcon: ({ tintColor }) => (
-          <IconImage
-            source={require('../../../assets/tab-icon-inbox.png')}
-            tintColor={tintColor}
-          />
+        tabBarIcon: ({ focused, tintColor }) => (
+          <Svg width="20" height="19">
+            <Path d={TabIcons[0].path} fill={focused ? '#FF8A65' : null} />
+          </Svg>
         ),
       };
     case 'Profile':
       return {
         title,
-        tabBarIcon: ({ tintColor }) => (
-          <IconImage
-            source={require('../../../assets/tab-icon-myprofile.png')}
-            tintColor={tintColor}
-          />
+        tabBarIcon: ({ focused, tintColor }) => (
+          <Svg width="20" height="19">
+            <Path d={TabIcons[3].path} fill={focused ? '#FF8A65' : null} />
+          </Svg>
+        ),
+      };
+    case 'Event':
+      return {
+        title,
+        tabBarIcon: ({ focused, tintColor }) => (
+          <Svg width="20" height="19">
+            <Path d={TabIcons[1].path} fill={focused ? '#FF8A65' : null} />
+          </Svg>
         ),
       };
     default:
@@ -76,16 +74,13 @@ const TabNavigatorConfig = {
 
 export default TabNavigator(
   {
-    Home: {
-      screen: HomeView,
-      navigationOptions: tabNavigationOptions('Home'),
-    },
-    Events: {
-      screen: EventsView,
-    },
     People: {
       screen: PeopleChat,
       navigationOptions: tabNavigationOptions('People'),
+    },
+    Events: {
+      screen: EventsView,
+      navigationOptions: tabNavigationOptions('Event'),
     },
     Inbox: {
       screen: InboxChat,

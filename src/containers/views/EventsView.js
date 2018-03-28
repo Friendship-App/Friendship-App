@@ -16,19 +16,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class EventsView extends Component {
-  static navigationOptions = {
-    title: 'Events',
-    header: {
-      visible: false,
-    },
-    tabBarIcon: ({ tintColor }) => (
-      <IconImage
-        source={require('../../../assets/eventsPicture.png')}
-        tintColor={tintColor}
-      />
-    ),
-  };
-
   componentDidMount = () => {
     this.props.fetchEvents();
   };
