@@ -8,6 +8,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 import rest from '../../../utils/rest';
 import RoundTab from '../../../components/RoundTab';
@@ -24,6 +25,13 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   chatRoomsWithUserId: id => {
     dispatch(rest.actions.chatRoomsWithUserId({ id }));
+  },
+  openChatStartNew: () => {
+    return dispatch(
+      NavigationActions.navigate({
+        routeName: 'ChatStartNew',
+      }),
+    );
   },
 });
 
@@ -78,7 +86,7 @@ export class ChatInbox extends React.Component {
         </View>
         <TouchableOpacity
           activeOpacity={0.5}
-          onPress={() => console.log('New chat!')}
+          onPress={this.props.openChatStartNew}
           style={styles.TouchableOpacityStyle}
         >
           <Text style={{ fontSize: 30 }}>{'+'}</Text>
