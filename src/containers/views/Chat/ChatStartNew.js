@@ -1,25 +1,63 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableHighlight,
+  FlatList,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { SearchBar } from 'react-native-elements';
+import throttle from 'lodash/throttle';
 
-import { ViewContainerTop } from '../../../components/Layout/Layout';
+import rest from '../../../utils/rest';
+import {
+  ViewContainerTop,
+  ViewContainer,
+} from '../../../components/Layout/Layout';
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  refreshUsersSearch: username => {
+    /* .force() abort previous request if it performs and after that perform new request. This
+    method combines abort and direct call action methods. it prevent a warning about unhandled
+    promises rejection */
+    dispatch(rest.actions.usersSearch.force({ username }));
+  },
+});
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  usersSearch: state.usersSearch,
+});
 
 class ChatStartNew extends Component {
+  state = {
+    searchedUsername: '',
+    userData: [],
+  };
+
   navigateBack = () => {
     const backAction = NavigationActions.back();
     this.props.navigation.dispatch(backAction);
   };
 
+  // Creates a throttled function that only invokes refreshUsersSearch at most once per every 1 second.
+  getUserByUsername = throttle(username => {
+    this.setState({ searchedUsername: username });
+    this.props.refreshUsersSearch(username);
+  }, 1000);
+
+  keyExtractor = (item, index) => index;
+
+  renderItem = ({ item }) => {
+    return <PersonCard data={item} />;
+  };
+
   render() {
     return (
-      <View>
-        <ViewContainerTop style={{ backgroundColor: '#e8e9e8' }}>
+      <View style={{ backgroundColor: '#e8e9e8' }}>
+        <View>
           <TouchableOpacity
             onPress={() => this.navigateBack()}
             style={styles.backButton}
@@ -36,13 +74,13 @@ class ChatStartNew extends Component {
               marginHorizontal: 5,
             }}
             inputStyle={{ backgroundColor: '#fff' }}
-            onChangeText={() => console.log('Searching')}
+            onChangeText={username => this.getUserByUsername(username)}
             autoCapitalize="none"
             autoCorrect={false}
-            placeholder="Search People"
+            placeholder="Search People or Group"
             clearIcon
           />
-        </ViewContainerTop>
+        </View>
       </View>
     );
   }
@@ -50,8 +88,7 @@ class ChatStartNew extends Component {
 
 const styles = StyleSheet.create({
   backButton: {
-    width: 40,
-    marginTop: 20,
+    marginTop: 30,
     marginLeft: 10,
     backgroundColor: 'transparent',
   },
