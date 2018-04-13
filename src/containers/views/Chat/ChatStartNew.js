@@ -17,6 +17,7 @@ import {
   ViewContainerTop,
   ViewContainer,
 } from '../../../components/Layout/Layout';
+import PersonCard from '../../../components/PersonCard';
 
 const mapDispatchToProps = dispatch => ({
   refreshUsersSearch: username => {
@@ -54,6 +55,21 @@ class ChatStartNew extends Component {
     return <PersonCard data={item} />;
   };
 
+  renderUsersList() {
+    const data =
+      this.state.searchedUsername.length > 0
+        ? this.props.usersSearch.data
+        : this.state.userData;
+    return (
+      <FlatList
+        data={data}
+        keyExtractor={this.keyExtractor}
+        renderItem={this.renderItem}
+        style={{ flex: 1, backgroundColor: '#e8e9e8', minHeight: 300 }}
+      />
+    );
+  }
+
   render() {
     return (
       <View style={{ backgroundColor: '#e8e9e8' }}>
@@ -81,6 +97,7 @@ class ChatStartNew extends Component {
             clearIcon
           />
         </View>
+        <ViewContainer>{this.renderUsersList()}</ViewContainer>
       </View>
     );
   }
