@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TouchableHighlight,
-  FlatList,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 
@@ -15,6 +8,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  openChatRequest: user =>
+    dispatch(
+      NavigationActions.navigate({
+        routeName: 'ChatRequest',
+        params: { user },
+      }),
+    ),
   openChatView: (chatroomId, id, username, userEmoji) =>
     dispatch(
       NavigationActions.navigate({
@@ -33,19 +33,20 @@ class PersonCard extends Component {
   If there is already a chat that includes the target user,
     the app prompts current user to that chat room view.
   */
-  openChat = (targetUserId, targetUsername, targetUserEmoji) => {
+  openChat = targetUser => {
     const existedChatroom = this.props.chatrooms.filter(
       chatroom =>
-        chatroom.creator.id === targetUserId ||
-        chatroom.receiver.id === targetUserId,
+        chatroom.creator.id === targetUser.id ||
+        chatroom.receiver.id === targetUser.id,
     );
     if (existedChatroom.length === 0) {
+      this.props.openChatRequest(targetUser);
     } else if (existedChatroom.length === 1) {
       this.props.openChatView(
         existedChatroom.id,
-        targetUserId,
-        targetUsername,
-        targetUserEmoji,
+        targetUser.id,
+        targetUser.username,
+        targetUser.emoji,
       );
     } else {
       //This block of code is saved for future use when the app has group chat feature, as the target user may appear in more than 1 chat
@@ -53,17 +54,17 @@ class PersonCard extends Component {
   };
 
   render() {
-    const { id, username, emoji } = this.props.data;
+    const targetUser = this.props.data;
     return (
-      <TouchableHighlight onPress={() => this.openChat(id, username, emoji)}>
+      <TouchableHighlight onPress={() => this.openChat(targetUser)}>
         <View style={styles.personCard}>
           <View style={styles.iconWrapper}>
             <View style={styles.iconHolder}>
-              <Text>{emoji}</Text>
+              <Text>{targetUser.emoji}</Text>
             </View>
           </View>
           <View style={styles.usernameWrapper}>
-            <Text style={{ fontSize: 18 }}> {username}</Text>
+            <Text style={{ fontSize: 18 }}> {targetUser.username}</Text>
           </View>
         </View>
       </TouchableHighlight>
