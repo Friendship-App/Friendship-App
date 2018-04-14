@@ -13,6 +13,7 @@ import SignUpLocation from '../views/SignUp/SignUpLocation';
 import SignUpPersonality from '../views/SignUp/SignUpPersonality';
 import ChatView from '../views/Chat/ChatView';
 import ChatRequest from '../views/Chat/ChatRequest';
+import ChatStartNew from '../views/Chat/ChatStartNew';
 import SignUpYeahAndNaah from '../views/SignUp/SignUpYeahAndNaah';
 import UsersForTagView from '../views/UsersForTagView';
 import EventDetailView from '../views/EventDetailView';
@@ -93,6 +94,10 @@ export default StackNavigator(
     },
     ChatRequest: {
       screen: ChatRequest,
+      navigationOptions: { header: () => null },
+    },
+    ChatStartNew: {
+      screen: ChatStartNew,
       navigationOptions: { header: () => null },
     },
     EventDetailView: {
