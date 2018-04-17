@@ -11,6 +11,7 @@ import SignUpView from '../views/SignUp/SignUpView';
 import SignUpMatching from '../views/SignUp/SignUpMatching';
 import SignUpLocation from '../views/SignUp/SignUpLocation';
 import SignUpPersonality from '../views/SignUp/SignUpPersonality';
+import InboxView from '../views/Chat/ChatInbox';
 import ChatView from '../views/Chat/ChatView';
 import ChatRequest from '../views/Chat/ChatRequest';
 import ChatStartNew from '../views/Chat/ChatStartNew';
@@ -87,6 +88,10 @@ export default StackNavigator(
     },
     SignUpPersonality: {
       screen: SignUpPersonality,
+      navigationOptions: { header: () => null },
+    },
+    InboxView: {
+      screen: InboxView,
       navigationOptions: { header: () => null },
     },
     ChatView: {
