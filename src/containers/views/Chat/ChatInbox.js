@@ -1,6 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 import rest from '../../../utils/rest';
 import RoundTab from '../../../components/RoundTab';
@@ -17,6 +25,13 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   chatRoomsWithUserId: id => {
     dispatch(rest.actions.chatRoomsWithUserId({ id }));
+  },
+  openChatStartNew: () => {
+    return dispatch(
+      NavigationActions.navigate({
+        routeName: 'ChatStartNew',
+      }),
+    );
   },
 });
 
@@ -75,9 +90,32 @@ export class ChatInbox extends React.Component {
             style={{ flex: 1, backgroundColor: 'white', minHeight: 300 }}
           />
         </View>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={this.props.openChatStartNew}
+          style={styles.TouchableOpacityStyle}
+        >
+          <Text style={{ fontSize: 30 }}>{'+'}</Text>
+        </TouchableOpacity>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  TouchableOpacityStyle: {
+    position: 'absolute',
+    width: 60,
+    height: 60,
+    borderRadius: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: 5,
+    bottom: 15,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    backgroundColor: '#d8d8d8',
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatInbox);
