@@ -10,8 +10,10 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Keyboard,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import EmojiSelector from 'react-native-emoji-selector';
 import rest from '../../../utils/rest';
 import PopUpMenu from '../../../components/PopUpMenu';
 
@@ -55,6 +57,44 @@ const mapStateToProps = state => ({
 });
 
 class ChatView extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      emojiSelectorStatus: false,
+      messageKeyboardStatus: false,
+      icon: 'ios-happy-outline',
+    };
+  }
+
+  showHideEmoji = () => {
+    Keyboard.dismiss();
+    this.state.emojiSelectorStatus == true
+      ? this.setState({ emojiSelectorStatus: false })
+      : this.setState({ emojiSelectorStatus: true });
+  };
+
+  iconChangeEmoji = () => {
+    this.state.icon == 'ios-happy-outline'
+      ? this.setState({ icon: 'ios-keypad' })
+      : this.textInputActive.focus() &&
+        this.setState({ emojiSelectorStatus: false });
+  };
+
+  addEmoji = emoji => {
+    Keyboard.dismiss();
+    this.state.text == null
+      ? this.setState({ text: emoji })
+      : this.setState({ text: this.state.text + '' + emoji });
+  };
+
+  keyboardDidShow = () => {
+    this.state.icon == 'ios-keypad' &&
+    this.state.emojiSelectorStatus == true &&
+    this.state.messageKeyboardStatus == false
+      ? this.setState({ emojiSelectorStatus: true })
+      : this.setState({ emojiSelectorStatus: false });
+  };
+
   static navigationOptions = ({ navigation }) => ({
     title: `${navigation.state.params.userEmoji} ${navigation.state.params
       .username}`,
@@ -106,6 +146,10 @@ class ChatView extends Component {
     this.props.chatRoomMessages(this.props.navigation.state.params.chatroomId);
     //update all unread messages after 3 seconds to make sure all the chatroom messages have been fetched
     setTimeout(() => this.getUnreadMessagesAndUpdateStatus(), 3000);
+    this.keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      this.keyboardDidShow,
+    );
   };
 
   componentWillReceiveProps = () => {
@@ -113,6 +157,10 @@ class ChatView extends Component {
       this.props.navigation.setParams({ chatroom: this.props.chatroom });
     }
   };
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+  }
 
   getUnreadMessagesAndUpdateStatus = () => {
     //get an array of all the unread messages which have the 'read' field equals to 'false' and user_id not equals to current user id
@@ -130,13 +178,16 @@ class ChatView extends Component {
   };
 
   sendMessage = () => {
-    //Keyboard.dismiss();
     const chatroomId = this.props.navigation.state.params.chatroomId;
     const textMessage = this.state.text;
     const userId = this.props.currentUserId;
 
     this.props.sendMessage(chatroomId, textMessage, userId);
     this.setState({ text: '' });
+
+    Keyboard.dismiss();
+    this.setState({ emojiSelectorStatus: false });
+    this.setState({ icon: 'ios-happy-outline' });
   };
 
   keyExtractor = (item, index) => index;
@@ -265,16 +316,41 @@ class ChatView extends Component {
           style={{ flex: 1, backgroundColor: 'white' }}
         />
         <TextInputCard>
+          <Icon
+            style={{
+              padding: 15,
+              fontSize: 26,
+              color: '#8e8e8e',
+              paddingTop: 8,
+            }}
+            name={this.state.icon}
+            onPress={() => {
+              this.showHideEmoji();
+              this.iconChangeEmoji();
+            }}
+          />
           <TextInput
             style={{ flex: 5, paddingLeft: 20 }}
             returnKeyType="send"
             placeholder={'Message '}
-            onChangeText={text => this.setState({ text })}
+            onFocus={() => {
+              this.setState({ icon: 'ios-happy-outline' });
+            }}
+            onChangeText={text => {
+              this.setState({ text });
+            }}
             value={this.state.text}
             onSubmitEditing={() => this.sendMessage()}
+            ref={input => {
+              this.textInputActive = input;
+            }}
           />
           <ChatInputButtonCard>
-            <TouchableOpacity onPress={() => this.sendMessage()}>
+            <TouchableOpacity
+              onPress={() => {
+                this.sendMessage();
+              }}
+            >
               <Text
                 style={{
                   fontWeight: 'normal',
@@ -288,6 +364,14 @@ class ChatView extends Component {
             </TouchableOpacity>
           </ChatInputButtonCard>
         </TextInputCard>
+        {this.state.emojiSelectorStatus ? (
+          <EmojiSelector
+            columns={8}
+            onEmojiSelected={emoji => {
+              this.addEmoji(emoji);
+            }}
+          />
+        ) : null}
       </KeyboardAvoidingView>
     );
   }
