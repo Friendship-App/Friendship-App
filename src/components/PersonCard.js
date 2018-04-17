@@ -34,11 +34,13 @@ class PersonCard extends Component {
     the app prompts current user to that chat room view.
   */
   openChat = targetUser => {
-    const existedChatroom = this.props.chatrooms.filter(
-      chatroom =>
-        chatroom.creator.id === targetUser.id ||
-        chatroom.receiver.id === targetUser.id,
-    );
+    const existedChatroom = this.props.chatrooms
+      ? this.props.chatrooms.filter(
+          chatroom =>
+            chatroom.creator.id === targetUser.id ||
+            chatroom.receiver.id === targetUser.id,
+        )
+      : [];
     if (existedChatroom.length === 0) {
       this.props.openChatRequest(targetUser);
     } else if (existedChatroom.length === 1) {
