@@ -5,7 +5,6 @@ import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import rest from '../../../utils/rest';
 import RoundTab from '../../../components/RoundTab';
 import InboxCard from '../../../components/InboxCard';
-import SuggestionList from '../../../components/SuggestionList';
 import Report from '../Report/Report';
 
 const mapStateToProps = state => ({
@@ -21,7 +20,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export class ChatInbox extends React.Component {
-  state = { showReport: false };
+  state = {
+    showReport: false,
+  };
 
   componentDidMount() {
     this.timer = setInterval(
@@ -45,7 +46,8 @@ export class ChatInbox extends React.Component {
     if (this.state.showReport) {
       return <Report />;
     }
-    const sortedChatrooms = this.props.chatrooms
+
+    let sortedChatrooms = this.props.chatrooms
       ? this.props.chatrooms.sort(function(a, b) {
           const aLastMessageTime = a.messages[a.messages.length - 1].chat_time;
           const bLastMessageTime = b.messages[b.messages.length - 1].chat_time;
@@ -54,19 +56,7 @@ export class ChatInbox extends React.Component {
       : [];
     return (
       <View style={{ flex: 1 }}>
-        <Text
-          style={{
-            fontSize: 12,
-            textAlign: 'center',
-            color: '#60686d',
-            marginTop: 30,
-            fontWeight: 'bold',
-          }}
-        >
-          SUGGESTIONS
-        </Text>
-        <SuggestionList existingChatRooms={this.props.chatrooms} />
-        <View style={{ flex: 10 }}>
+        <View>
           <RoundTab tint="#ffffff" title="CHATS" fontSize="12" />
           <FlatList
             data={sortedChatrooms}
