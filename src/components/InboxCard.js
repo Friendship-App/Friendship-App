@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { Text, TouchableHighlight, View } from 'react-native';
+import Highlighter from 'react-native-highlight-words';
 
 const mapStateToProps = state => ({
   currentUserId: state.auth.data.decoded ? state.auth.data.decoded.id : null,
@@ -135,7 +136,16 @@ class InboxCard extends React.Component {
           </View>
           <View style={styles.inboxCardContent}>
             <View style={styles.inboxCardHeader}>
-              <Text style={styles.inboxCardName}>{username}</Text>
+              {this.props.searchKeyword !== '' ? (
+                <Highlighter
+                  style={styles.inboxCardName}
+                  highlightStyle={{ backgroundColor: 'yellow' }}
+                  searchWords={[this.props.searchKeyword]}
+                  textToHighlight={username}
+                />
+              ) : (
+                <Text style={styles.inboxCardName}>{username}</Text>
+              )}
               <Text style={styles.inboxCardTime}>{this.state.time}</Text>
             </View>
             <Text style={styles.inboxCardMessage}>{unreadMessagesText}</Text>
