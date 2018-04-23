@@ -41,13 +41,12 @@ export class ChatInbox extends React.Component {
   keyExtractor = (item, index) => index;
 
   renderItem = ({ item }) => {
-    return <InboxCard data={item} />;
+    return <InboxCard data={item} searchKeyword={this.state.searchKeyword} />;
   };
 
   updateSearchKeyword = searchKeyword => {
-    console.log(`Search for ${searchKeyword}`);
     this.setState({
-      searchKeyword: searchKeyword,
+      searchKeyword: searchKeyword.toLowerCase(),
     });
   };
 
@@ -57,7 +56,17 @@ export class ChatInbox extends React.Component {
     }
     let chatrooms = this.props.chatrooms ? this.props.chatrooms : [];
     let searchedChatrooms =
-      this.state.searchKeyword !== '' ? chatrooms : chatrooms;
+      this.state.searchKeyword !== ''
+        ? chatrooms.filter(
+            chatroom =>
+              chatroom.creator.username
+                .toLowerCase()
+                .indexOf(this.state.searchKeyword) !== -1 ||
+              chatroom.receiver.username
+                .toLowerCase()
+                .indexOf(this.state.searchKeyword) !== -1,
+          )
+        : chatrooms;
     let sortedChatrooms = searchedChatrooms.sort(function(a, b) {
       const aLastMessageTime = a.messages[a.messages.length - 1].chat_time;
       const bLastMessageTime = b.messages[b.messages.length - 1].chat_time;
