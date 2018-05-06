@@ -38,6 +38,20 @@ export class ChatInbox extends React.Component {
     clearInterval(this.timer);
   }
 
+  flatList = (title, data) => {
+    return (
+      <View>
+        <RoundTab tint="#ffffff" title={title} fontSize="12" />
+        <FlatList
+          data={data}
+          keyExtractor={this.keyExtractor}
+          renderItem={this.renderItem}
+          style={{ flex: 1, backgroundColor: 'white', minHeight: 300 }}
+        />
+      </View>
+    );
+  };
+
   keyExtractor = (item, index) => index;
 
   renderItem = ({ item }) => {
@@ -50,28 +64,61 @@ export class ChatInbox extends React.Component {
     });
   };
 
+  sortChatrooms = (a, b) => {
+    const aLastMessageTime = a.messages[a.messages.length - 1].chat_time;
+    const bLastMessageTime = b.messages[b.messages.length - 1].chat_time;
+    return new Date(bLastMessageTime) - new Date(aLastMessageTime);
+  };
+
+  searchedChatrooms = chatrooms => {
+    const searchResult = {
+      chatrooms: [],
+      messages: [],
+    };
+    searchResult.chatrooms = chatrooms.filter(
+      chatroom =>
+        chatroom.creator.username
+          .toLowerCase()
+          .indexOf(this.state.searchKeyword) !== -1 ||
+        chatroom.receiver.username
+          .toLowerCase()
+          .indexOf(this.state.searchKeyword) !== -1,
+    );
+    return searchResult;
+  };
+
   render() {
     if (this.state.showReport) {
       return <Report />;
     }
     let chatrooms = this.props.chatrooms ? this.props.chatrooms : [];
-    let searchedChatrooms =
-      this.state.searchKeyword !== ''
-        ? chatrooms.filter(
-            chatroom =>
-              chatroom.creator.username
-                .toLowerCase()
-                .indexOf(this.state.searchKeyword) !== -1 ||
-              chatroom.receiver.username
-                .toLowerCase()
-                .indexOf(this.state.searchKeyword) !== -1,
-          )
-        : chatrooms;
-    let sortedChatrooms = searchedChatrooms.sort(function(a, b) {
-      const aLastMessageTime = a.messages[a.messages.length - 1].chat_time;
-      const bLastMessageTime = b.messages[b.messages.length - 1].chat_time;
-      return new Date(bLastMessageTime) - new Date(aLastMessageTime);
-    });
+
+    let displayInboxCard;
+
+    if (this.state.searchKeyword !== '') {
+      let searchResult = this.searchedChatrooms(chatrooms);
+      let sortedChatrooms = searchResult.chatrooms.sort((a, b) =>
+        this.sortChatrooms(a, b),
+      );
+      displayInboxCard = (
+        <View>
+          {searchResult.chatrooms.length > 0 ? (
+            this.flatList('CHATS', sortedChatrooms)
+          ) : (
+            <View />
+          )}
+          {searchResult.messages.length > 0 ? (
+            this.flatList('MESSAGES', sortedChatrooms)
+          ) : (
+            <View />
+          )}
+        </View>
+      );
+    } else {
+      let sortedChatrooms = chatrooms.sort((a, b) => this.sortChatrooms(a, b));
+      displayInboxCard = this.flatList('CHATS', sortedChatrooms);
+    }
+
     return (
       <View style={{ flex: 1 }}>
         <SearchBar
@@ -90,15 +137,7 @@ export class ChatInbox extends React.Component {
           placeholder="Search in conversations"
           clearIcon
         />
-        <View>
-          <RoundTab tint="#ffffff" title="CHATS" fontSize="12" />
-          <FlatList
-            data={sortedChatrooms}
-            keyExtractor={this.keyExtractor}
-            renderItem={this.renderItem}
-            style={{ flex: 1, backgroundColor: 'white', minHeight: 300 }}
-          />
-        </View>
+        {displayInboxCard}
       </View>
     );
   }
