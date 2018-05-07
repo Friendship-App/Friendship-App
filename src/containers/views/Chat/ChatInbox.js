@@ -110,6 +110,30 @@ export class ChatInbox extends React.Component {
               .toLowerCase()
               .indexOf(this.state.searchKeyword) !== -1,
     );
+    chatrooms.forEach(chatroom => {
+      for (let i = 0; i < chatroom.messages.length; i++) {
+        let chatroomResult = {
+          id: chatroom.id,
+          creator: chatroom.creator,
+          receiver: chatroom.receiver,
+          messages: [],
+          messageIndex: 0,
+        };
+
+        let message = chatroom.messages[i];
+
+        if (
+          message.text_message
+            .toLowerCase()
+            .indexOf(this.state.searchKeyword) !== -1
+        ) {
+          chatroomResult.messages.push(message);
+          chatroomResult.messageIndex = i;
+          searchResult.messages.push(chatroomResult);
+        }
+      }
+    });
+
     return searchResult;
   };
 
@@ -126,6 +150,9 @@ export class ChatInbox extends React.Component {
       let sortedChatrooms = searchResult.chatrooms.sort((a, b) =>
         this.sortChatrooms(a, b),
       );
+      let sortedMessages = searchResult.messages.sort((a, b) =>
+        this.sortChatrooms(a, b),
+      );
       displayInboxCard = (
         <ScrollView>
           {searchResult.chatrooms.length > 0 ? (
@@ -133,8 +160,8 @@ export class ChatInbox extends React.Component {
           ) : (
             <View />
           )}
-          {searchResult.chatrooms.length > 0 ? (
-            this.flatList('MESSAGES', sortedChatrooms)
+          {searchResult.messages.length > 0 ? (
+            this.flatList('MESSAGES', sortedMessages)
           ) : (
             <View />
           )}
