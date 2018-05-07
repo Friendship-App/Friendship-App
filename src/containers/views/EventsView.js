@@ -1,3 +1,13 @@
+/**
+ * TODO:
+ * Keep doing the EventsView.test.js. It contains redux so you gotta declare mockStore with initial State.
+ * Runs app to see initial state.
+ * Test FullDOM
+ * https://medium.com/netscape/testing-a-react-redux-app-using-jest-and-enzyme-b349324803a9
+ * https://hackernoon.com/implementing-basic-component-tests-using-jest-and-enzyme-d1d8788d627a
+ * 
+ */
+
 import React, { Component } from 'react';
 import {
   ActivityIndicator,
@@ -43,7 +53,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(rest.actions.eventParticipantsNum.get()),
 });
 
-class EventsView extends Component {
+export class EventsView extends Component {
   static navigationOptions = {
     title: 'Events',
     header: {

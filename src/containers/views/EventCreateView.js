@@ -13,10 +13,20 @@ const mapDispatchToProps = dispatch => ({
     dispatch(
       rest.actions.createEvent(
         {},
-        { body: formData, headers: { 'Content-Type': 'multipart/form-data' } },
+        {
+          body: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
       ),
     ),
-  fetchEvents: userId => dispatch(rest.actions.events.get({ userId })),
+  fetchEvents: userId =>
+    dispatch(
+      rest.actions.events.get({
+        userId,
+      }),
+    ),
 });
 
 const mapStateToProps = state => ({
@@ -32,9 +42,10 @@ class EventCreateView extends Component {
     const hostId = this.props.auth.data.decoded
       ? this.props.auth.data.decoded.id
       : null;
-    this.setState({ hostId });
+    this.setState({
+      hostId,
+    });
   };
-
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.backHandler);
@@ -49,7 +60,7 @@ class EventCreateView extends Component {
     return true;
   };
 
-  navigateBack = () => {
+  navigateBack = async () => {
     const backAction = NavigationActions.back();
     this.props.navigation.dispatch(backAction);
     const userId = this.props.auth.data.decoded
@@ -74,8 +85,8 @@ class EventCreateView extends Component {
             events={this.props.events}
             navigation={this.props.navigation}
             fetchEvents={this.props.fetchEvents}
-          />
-        </KeyboardAwareScrollView>
+          />{' '}
+        </KeyboardAwareScrollView>{' '}
       </EventContainer>
     );
   }
