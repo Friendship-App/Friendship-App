@@ -85,8 +85,8 @@ class EventCreateView extends Component {
             events={this.props.events}
             navigation={this.props.navigation}
             fetchEvents={this.props.fetchEvents}
-          />{' '}
-        </KeyboardAwareScrollView>{' '}
+          />
+        </KeyboardAwareScrollView>
       </EventContainer>
     );
   }
