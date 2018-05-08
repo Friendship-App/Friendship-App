@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InboxCard renders correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Connect(InboxCard)
+    data={
+      Array [
+        Object {
+          "creator": Object {
+            "emoji": "��🇭",
+            "id": 1,
+            "username": "testCreator",
+          },
+          "id": 26,
+          "messages": Array [
+            Object {
+              "chat_time": "2018-05-04T08:50:22.793+03:00",
+              "chatroom_id": 26,
+              "id": 10,
+              "read": true,
+              "text_message": "Testing Hello Two",
+              "user_id": 1,
+            },
+            Object {
+              "chat_time": "2018-05-04T08:50:22.793+03:00",
+              "chatroom_id": 26,
+              "id": 10,
+              "read": false,
+              "text_message": "Testing Hello Two",
+              "user_id": 1,
+            },
+          ],
+          "receiver": Object {
+            "emoji": "��🇭",
+            "id": 2,
+            "username": "testReceiver",
+          },
+        },
+      ]
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "currentUserId": 1,
+      "data": Array [
+        Object {
+          "creator": Object {
+            "emoji": "��🇭",
+            "id": 1,
+            "username": "testCreator",
+          },
+          "id": 26,
+          "messages": Array [
+            Object {
+              "chat_time": "2018-05-04T08:50:22.793+03:00",
+              "chatroom_id": 26,
+              "id": 10,
+              "read": true,
+              "text_message": "Testing Hello Two",
+              "user_id": 1,
+            },
+            Object {
+              "chat_time": "2018-05-04T08:50:22.793+03:00",
+              "chatroom_id": 26,
+              "id": 10,
+              "read": false,
+              "text_message": "Testing Hello Two",
+              "user_id": 1,
+            },
+          ],
+          "receiver": Object {
+            "emoji": "��🇭",
+            "id": 2,
+            "username": "testReceiver",
+          },
+        },
+      ],
+      "openChatView": [Function],
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "currentUserId": 1,
+        "data": Array [
+          Object {
+            "creator": Object {
+              "emoji": "��🇭",
+              "id": 1,
+              "username": "testCreator",
+            },
+            "id": 26,
+            "messages": Array [
+              Object {
+                "chat_time": "2018-05-04T08:50:22.793+03:00",
+                "chatroom_id": 26,
+                "id": 10,
+                "read": true,
+                "text_message": "Testing Hello Two",
+                "user_id": 1,
+              },
+              Object {
+                "chat_time": "2018-05-04T08:50:22.793+03:00",
+                "chatroom_id": 26,
+                "id": 10,
+                "read": false,
+                "text_message": "Testing Hello Two",
+                "user_id": 1,
+              },
+            ],
+            "receiver": Object {
+              "emoji": "��🇭",
+              "id": 2,
+              "username": "testReceiver",
+            },
+          },
+        ],
+        "openChatView": [Function],
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+    "context": Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+    },
+  },
+}
+`;
