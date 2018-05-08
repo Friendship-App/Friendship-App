@@ -10,7 +10,7 @@ import Report from '../Report/Report';
 
 const mapStateToProps = state => ({
   currentUserId: state.auth.data.decoded ? state.auth.data.decoded.id : null,
-  chatrooms: state.chatRoomsWithUserId.data.data,
+  chatrooms: state.chatRoomsWithUserId.data,
   chatroomRefreshState: state.chatRoomsWithUserId,
 });
 
@@ -24,11 +24,11 @@ export class ChatInbox extends React.Component {
   state = { showReport: false };
 
   componentDidMount() {
-    /*this.timer = setInterval(
+    this.timer = setInterval(
       async () =>
         await this.props.chatRoomsWithUserId(this.props.currentUserId),
       3000,
-    );*/
+    );
   }
 
   componentWillUnmount() {

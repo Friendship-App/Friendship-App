@@ -57,9 +57,11 @@ export class SuggestionList extends React.Component {
     const exsitingUsers = this.props.existingChatRooms.map(
       user => user.receiver.id,
     );
-    const suggestedUsers = this.props.suggestionUsers.filter(
-      user => exsitingUsers.indexOf(user.id) < 0,
-    );
+    const suggestedUsers = this.props.suggestionUsers
+      ? this.props.suggestionUsers.filter(
+          user => exsitingUsers.indexOf(user.id) < 0,
+        )
+      : [];
     return (
       <FlatList
         data={suggestedUsers}

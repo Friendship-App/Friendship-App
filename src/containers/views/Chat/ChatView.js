@@ -144,7 +144,7 @@ class ChatView extends Component {
     this.setState({ text: '' });
   };
 
-  keyExtractor = (item, index) => index;
+  keyExtractor = (item, index) => `msg-${index}`;
 
   renderItem = ({ item }) => {
     const textAlign =
