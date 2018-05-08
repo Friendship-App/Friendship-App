@@ -16,6 +16,7 @@ import { Field, reduxForm, submit } from 'redux-form';
 import Toggle from '../../../components/Toggle';
 import { FieldContainer } from '../../../components/Layout/SignupLayout';
 import rest from '../../../utils/rest';
+import apiRoot from '../../../utils/api.config';
 
 const mapStateToProps = state => ({
   signup: state.form.signup,
@@ -23,7 +24,6 @@ const mapStateToProps = state => ({
 
 async function createUser(dispatch, formValues) {
   let formData = await createFormData(formValues);
-  console.log(formData);
   dispatch(
     rest.actions.register(
       {},
@@ -34,7 +34,7 @@ async function createUser(dispatch, formValues) {
 
 function createFormData(formValues) {
   return fetch(
-    `http://localhost:3888/sign-s3?file-name=profile/${formValues.username}.jpg&file-type=${formValues
+    `${apiRoot}/sign-s3?file-name=profile/${formValues.username}.jpg&file-type=${formValues
       .image.type}`,
   )
     .then(function(response) {
