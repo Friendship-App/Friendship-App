@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckBoxs renders correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <CheckBoxs />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "center": false,
+      "checked": false,
+      "checkedColor": "#839297",
+      "checkedIcon": "circle",
+      "containerStyle": Object {
+        "backgroundColor": "white",
+        "borderWidth": 0,
+        "margin": 0,
+        "padding": 0,
+      },
+      "iconRight": false,
+      "onPress": [Function],
+      "right": false,
+      "size": 24,
+      "textStyle": Object {
+        "color": "#2d4359",
+        "fontFamily": "NunitoSans-Light",
+        "fontSize": 13,
+        "letterSpacing": 1.5,
+      },
+      "title": undefined,
+      "uncheckedColor": "#bfbfbf",
+      "uncheckedIcon": "circle-o",
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "center": false,
+        "checked": false,
+        "checkedColor": "#839297",
+        "checkedIcon": "circle",
+        "containerStyle": Object {
+          "backgroundColor": "white",
+          "borderWidth": 0,
+          "margin": 0,
+          "padding": 0,
+        },
+        "iconRight": false,
+        "onPress": [Function],
+        "right": false,
+        "size": 24,
+        "textStyle": Object {
+          "color": "#2d4359",
+          "fontFamily": "NunitoSans-Light",
+          "fontSize": 13,
+          "letterSpacing": 1.5,
+        },
+        "title": undefined,
+        "uncheckedColor": "#bfbfbf",
+        "uncheckedIcon": "circle-o",
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
