@@ -32,7 +32,7 @@ const EventsList = ({
     );
   };
 
-  const keyExtractor = event => event.id;
+  const keyExtractor = event => 'list-item-' + event.id;
 
   return (
     <FlatList
