@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import {
+  BackHandler,
   ScrollView,
-  View,
   Text,
   TouchableOpacity,
-  BackHandler,
+  View,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {
-  FeedbackListItem,
-  reportFields,
-  ReportContent,
-  FeedbackStatus,
   FeedbackHeader,
+  FeedbackListItem,
+  FeedbackStatus,
+  ReportContent,
+  reportFields,
 } from '../../../components/Feedback';
 import { NavigationActions } from 'react-navigation';
 

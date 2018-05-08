@@ -13,5 +13,4 @@ const config = {
   },
   testPathIgnorePatterns: ['/node_modules/'],
 };
-
 module.exports = config;
