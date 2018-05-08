@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Platform,
-  TouchableOpacity,
-} from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
@@ -70,8 +64,6 @@ const ParticipantDetail = ({
   for (let i = 0; i < hateCommon; i++) {
     commonNaahs.push(<TagCircle key={i} dark />);
   }
-
-  console.log(openProfile);
 
   return (
     <ParticipantWrapper

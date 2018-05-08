@@ -9,15 +9,7 @@
  */
 
 import React, { Component } from 'react';
-import {
-  ActivityIndicator,
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
-  BackHandler,
-} from 'react-native';
+import { ActivityIndicator, BackHandler, Text, View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Dropdown } from 'react-native-material-dropdown';
 import ActionButton from 'react-native-action-button';
@@ -170,7 +162,6 @@ export class EventsView extends Component {
             );
           } else {
             // events.data = userEvents
-            console.log('My Events:', userEvents);
             return this.renderEvents(userEvents);
           }
 
@@ -188,7 +179,6 @@ export class EventsView extends Component {
 
         case 'Closest first':
           events.data = _.orderBy(events.data, ['locationSortIndex'], ['desc']);
-          //console.log(events);
           return this.renderEvents(events.data);
         default:
           events.data = _.orderBy(

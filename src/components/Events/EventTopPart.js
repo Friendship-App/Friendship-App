@@ -2,16 +2,15 @@ import React from 'react';
 import {
   Dimensions,
   Image,
+  Linking,
   Platform,
   StyleSheet,
-  Text,
-  Linking,
   TouchableOpacity,
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
-import { Details, LocationText, EventTitleText } from '../Layout/TextLayout';
+import { Details, EventTitleText, LocationText } from '../Layout/TextLayout';
 import waveShape from '../../../assets/img/roundTab/roundTab.png';
 import resolveAssetSource from 'resolveAssetSource';
 
@@ -39,9 +38,7 @@ const EventTopPart = props => {
   };
 
   const renderDateAndTime = date => {
-    console.log('EVENT DATE FROM FETCH', date);
     const eventTime = moment.utc(date).format('HH:mm');
-    console.log('EVENT TOM FROM FETCH', eventTime);
 
     let eventDate;
     new Date().getMonth() === new Date(date).getMonth()
