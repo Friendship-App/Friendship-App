@@ -20,6 +20,7 @@ import MyProfileModal from '../../components/Profile/MyProfileModal';
 import Personality from '../../components/SignUp/Personality';
 import ProfileTopPart from '../../components/Profile/ProfileTopPart';
 import EditForm from '../../components/Profile/EditForm';
+import EditProfile from './EditProfile';
 
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -171,11 +172,17 @@ class MyProfile extends React.Component {
     }
 
     if (this.state.showEditForm) {
-      return (
-        <EditForm
+      {
+        /*<EditForm
           userData={this.props.currentUser.data}
           closeEditForm={() => this.setState({ showEditForm: false })}
           onRefresh={() => this.fetchCurrentUserInfo()}
+        />*/
+      }
+      return (
+        <EditProfile
+          closeEditForm={() => this.setState({ showEditForm: false })}
+          userData={this.props.currentUser.data}
         />
       );
     }
@@ -219,6 +226,7 @@ class MyProfile extends React.Component {
     );
   };
 }
+
 const styles = StyleSheet.create({
   personalitiesView: {
     backgroundColor: '#faf5f0',
