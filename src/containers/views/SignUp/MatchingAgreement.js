@@ -64,6 +64,7 @@ function createFormData(formValues) {
     .then(url => {
       let tempFormData = new FormData();
 
+      tempFormData.append('avatar', formValues.avatar);
       tempFormData.append('username', formValues.username);
       tempFormData.append('email', formValues.email);
       tempFormData.append('password', formValues.password);
@@ -71,8 +72,6 @@ function createFormData(formValues) {
       tempFormData.append('enableMatching', formValues.enableMatching);
       tempFormData.append('description', formValues.description);
       tempFormData.append('image', url);
-
-      console.log(tempFormData);
 
       if (formValues.gender) {
         tempFormData.append('genders', JSON.stringify(formValues.gender));
