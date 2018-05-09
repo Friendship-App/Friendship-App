@@ -120,7 +120,9 @@ class InboxCard extends React.Component {
         ? receiver.username
         : creator.username;
     const emoji =
-      this.props.currentUserId === creator.id ? receiver.emoji : creator.emoji;
+      this.props.currentUserId === creator.id
+        ? receiver.avatar
+        : creator.avatar;
     return (
       <TouchableHighlight
         onPress={() =>

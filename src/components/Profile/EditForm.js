@@ -58,7 +58,7 @@ class EditForm extends React.Component {
         username: this.props.userData.username,
         birthyear: this.props.userData.birthyear.toString(),
         genderArr: this.getGendersById(this.props.userData.genderlist),
-        emoji: this.props.userData.emoji,
+        emoji: this.props.userData.avatar,
       });
     }
   }
@@ -194,7 +194,7 @@ class EditForm extends React.Component {
   }
 
   updateEmoji(emoji) {
-    if (emoji === this.state.emoji) {
+    if (emoji === this.state.avatar) {
       return this.setState({ emoji: '', error: false });
     }
     return this.setState({ emoji, error: false });
@@ -204,7 +204,7 @@ class EditForm extends React.Component {
     return emojis.map(emoji => (
       <SignUpEmoji
         updateEmoji={() => this.updateEmoji(emoji)}
-        selectedEmoji={this.state.emoji}
+        selectedEmoji={this.state.avatar}
         key={emoji}
         emoji={emoji}
       />

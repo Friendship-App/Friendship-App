@@ -188,7 +188,7 @@ class MyProfile extends React.Component {
           location={location}
           genders={genders}
           showModal={this._showModal}
-          emoji={this.props.currentUser.data.emoji}
+          avatar={this.props.currentUser.data.avatar}
           numberOfYeah={love.length}
           numberOfNaah={hate.length}
           navigateBack={this.navigateBack}

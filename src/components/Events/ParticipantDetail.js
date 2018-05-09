@@ -51,7 +51,7 @@ const ParticipantDetail = ({
   openMyProfile,
 }) => {
   const {
-    emojiCircle,
+    avatarCircle,
     usernameContentStyle,
     usernameTextStyle,
     commonNaahsAndYeahs,
@@ -77,7 +77,7 @@ const ParticipantDetail = ({
       wrapperColor={index % 2 === 1 ? 1 : ''}
     >
       <View style={emojiCircle}>
-        <Text style={styles.emoji}>{emoji ? emoji : '✌️'}</Text>
+        <Text style={styles.avatar}>{emoji ? emoji : '✌️'}</Text>
       </View>
       <View style={usernameContentStyle}>
         <Text style={usernameTextStyle}>{username}</Text>
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   commonNaahsAndYeahs: {
     flexDirection: 'row',
   },
-  emojiCircle: {
+  avatarCircle: {
     width: 66,
     height: 66,
     borderRadius: 132 / 2,
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     justifyContent: 'flex-start',
   },
-  emoji: {
+  avatar: {
     backgroundColor: 'transparent',
     alignSelf: 'center',
     fontSize: Platform.OS === 'android' ? 30 : 40,

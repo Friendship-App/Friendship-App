@@ -27,8 +27,7 @@ const { width, height } = resolveAssetSource(waveShape);
 const ProfileTopPart = props => {
   const {
     birthyear,
-    emoji,
-    genders,
+    avatar,
     location,
     navigateBack,
     numberOfNaah,
@@ -96,8 +95,8 @@ const ProfileTopPart = props => {
         {displaySettingsButton()}
       </View>
 
-      <View style={styles.emojiCircle}>
-        <Text style={styles.emoji}>{emoji ? emoji : '✌️'}</Text>
+      <View style={styles.avatarCircle}>
+        <Image source={{ uri: avatar }} style={{ width: 64, height: 64 }} />
       </View>
 
       <View
@@ -173,16 +172,16 @@ const ProfileTopPart = props => {
 };
 
 const styles = StyleSheet.create({
-  emojiCircle: {
+  avatarCircle: {
     alignSelf: 'flex-end',
     marginRight: 5,
     marginTop: 80,
     width: 64,
     height: 64,
     borderRadius: 64,
-    backgroundColor: '#ffffff',
+    backgroundColor: 'transparent',
   },
-  emoji: {
+  avatar: {
     backgroundColor: 'transparent',
     alignSelf: 'center',
     fontSize: Platform.OS === 'android' ? 30 : 40,

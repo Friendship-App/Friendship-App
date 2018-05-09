@@ -14,7 +14,7 @@ const EventsList = ({
     const emojis = [];
     eventParticipantsNum.data.data.map(emojiObject => {
       if (emojiObject.eventId === item.id) {
-        emojis.push(emojiObject.emoji);
+        emojis.push(emojiObject.avatar);
       }
     });
 
