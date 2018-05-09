@@ -45,11 +45,9 @@ async function createUser(dispatch, formValues) {
 }
 
 function appendFieldToFormdata(formValues, url = '') {
-  console.log('Appending fields ...');
   let tempFormData = new FormData();
 
   fields.map(field => {
-    console.log(formValues);
     if (formValues[field]) {
       tempFormData.append(field, formValues[field]);
     }
