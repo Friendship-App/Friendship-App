@@ -126,12 +126,11 @@ const ProfileTopPart = props => {
             }}
           >
             <UsernameText>
-              {/* {username.length > 15 ? (
+              {username.length > 15 ? (
                 username.substr(0, 15).concat('…')
               ) : (
                 username
-              )} */}
-              {username}
+              )}
             </UsernameText>
             {myProfile ? (
               <TouchableOpacity onPress={() => showEditForm()}>
@@ -194,7 +193,7 @@ const styles = StyleSheet.create({
   },
   imageUser: {
     width: Dimensions.get('window').width,
-    height: Platform.OS === 'android' ? 330 : 250,
+    height: Platform.OS === 'android' ? 330 : 300,
     position: 'absolute',
   },
   backAndSettingsView: {
