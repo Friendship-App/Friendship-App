@@ -33,9 +33,7 @@ const fields = [
 ];
 
 async function createUser(dispatch, formValues) {
-  console.log('Creating the user ...');
   let formData = await createFormData(formValues);
-  console.log(formData);
   dispatch(
     rest.actions.register(
       {},
@@ -91,13 +89,9 @@ function appendFieldToFormdata(formValues, url = '') {
 }
 
 function createFormData(formValues) {
-  console.log('Starting ...');
   if (!formValues.image) {
-    console.log(formValues);
     return appendFieldToFormdata(formValues);
   }
-
-  console.log('With Image ... ');
 
   return fetch(
     `${apiRoot}/sign-s3?file-name=profile/${formValues.username}.jpg&file-type=${formValues
