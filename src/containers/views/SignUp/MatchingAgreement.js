@@ -22,8 +22,20 @@ const mapStateToProps = state => ({
   signup: state.form.signup,
 });
 
+const fields = [
+  'username',
+  'email',
+  'birthyear',
+  'enableMatching',
+  'description',
+  'avatar',
+  'password',
+];
+
 async function createUser(dispatch, formValues) {
+  console.log('Creating the user ...');
   let formData = await createFormData(formValues);
+  console.log(formData);
   dispatch(
     rest.actions.register(
       {},
@@ -32,7 +44,63 @@ async function createUser(dispatch, formValues) {
   );
 }
 
+function appendFieldToFormdata(formValues, url = '') {
+  console.log('Appending fields ...');
+  let tempFormData = new FormData();
+
+  fields.map(field => {
+    console.log(formValues);
+    if (formValues[field]) {
+      tempFormData.append(field, formValues[field]);
+    }
+  });
+
+  if (formValues.gender) {
+    tempFormData.append('genders', JSON.stringify(formValues.gender));
+  }
+
+  if (formValues.locations) {
+    tempFormData.append('locations', JSON.stringify(formValues.locations));
+  }
+
+  if (formValues.personalities) {
+    tempFormData.append(
+      'personalities',
+      JSON.stringify(formValues.personalities),
+    );
+  }
+
+  if (formValues.yeahsAndNaahs) {
+    if (formValues.yeahsAndNaahs.yeahs) {
+      tempFormData.append(
+        'yeahs',
+        JSON.stringify(formValues.yeahsAndNaahs.yeahs),
+      );
+    }
+    if (formValues.yeahsAndNaahs.nahs) {
+      tempFormData.append(
+        'nahs',
+        JSON.stringify(formValues.yeahsAndNaahs.nahs),
+      );
+    }
+  }
+
+  if (url) {
+    tempFormData.append('image', url);
+  }
+
+  return tempFormData;
+}
+
 function createFormData(formValues) {
+  console.log('Starting ...');
+  if (!formValues.image) {
+    console.log(formValues);
+    return appendFieldToFormdata(formValues);
+  }
+
+  console.log('With Image ... ');
+
   return fetch(
     `${apiRoot}/sign-s3?file-name=profile/${formValues.username}.jpg&file-type=${formValues
       .image.type}`,
@@ -61,50 +129,7 @@ function createFormData(formValues) {
       });
       return url;
     })
-    .then(url => {
-      let tempFormData = new FormData();
-
-      tempFormData.append('avatar', formValues.avatar);
-      tempFormData.append('username', formValues.username);
-      tempFormData.append('email', formValues.email);
-      tempFormData.append('password', formValues.password);
-      tempFormData.append('birthyear', formValues.birthyear);
-      tempFormData.append('enableMatching', formValues.enableMatching);
-      tempFormData.append('description', formValues.description);
-      tempFormData.append('image', url);
-
-      if (formValues.gender) {
-        tempFormData.append('genders', JSON.stringify(formValues.gender));
-      }
-
-      if (formValues.locations) {
-        tempFormData.append('locations', JSON.stringify(formValues.locations));
-      }
-
-      if (formValues.personalities) {
-        tempFormData.append(
-          'personalities',
-          JSON.stringify(formValues.personalities),
-        );
-      }
-
-      if (formValues.yeahsAndNaahs) {
-        if (formValues.yeahsAndNaahs.yeahs) {
-          tempFormData.append(
-            'yeahs',
-            JSON.stringify(formValues.yeahsAndNaahs.yeahs),
-          );
-        }
-        if (formValues.yeahsAndNaahs.nahs) {
-          tempFormData.append(
-            'nahs',
-            JSON.stringify(formValues.yeahsAndNaahs.nahs),
-          );
-        }
-      }
-
-      return tempFormData;
-    })
+    .then(url => appendFieldToFormdata(formValues, url))
     .catch(e => {
       console.error(e);
     });
