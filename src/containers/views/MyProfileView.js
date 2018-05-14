@@ -172,18 +172,16 @@ class MyProfile extends React.Component {
     }
 
     if (this.state.showEditForm) {
-      {
-        /*<EditForm
+      return (
+        <EditForm
           userData={this.props.currentUser.data}
           closeEditForm={() => this.setState({ showEditForm: false })}
           onRefresh={() => this.fetchCurrentUserInfo()}
-        />*/
-      }
-      return (
-        <EditProfile
+        />
+        /*<EditProfile
           closeEditForm={() => this.setState({ showEditForm: false })}
           userData={this.props.currentUser.data}
-        />
+        />*/
       );
     }
 
