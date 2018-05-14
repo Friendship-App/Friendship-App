@@ -99,7 +99,6 @@ class EditForm extends React.Component {
     });
 
     if (!result.cancelled) {
-      console.log(result.uri);
       this.setState({ image: result.uri, error: false });
     }
   };
@@ -144,9 +143,9 @@ class EditForm extends React.Component {
       birthyear,
       genderArr,
       image,
-      emoji,
+      avatarUri,
     } = this.state;
-    let userData = { email, password, birthyear, username, emoji };
+    let userData = { email, password, birthyear, username, avatar: avatarUri };
 
     if (!email || !username || !birthyear) {
       return this.setState({
@@ -179,11 +178,9 @@ class EditForm extends React.Component {
         }
       }
     }
-    return tempFormData;
-  }
 
-  selectEmoji(emoji) {
-    this.setState({ emoji });
+    console.log(tempFormData);
+    return tempFormData;
   }
 
   updateGenders(value) {
