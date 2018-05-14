@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
-import { Text, TouchableHighlight, View } from 'react-native';
+import { Image, Text, TouchableHighlight, View } from 'react-native';
 
 const mapStateToProps = state => ({
   currentUserId: state.auth.data.decoded ? state.auth.data.decoded.id : null,
@@ -131,9 +131,10 @@ class InboxCard extends React.Component {
       >
         <View style={styles.inboxCard}>
           <View style={styles.inboxCardIcon}>
-            <View style={styles.iconHolder}>
-              <Text style={styles.userEmoji}>{emoji}</Text>
-            </View>
+            <Image
+              source={{ uri: this.props.data.receiver.avatar }}
+              style={{ width: 50, height: 50 }}
+            />
           </View>
           <View style={styles.inboxCardContent}>
             <View style={styles.inboxCardHeader}>
