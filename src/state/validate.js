@@ -61,7 +61,7 @@ export async function validateUserInformations(values) {
   }
 
   function checkAge(birthDate) {
-    return moment().year() - birthDate >= 18;
+    return moment().year() - birthDate >= 16;
   }
 
   if (!values.birthyear) {
@@ -72,7 +72,7 @@ export async function validateUserInformations(values) {
   } else if (!checkAge(values.birthyear)) {
     err = {
       ...err,
-      birthyear: 'User should be at least 18',
+      birthyear: 'User should be at least 16',
     };
   }
 
