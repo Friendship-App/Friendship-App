@@ -83,7 +83,7 @@ class Person extends React.Component {
   cutNames = () => {
     const shortUser =
       this.props.data.username.length > 8
-        ? this.props.data.username.substring(0, 8)
+        ? `${this.props.data.username.substring(0, 8)}...`
         : this.props.data.username;
     this.setState({ shortUser });
   };
@@ -100,7 +100,7 @@ class Person extends React.Component {
           style={{
             flex: 70,
             backgroundColor: 'rgba(96, 104, 109, 0.55)',
-            width: 220,
+            width: 280,
             height: 220,
             marginLeft: 20,
             position: 'absolute',
@@ -116,42 +116,37 @@ class Person extends React.Component {
         </View>
         <FlexRow style={styles.bottomPart}>
           {/* with flex:1 long username don't go exceed the bottom part  */}
-
-          <View style={styles.flexRow}>
-            <View style={styles.whiteCircle}>
-              <Image
-                source={{ uri: this.props.data.avatar }}
-                style={{ width: 64, height: 64 }}
-              />
-            </View>
-            <View style={styles.viewBottom}>
-              <Text style={styles.textName}>{this.state.shortUser}</Text>
-              <Text style={styles.textDetails}>
-                {this.state.age}
-                {this.state.genders}
-              </Text>
-              <CompatibilityText style={{ marginBottom: 0, marginTop: 3 }}>
-                <YeahColor>
-                  {this.props.data.loveCommon ? this.props.data.loveCommon : 0}
-                  <FrienshipFont> YEAH</FrienshipFont>
-                </YeahColor>{' '}
-                &{' '}
-                <NaahColor>
-                  {this.props.data.hateCommon ? this.props.data.hateCommon : 0}
-                  <FrienshipFont> NAAH</FrienshipFont>
-                </NaahColor>{' '}
-              </CompatibilityText>
-              <Text
-                style={{
-                  flexWrap: 'wrap',
-                  fontSize: 12,
-                  color: '#4a4a4a',
-                  marginTop: -3,
-                }}
-              >
-                in common
-              </Text>
-            </View>
+          <Image
+            source={{ uri: this.props.data.avatar }}
+            style={styles.whiteCircle}
+          />
+          <View style={styles.viewBottom}>
+            <Text style={styles.textName}>{this.state.shortUser}</Text>
+            <Text style={styles.textDetails}>
+              {this.state.age}
+              {this.state.genders}
+            </Text>
+            <CompatibilityText style={{ marginBottom: 0, marginTop: 3 }}>
+              <YeahColor>
+                {this.props.data.loveCommon ? this.props.data.loveCommon : 0}
+                <FrienshipFont> YEAH</FrienshipFont>
+              </YeahColor>{' '}
+              &{' '}
+              <NaahColor>
+                {this.props.data.hateCommon ? this.props.data.hateCommon : 0}
+                <FrienshipFont> NAAH</FrienshipFont>
+              </NaahColor>{' '}
+            </CompatibilityText>
+            <Text
+              style={{
+                flexWrap: 'wrap',
+                fontSize: 12,
+                color: '#4a4a4a',
+                marginTop: -3,
+              }}
+            >
+              in common
+            </Text>
           </View>
         </FlexRow>
       </TouchableOpacity>
@@ -180,20 +175,24 @@ class Person extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  nameView: {},
   viewBottom: {
-    justifyContent: 'flex-start',
-    width: 121,
+    flex: 1,
     flexDirection: 'column',
+    paddingLeft: 10,
+    //borderWidth: 2,
+    //borderColor: 'green'
   },
   flexRow: {
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-start',
     flexDirection: 'row',
+    alignItems: 'center',
   },
 
   textName: {
     color: '#60686D',
     fontFamily: 'NunitoSans-Bold',
-    fontSize: 25,
+    fontSize: 24,
   },
   textDetails: {
     color: '#60686D',
@@ -201,7 +200,7 @@ const styles = StyleSheet.create({
   },
   topPart: {
     height: 333,
-    width: 220,
+    width: 280,
     marginLeft: 20,
     backgroundColor: 'transparent',
     borderRadius: 3,
@@ -214,25 +213,25 @@ const styles = StyleSheet.create({
   },
 
   bottomPart: {
-    width: 220,
+    width: 280,
     padding: 10,
     paddingVertical: 13,
     backgroundColor: '#f1f1f3',
     flex: 26,
     alignSelf: 'flex-end',
-    flexDirection: 'column',
+    flexDirection: 'row',
+    alignItems: 'center',
     borderBottomLeftRadius: 3,
     borderBottomRightRadius: 3,
+    //borderWidth: 2,
+    //borderStyle: 'dashed',
+    //borderColor: 'red'
   },
   whiteCircle: {
     width: 66,
     height: 66,
-    borderRadius: 132 / 2,
-    backgroundColor: 'transparent',
-    alignItems: 'center',
     marginRight: 10,
-    marginTop: 8,
-    justifyContent: 'flex-start',
+    marginLeft: 10,
   },
   avatar: {
     backgroundColor: 'transparent',
