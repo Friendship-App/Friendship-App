@@ -161,7 +161,10 @@ class Person extends React.Component {
   renderLine = () => (
     <FlexRow style={styles.listItem}>
       <View>
-        <Text style={styles.listEmoji}>{this.props.data.avatar}</Text>
+        <Image
+          source={{ uri: this.props.data.avatar }}
+          style={styles.listEmoji}
+        />
       </View>
 
       <TouchableOpacity
@@ -252,12 +255,12 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   listEmoji: {
-    backgroundColor: 'transparent',
     margin: 5,
     marginHorizontal: 10,
     alignSelf: 'center',
-    fontSize: Platform.OS === 'android' ? 35 : 45,
     alignItems: 'center',
+    height: 40,
+    width: 40,
   },
 });
 
