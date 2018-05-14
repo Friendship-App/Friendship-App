@@ -130,10 +130,12 @@ export class PeopleView extends React.Component {
           }}
           inputStyle={{ backgroundColor: '#fff' }}
           onChangeText={username => this.getUserByUsername(username)}
+          onClearText={username => this.getUserByUsername(username)}
           autoCapitalize="none"
           autoCorrect={false}
           placeholder="Search People"
           clearIcon
+          value={this.state.searchedUsername}
         />
         {!this.props.usersByPage.data.data ? (
           <ActivityIndicator />
