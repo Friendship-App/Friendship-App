@@ -9,6 +9,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  NativeModules,
 } from 'react-native';
 
 import { FlexRow } from './Layout/Layout';
@@ -47,6 +48,10 @@ class Person extends React.Component {
       this.getLocations();
       this.cutNames();
     }
+  }
+
+  componentWillMount() {
+    console.log(NativeModules);
   }
 
   getGenders = () => {
@@ -91,31 +96,35 @@ class Person extends React.Component {
   renderBox = () => {
     return (
       <TouchableOpacity
-        style={styles.nameView}
+        style={styles.mainView}
         onPress={() =>
           this.props.openProfile(this.props.data.id, this.props.data.username)}
       >
-        <Image style={styles.topPart} source={{ uri: this.props.data.image }} />
-        <View
-          style={{
-            flex: 70,
-            backgroundColor: 'rgba(96, 104, 109, 0.55)',
-            width: 280,
-            height: 220,
-            marginLeft: 20,
-            position: 'absolute',
-            top: 110,
-          }}
-        >
-          <BoldDescription style={styles.topText}>
-            {this.props.data.description}
-          </BoldDescription>
-          <LocationText style={{ textAlign: 'center', paddingTop: 20 }}>
-            {this.state.locations}
-          </LocationText>
+        <View style={styles.topPart}>
+          <Image
+            style={styles.peoplePicture}
+            source={{ uri: this.props.data.image }}
+          />
+          <View
+            style={{
+              height: '70%',
+              width: '100%',
+              backgroundColor: 'rgba(96, 104, 109, 0.55)',
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              justifyContent: 'center',
+            }}
+          >
+            <BoldDescription style={styles.topText}>
+              {this.props.data.description}
+            </BoldDescription>
+            <LocationText style={{ textAlign: 'center', paddingTop: 20 }}>
+              {this.state.locations}
+            </LocationText>
+          </View>
         </View>
         <FlexRow style={styles.bottomPart}>
-          {/* with flex:1 long username don't go exceed the bottom part  */}
           <Image
             source={{ uri: this.props.data.avatar }}
             style={styles.whiteCircle}
@@ -175,13 +184,17 @@ class Person extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  nameView: {},
+  mainView: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  peoplePicture: {
+    flex: 1,
+  },
   viewBottom: {
     flex: 1,
     flexDirection: 'column',
     paddingLeft: 10,
-    //borderWidth: 2,
-    //borderColor: 'green'
   },
   flexRow: {
     alignSelf: 'flex-start',
@@ -199,8 +212,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   topPart: {
-    height: 333,
-    width: 280,
+    flex: 8,
+    justifyContent: 'flex-end',
+    width: 260,
     marginLeft: 20,
     backgroundColor: 'transparent',
     borderRadius: 3,
@@ -213,12 +227,12 @@ const styles = StyleSheet.create({
   },
 
   bottomPart: {
-    width: 280,
+    width: 260,
     padding: 10,
+    marginLeft: 20,
     paddingVertical: 13,
     backgroundColor: '#f1f1f3',
-    flex: 26,
-    alignSelf: 'flex-end',
+    flex: 2,
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomLeftRadius: 3,
