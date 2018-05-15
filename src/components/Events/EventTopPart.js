@@ -11,7 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import { Details, EventTitleText, LocationText } from '../Layout/TextLayout';
-import waveShape from '../../../assets/img/roundTab/roundTab.png';
+import waveShape from '../../../assets/img/curve/curve.png';
 import resolveAssetSource from 'resolveAssetSource';
 
 const { width, height } = resolveAssetSource(waveShape);
@@ -125,7 +125,7 @@ const EventTopPart = props => {
 
 const styles = StyleSheet.create({
   waveShape: {
-    height: 50,
+    height: 40,
     width: Dimensions.get('window').width,
     tintColor: '#F9F6F1',
   },

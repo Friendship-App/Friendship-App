@@ -19,7 +19,7 @@ import {
 } from '../Layout/TextLayout';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import waveShape from '../../../assets/img/roundTab/roundTab.png';
+import waveShape from '../../../assets/img/curve/curve.png';
 import resolveAssetSource from 'resolveAssetSource';
 
 const { width, height } = resolveAssetSource(waveShape);
@@ -106,7 +106,7 @@ const ProfileTopPart = props => {
           </TouchableOpacity>
           {displaySettingsButton()}
         </View>
-        <View style={{ flex: 2, flexDirection: 'column' }}>
+        <View style={{ flex: 3, flexDirection: 'column' }}>
           <View style={styles.avatarCircle}>
             <Image
               source={{ uri: avatar }}
@@ -121,16 +121,14 @@ const ProfileTopPart = props => {
           <View
             style={{
               backgroundColor: 'transparent',
-              flex: 5,
+              flex: 2,
             }}
           >
-            <View style={{ flex: 2, justifyContent: 'flex-end' }}>
-              <Image
-                source={waveShape}
-                style={styles.waveShape}
-                resizeMode="stretch"
-              />
-            </View>
+            <Image
+              source={waveShape}
+              style={styles.waveShape}
+              resizeMode="stretch"
+            />
             <View style={{ flex: 3, backgroundColor: '#F9F6F1' }}>
               <View
                 style={{
@@ -187,8 +185,9 @@ const ProfileTopPart = props => {
 const styles = StyleSheet.create({
   avatarCircle: {
     alignSelf: 'flex-end',
-    flex: 2,
+    alignItems: 'flex-end',
     backgroundColor: 'transparent',
+    width: '100%',
   },
   avatar: {
     backgroundColor: 'transparent',
@@ -197,7 +196,7 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
   waveShape: {
-    height: 50,
+    height: 40,
     width: Dimensions.get('window').width,
     tintColor: '#F9F6F1',
   },
@@ -209,7 +208,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginRight: 5,
     marginLeft: 5,
-    flex: 1,
+    flex: 2,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
