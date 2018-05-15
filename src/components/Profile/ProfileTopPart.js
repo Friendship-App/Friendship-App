@@ -110,7 +110,12 @@ const ProfileTopPart = props => {
           <View style={styles.avatarCircle}>
             <Image
               source={{ uri: avatar }}
-              style={{ width: 64, height: 64, backgroundColor: 'transparent' }}
+              style={{
+                width: 64,
+                height: 64,
+                backgroundColor: 'transparent',
+                marginRight: 15,
+              }}
             />
           </View>
           <View
