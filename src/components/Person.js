@@ -9,7 +9,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-  NativeModules,
 } from 'react-native';
 
 import { FlexRow } from './Layout/Layout';
@@ -48,10 +47,6 @@ class Person extends React.Component {
       this.getLocations();
       this.cutNames();
     }
-  }
-
-  componentWillMount() {
-    console.log(NativeModules);
   }
 
   getGenders = () => {
