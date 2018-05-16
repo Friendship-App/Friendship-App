@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
-import ResponsiveImage from 'react-native-responsive-image';
-import {
-  Text,
-  TouchableOpacity,
-  Linking,
-  Platform,
-  StyleSheet,
-  Image,
-  View,
-} from 'react-native';
+import { Image, Linking, Platform, StyleSheet, Text, View } from 'react-native';
 import moment from 'moment';
 
 import CardSection from './CardSection';

@@ -1,12 +1,10 @@
 import React from 'react';
 import { Icon } from 'react-native-elements';
-import { StyleSheet, View, Platform, Dimensions } from 'react-native';
 import {
   Menu,
   MenuOption,
   MenuOptions,
   MenuTrigger,
-  renderers,
 } from 'react-native-popup-menu';
 import { HeaderButton, PopUpMenuCard } from './Layout/Layout';
 
@@ -90,14 +88,15 @@ const styles = {
   },
   triggerStyles: {
     triggerWrapper: {
-      backgroundColor: 'rgba(255, 255, 255, 0.3)',
+      backgroundColor: 'rgb(255,138,101)',
       borderRadius: 25,
-      height: 27,
-      width: 27,
+      height: 35,
+      width: 35,
       alignItems: 'center',
       justifyContent: 'center',
     },
     triggerTouchable: {
+      color: 'rgba(255, 255, 255, 0.9)',
       // underlayColor: '#ff8a65',
       // activeOpacity: 70,
     },
