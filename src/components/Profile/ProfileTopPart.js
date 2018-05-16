@@ -73,11 +73,19 @@ const ProfileTopPart = props => {
   const displaySettingsButton = () => {
     if (myProfile) {
       return (
-        <TouchableOpacity onPress={showModal} style={styles.settings}>
-          <Image
-            style={styles.settingsIcon}
-            source={require('../../../assets/settingsIcon.png')}
-          />
+        <TouchableOpacity
+          onPress={showModal}
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.3)',
+            height: 30,
+            width: 30,
+            borderRadius: 25,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginRight: 10,
+          }}
+        >
+          <Icon name="md-settings" size={26} style={styles.backButton} />
         </TouchableOpacity>
       );
     }
@@ -103,7 +111,14 @@ const ProfileTopPart = props => {
         <View style={styles.backAndSettingsView}>
           <TouchableOpacity
             onPress={navigateBack}
-            style={{ shadowColor: '#fff', shadowOpacity: 0.5, elevation: 5 }}
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.3)',
+              height: 30,
+              width: 30,
+              borderRadius: 25,
+              alignItems: 'center',
+              marginLeft: 10,
+            }}
           >
             <Icon name="md-arrow-back" size={26} style={styles.backButton} />
           </TouchableOpacity>
@@ -209,25 +224,12 @@ const styles = StyleSheet.create({
   },
   backAndSettingsView: {
     marginTop: 10,
-    marginRight: 5,
-    marginLeft: 5,
     flex: 2,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   backButton: {
-    paddingLeft: 10,
     backgroundColor: 'transparent',
-  },
-  settingsIcon: {
-    width: 24,
-    height: 24,
-    tintColor: '#000',
-  },
-  settings: {
-    shadowColor: '#fff',
-    shadowOpacity: 0.5,
-    elevation: 5,
   },
 });
 

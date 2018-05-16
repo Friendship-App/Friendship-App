@@ -22,7 +22,7 @@ class PopUpMenu extends React.Component {
       <PopUpMenuCard>
         <Menu ref={this.onRef} onBackdropPress={() => this.closeMenu()}>
           <MenuTrigger customStyles={styles.triggerStyles}>
-            <Icon name="more-vert" />
+            <Icon name="more-vert" size={26} />
           </MenuTrigger>
           <MenuOptions customStyles={styles.optionsStyles}>
             <MenuOption
@@ -90,9 +90,10 @@ const styles = {
   },
   triggerStyles: {
     triggerWrapper: {
-      paddingTop: 10,
-      paddingBottom: 10,
-      paddingRight: 10,
+      backgroundColor: 'rgba(255, 255, 255, 0.3)',
+      borderRadius: 25,
+      height: 30,
+      width: 30,
     },
     triggerTouchable: {
       // underlayColor: '#ff8a65',
