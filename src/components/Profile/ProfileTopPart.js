@@ -76,12 +76,14 @@ const ProfileTopPart = props => {
         <TouchableOpacity
           onPress={showModal}
           style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.3)',
-            height: 27,
-            width: 27,
+            backgroundColor: 'rgb(255, 138, 101)',
+            height: 35,
+            width: 35,
             borderRadius: 25,
             alignItems: 'center',
             justifyContent: 'center',
+            paddingTop: 2,
+            paddingLeft: 2,
             marginRight: 10,
           }}
         >
@@ -112,9 +114,9 @@ const ProfileTopPart = props => {
           <TouchableOpacity
             onPress={navigateBack}
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.3)',
-              height: 27,
-              width: 27,
+              backgroundColor: 'rgb(255, 138, 101)',
+              height: 35,
+              width: 35,
               borderRadius: 25,
               alignItems: 'center',
               justifyContent: 'center',
@@ -231,6 +233,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     backgroundColor: 'transparent',
+    color: 'rgba(255, 255, 255, 0.9)',
   },
 });
 
