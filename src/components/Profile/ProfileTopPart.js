@@ -77,8 +77,8 @@ const ProfileTopPart = props => {
           onPress={showModal}
           style={{
             backgroundColor: 'rgba(255, 255, 255, 0.3)',
-            height: 30,
-            width: 30,
+            height: 27,
+            width: 27,
             borderRadius: 25,
             alignItems: 'center',
             justifyContent: 'center',
@@ -113,10 +113,11 @@ const ProfileTopPart = props => {
             onPress={navigateBack}
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.3)',
-              height: 30,
-              width: 30,
+              height: 27,
+              width: 27,
               borderRadius: 25,
               alignItems: 'center',
+              justifyContent: 'center',
               marginLeft: 10,
             }}
           >

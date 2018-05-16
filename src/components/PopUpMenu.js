@@ -52,7 +52,7 @@ class PopUpMenu extends React.Component {
 
   renderChatroom = () => (
     <Menu ref={this.onRef} onBackdropPress={() => this.closeMenu()}>
-      <MenuTrigger customStyles={styles.triggerStyles}>
+      <MenuTrigger customStyles={styles.chatroomTriggerStyle}>
         <Icon name="more-vert" />
       </MenuTrigger>
       <MenuOptions customStyles={styles.optionsStyles}>
@@ -92,6 +92,18 @@ const styles = {
     triggerWrapper: {
       backgroundColor: 'rgba(255, 255, 255, 0.3)',
       borderRadius: 25,
+      height: 27,
+      width: 27,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    triggerTouchable: {
+      // underlayColor: '#ff8a65',
+      // activeOpacity: 70,
+    },
+  },
+  chatroomTriggerStyle: {
+    triggerWrapper: {
       height: 30,
       width: 30,
     },
