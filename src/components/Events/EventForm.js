@@ -186,11 +186,8 @@ class EventForm extends Component {
       return this.appendFieldToFormdata(eventData);
     }
 
-    const t = eventData.title.replace(/\s/g, '');
-    console.log(t);
-
     const imageData = {
-      itemName: t,
+      itemName: eventData.title.replace(/\s/g, ''),
       imgType: this.state.eventImage.type,
       url: this.state.eventImage.uri,
     };
