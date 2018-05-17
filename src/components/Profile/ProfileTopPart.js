@@ -85,9 +85,33 @@ const ProfileTopPart = props => {
             paddingTop: 2,
             paddingLeft: 2,
             marginRight: 10,
+            alignSelf: 'flex-end',
           }}
         >
           <Icon name="md-settings" size={26} style={styles.backButton} />
+        </TouchableOpacity>
+      );
+    }
+
+    return null;
+  };
+
+  const displayBackButton = () => {
+    if (!myProfile) {
+      return (
+        <TouchableOpacity
+          onPress={navigateBack}
+          style={{
+            backgroundColor: 'rgb(255, 138, 101)',
+            height: 35,
+            width: 35,
+            borderRadius: 25,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginLeft: 10,
+          }}
+        >
+          <Icon name="md-arrow-back" size={26} style={styles.backButton} />
         </TouchableOpacity>
       );
     }
@@ -111,20 +135,7 @@ const ProfileTopPart = props => {
         }}
       >
         <View style={styles.backAndSettingsView}>
-          <TouchableOpacity
-            onPress={navigateBack}
-            style={{
-              backgroundColor: 'rgb(255, 138, 101)',
-              height: 35,
-              width: 35,
-              borderRadius: 25,
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginLeft: 10,
-            }}
-          >
-            <Icon name="md-arrow-back" size={26} style={styles.backButton} />
-          </TouchableOpacity>
+          {displayBackButton()}
           {displaySettingsButton()}
         </View>
         <View style={{ flex: 3, flexDirection: 'column' }}>
@@ -228,8 +239,7 @@ const styles = StyleSheet.create({
   backAndSettingsView: {
     marginTop: 10,
     flex: 2,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
   },
   backButton: {
     backgroundColor: 'transparent',
