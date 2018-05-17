@@ -2,28 +2,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   Alert,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
   Image,
   Slider,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import _ from 'lodash';
 import moment from 'moment';
 import DatePicker from 'react-native-datepicker';
-import { Dropdown } from 'react-native-material-dropdown';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PickerSelect from 'react-native-picker-select';
 import { ImagePicker } from 'expo';
 import styled from 'styled-components/native';
 import { NavigationActions } from 'react-navigation';
-
-import { EventContainer } from '../Layout/Layout';
-import MultiSelect from '../../utils/react-native-multiple-select/lib/react-native-multi-select';
 import RoundTab from '../RoundTab';
 import rest from '../../utils/rest';
+import { getPreSignedUrl } from '../../utils/aws';
 
 const mapStateToProps = state => ({
   locations: state.locations,
@@ -87,8 +83,7 @@ class EventForm extends Component {
       });
       if (this.props.eventDetails.eventImage !== null) {
         this.setState({
-          eventImage:
-            'data:image/png;base64,' + this.props.eventDetails.eventImage,
+          eventImage: this.props.eventDetails.eventImage,
         });
       }
     }
@@ -105,7 +100,7 @@ class EventForm extends Component {
     });
 
     if (!result.cancelled) {
-      this.setState({ eventImage: result.uri, error: false });
+      this.setState({ eventImage: result, error: false });
     }
   };
 
@@ -128,7 +123,6 @@ class EventForm extends Component {
       address,
       maxParticipants,
       participantsMix,
-      eventImage,
       hostId,
       date,
       time,
@@ -145,7 +139,6 @@ class EventForm extends Component {
       eventDate: `${date}T${time}:00.000Z`,
     };
     eventData.participantsMix = 100 - eventData.participantsMix;
-    console.log('MIX TO SEND', eventData.participantsMix);
 
     if (!title || !city || !address || !date || !maxParticipants) {
       return this.setState({
@@ -153,7 +146,7 @@ class EventForm extends Component {
       });
     }
 
-    let formdata = this.createFormData(eventData, eventImage);
+    let formdata = await this.createFormData(eventData);
     const userId = this.props.auth.data.decoded
       ? this.props.auth.data.decoded.id
       : null;
@@ -170,28 +163,62 @@ class EventForm extends Component {
     }
   }
 
-  createFormData(eventData, eventImage) {
+  appendFieldToFormdata(formValues, url = '') {
     let tempFormData = new FormData();
 
-    if (eventImage) {
-      tempFormData.append('eventImage', {
-        uri: eventImage,
-        name: 'image.png',
-        type: 'multipart/form-data',
-      });
+    console.log(formValues);
+
+    for (const field in formValues) {
+      tempFormData.append(field, formValues[field]);
     }
 
-    if (eventData) {
-      for (var key in eventData) {
-        if (eventData[key]) {
-          tempFormData.append(key, eventData[key]);
-        }
-      }
+    if (url) {
+      tempFormData.append('eventImage', url);
     }
 
+    console.log(tempFormData);
     return tempFormData;
   }
 
+  async createFormData(eventData) {
+    if (!this.state.eventImage) {
+      return this.appendFieldToFormdata(eventData);
+    }
+
+    const imageData = {
+      itemName: eventData.title,
+      imgType: this.state.eventImage.type,
+      url: this.state.eventImage.uri,
+    };
+
+    return await getPreSignedUrl('EVENT', imageData)
+      .then(url => this.appendFieldToFormdata(eventData, url))
+      .catch(e => {
+        console.error(e);
+      });
+  }
+
+  /*createFormData(eventData) {
+    let tempFormData = new FormData();
+
+    if (eventData.eventImage) {
+      getPreSignedUrl('EVENT', eventData)
+        .then(url => tempFormData.append('eventImage', url))
+        .then(() => {
+          if (eventData) {
+            for (let key in eventData) {
+              if (eventData[key]) {
+                tempFormData.append(key, eventData[key]);
+              }
+            }
+          }
+
+          return tempFormData;
+        })
+        .catch(e => console.log(e));
+    }
+  }
+*/
   renderPeopleMix(peopleMixValue) {
     switch (peopleMixValue) {
       case 25:
@@ -235,7 +262,7 @@ class EventForm extends Component {
         key: 'Unlimited',
       },
     ];
-    console.log(this.state.date);
+
     return (
       <View>
         <View style={{ backgroundColor: '#f9f7f6' }}>
@@ -588,7 +615,7 @@ class EventForm extends Component {
                 {eventImage.uri ? (
                   <Image
                     style={{ width: 83, height: 83 }}
-                    source={eventImage}
+                    source={eventImage.uri}
                   />
                 ) : (
                   <PlusSignText>+</PlusSignText>
