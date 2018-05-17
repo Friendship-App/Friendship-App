@@ -30,13 +30,14 @@ const mapDispatchToProps = dispatch => ({
   getLocations: () => {
     dispatch(rest.actions.locations());
   },
-  openEvent: eventId =>
-    dispatch(
+  openEvent: eventId => {
+    return dispatch(
       NavigationActions.navigate({
         routeName: 'EventDetailView',
         params: { eventId },
       }),
-    ),
+    );
+  },
 });
 
 class EventForm extends Component {
@@ -138,6 +139,7 @@ class EventForm extends Component {
       hostId,
       eventDate: `${date}T${time}:00.000Z`,
     };
+
     eventData.participantsMix = 100 - eventData.participantsMix;
 
     if (!title || !city || !address || !date || !maxParticipants) {
@@ -147,9 +149,11 @@ class EventForm extends Component {
     }
 
     let formdata = await this.createFormData(eventData);
+
     const userId = this.props.auth.data.decoded
       ? this.props.auth.data.decoded.id
       : null;
+
     if (this.props.edit) {
       await this.props.updateEvent(this.props.eventDetails.id, formdata);
       const id = this.props.events.data.data[0].id;
@@ -166,8 +170,6 @@ class EventForm extends Component {
   appendFieldToFormdata(formValues, url = '') {
     let tempFormData = new FormData();
 
-    console.log(formValues);
-
     for (const field in formValues) {
       tempFormData.append(field, formValues[field]);
     }
@@ -176,7 +178,6 @@ class EventForm extends Component {
       tempFormData.append('eventImage', url);
     }
 
-    console.log(tempFormData);
     return tempFormData;
   }
 
@@ -185,8 +186,11 @@ class EventForm extends Component {
       return this.appendFieldToFormdata(eventData);
     }
 
+    const t = eventData.title.replace(/\s/g, '');
+    console.log(t);
+
     const imageData = {
-      itemName: eventData.title,
+      itemName: t,
       imgType: this.state.eventImage.type,
       url: this.state.eventImage.uri,
     };
@@ -198,27 +202,6 @@ class EventForm extends Component {
       });
   }
 
-  /*createFormData(eventData) {
-    let tempFormData = new FormData();
-
-    if (eventData.eventImage) {
-      getPreSignedUrl('EVENT', eventData)
-        .then(url => tempFormData.append('eventImage', url))
-        .then(() => {
-          if (eventData) {
-            for (let key in eventData) {
-              if (eventData[key]) {
-                tempFormData.append(key, eventData[key]);
-              }
-            }
-          }
-
-          return tempFormData;
-        })
-        .catch(e => console.log(e));
-    }
-  }
-*/
   renderPeopleMix(peopleMixValue) {
     switch (peopleMixValue) {
       case 25:
