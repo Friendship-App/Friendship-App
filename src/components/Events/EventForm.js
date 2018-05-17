@@ -84,7 +84,7 @@ class EventForm extends Component {
       });
       if (this.props.eventDetails.eventImage !== null) {
         this.setState({
-          eventImage: this.props.eventDetails.eventImage,
+          eventImage: { uri: this.props.eventDetails.eventImage },
         });
       }
     }
@@ -225,7 +225,6 @@ class EventForm extends Component {
     const cities = this.props.locations.data.map(city => {
       return { label: city.name, value: city.name, key: city.name };
     });
-    const eventImage = { uri: this.state.eventImage };
     this.renderStatus();
 
     const maxParticipantsData = [
@@ -595,10 +594,10 @@ class EventForm extends Component {
                 onPress={this.openImageGallery}
                 style={{ marginTop: 7 }}
               >
-                {eventImage.uri ? (
+                {this.state.eventImage ? (
                   <Image
                     style={{ width: 83, height: 83 }}
-                    source={eventImage.uri}
+                    source={{ uri: this.state.eventImage.uri }}
                   />
                 ) : (
                   <PlusSignText>+</PlusSignText>
