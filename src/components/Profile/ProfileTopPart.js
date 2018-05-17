@@ -70,33 +70,7 @@ const ProfileTopPart = props => {
       : 'no gender';
   };
 
-  const displaySettingsButton = () => {
-    if (myProfile) {
-      return (
-        <TouchableOpacity
-          onPress={showModal}
-          style={{
-            backgroundColor: 'rgb(255, 138, 101)',
-            height: 35,
-            width: 35,
-            borderRadius: 25,
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingTop: 2,
-            paddingLeft: 2,
-            marginRight: 10,
-            alignSelf: 'flex-end',
-          }}
-        >
-          <Icon name="md-settings" size={26} style={styles.backButton} />
-        </TouchableOpacity>
-      );
-    }
-
-    return null;
-  };
-
-  const displayBackButton = () => {
+  const renderActionButton = () => {
     if (!myProfile) {
       return (
         <TouchableOpacity
@@ -116,7 +90,25 @@ const ProfileTopPart = props => {
       );
     }
 
-    return null;
+    return (
+      <TouchableOpacity
+        onPress={showModal}
+        style={{
+          backgroundColor: 'rgb(255, 138, 101)',
+          height: 35,
+          width: 35,
+          borderRadius: 25,
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingTop: 2,
+          paddingLeft: 2,
+          marginRight: 10,
+          alignSelf: 'flex-end',
+        }}
+      >
+        <Icon name="md-settings" size={26} style={styles.backButton} />
+      </TouchableOpacity>
+    );
   };
 
   return (
@@ -134,10 +126,7 @@ const ProfileTopPart = props => {
           left: 0,
         }}
       >
-        <View style={styles.backAndSettingsView}>
-          {displayBackButton()}
-          {displaySettingsButton()}
-        </View>
+        <View style={styles.backAndSettingsView}>{renderActionButton()}</View>
         <View style={{ flex: 3, flexDirection: 'column' }}>
           <View style={styles.avatarCircle}>
             <Image
