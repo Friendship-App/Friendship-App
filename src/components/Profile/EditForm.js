@@ -184,32 +184,6 @@ class EditForm extends React.Component {
       });
   }
 
-  /*createFormData(userData, image, genderArr) {
-    let tempFormData = new FormData();
-
-    if (image) {
-      tempFormData.append('image', {
-        uri: image,
-        name: 'image.png',
-        type: 'multipart/form-data',
-      });
-    }
-
-    if (genderArr) {
-      tempFormData.append('genderArr', JSON.stringify(genderArr));
-    }
-
-    if (userData) {
-      for (var key in userData) {
-        if (userData[key]) {
-          tempFormData.append(key, userData[key]);
-        }
-      }
-    }
-
-    return tempFormData;
-  }*/
-
   updateGenders(value) {
     if (this.state.genderArr.indexOf(value) > -1) {
       const genders = this.state.genderArr.slice();
