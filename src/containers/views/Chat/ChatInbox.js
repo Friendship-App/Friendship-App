@@ -55,12 +55,26 @@ export class ChatInbox extends React.Component {
     return (
       <View style={{ flex: 1, paddingTop: 20 }}>
         <RoundTab tint="#ffffff" title="CHATS" fontSize="12" />
-        <FlatList
-          data={sortedChatrooms}
-          keyExtractor={this.keyExtractor}
-          renderItem={this.renderItem}
-          style={{ flex: 1, backgroundColor: 'white', minHeight: 300 }}
-        />
+        {sortedChatrooms.length > 0 ? (
+          <FlatList
+            data={sortedChatrooms}
+            keyExtractor={this.keyExtractor}
+            renderItem={this.renderItem}
+            style={{ flex: 1, backgroundColor: 'white', minHeight: 300 }}
+          />
+        ) : (
+          <View style={{ flex: 1, backgroundColor: '#fff', padding: 20 }}>
+            <Text style={{ fontWeight: 'bold' }}>Get busy chatting!</Text>
+            <Text>
+              You have no active chats yet. To start a new chat, first find a
+              person that seems interesting to you. Open their profile, see what
+              you have in common and take it from there.
+            </Text>
+            <Text style={{ textDecorationLine: 'underline' }}>
+              Browse profiles
+            </Text>
+          </View>
+        )}
       </View>
     );
   }
