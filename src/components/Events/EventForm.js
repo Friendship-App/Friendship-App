@@ -308,7 +308,7 @@ class EventForm extends Component {
               }}
             >
               <DatePicker
-                style={{ width: 185 }}
+                style={{ width: '50%' }}
                 date={this.state.date}
                 mode="date"
                 placeholder="DATE*"
@@ -335,6 +335,17 @@ class EventForm extends Component {
                     fontSize: 17,
                     textAlign: 'center',
                     width: 185,
+                  },
+                  btnConfirm: {
+                    padding: 0,
+                    paddingRight: 20,
+                  },
+                  btnCancel: {
+                    padding: 0,
+                    paddingLeft: 20,
+                  },
+                  btnTextConfirm: {
+                    color: '#ff8a65',
                   },
                 }}
                 onDateChange={date => {
@@ -372,6 +383,17 @@ class EventForm extends Component {
                     fontSize: 17,
                     textAlign: 'center',
                     width: 100,
+                  },
+                  btnConfirm: {
+                    padding: 0,
+                    paddingRight: 20,
+                  },
+                  btnCancel: {
+                    padding: 0,
+                    paddingLeft: 20,
+                  },
+                  btnTextConfirm: {
+                    color: '#ff8a65',
                   },
                 }}
                 onDateChange={time => {
