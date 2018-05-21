@@ -230,6 +230,7 @@ class EditForm extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     this.renderStatus();
     return (
       <KeyboardAwareScrollView
@@ -413,7 +414,7 @@ class EditForm extends React.Component {
                 <GenderBox
                   updateGenderById={value => this.updateGenders(value)}
                   existingGenders={
-                    this.state.genders ? (
+                    this.state.genders.length > 0 ? (
                       this.state.genders
                     ) : (
                       this.state.oldGenders
@@ -425,7 +426,7 @@ class EditForm extends React.Component {
                 <GenderBox
                   updateGenderById={value => this.updateGenders(value)}
                   existingGenders={
-                    this.state.genders ? (
+                    this.state.genders.length > 0 ? (
                       this.state.genders
                     ) : (
                       this.state.oldGenders
@@ -439,7 +440,7 @@ class EditForm extends React.Component {
                 <GenderBox
                   updateGenderById={value => this.updateGenders(value)}
                   existingGenders={
-                    this.state.genders ? (
+                    this.state.genders.length > 0 ? (
                       this.state.genders
                     ) : (
                       this.state.oldGenders
@@ -451,7 +452,7 @@ class EditForm extends React.Component {
                 <GenderBox
                   updateGenderById={value => this.updateGenders(value)}
                   existingGenders={
-                    this.state.genders ? (
+                    this.state.genders.length > 0 ? (
                       this.state.genders
                     ) : (
                       this.state.oldGenders
