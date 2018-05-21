@@ -69,6 +69,7 @@ export class WelcomeView extends React.Component {
             fontSize: fontSizes.WELCOME_MESSAGE,
             fontFamily: fonts.TITLE,
             color: colors.WHITE,
+            lineHeight: 60,
           }}
         >
           FRIEND
@@ -78,6 +79,7 @@ export class WelcomeView extends React.Component {
             fontSize: fontSizes.WELCOME_MESSAGE,
             fontFamily: fonts.TITLE,
             color: colors.WHITE,
+            lineHeight: 60,
           }}
         >
           SHIP !
@@ -87,6 +89,7 @@ export class WelcomeView extends React.Component {
             fontSize: fontSizes.HEADING_4,
             fontFamily: fonts.TITLE,
             color: colors.WHITE,
+            lineHeight: 100,
           }}
         >
           YEAH! & NAAAH
