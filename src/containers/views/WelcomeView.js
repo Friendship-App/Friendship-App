@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import styled from 'styled-components/native';
 
-import LaunchingPageLogoAsset from '../../../assets/drawable-mdpi/friendship_logo_light.png';
+import wave from '../../../assets/img/curve/curve.png';
 import PreviewLogoAsset from '../../../assets/drawable-mdpi/icon_preview.png';
-import Button from '../../components/Button';
 import RoundTab from '../../components/RoundTab';
 import rest from '../../utils/rest';
-import { Text, View } from 'react-native';
-import { colors, fonts, fontSizes } from '../../styles';
+import { Image, Text, View, Dimensions } from 'react-native';
+import { colors, fonts, fontSizes, paddings } from '../../styles';
+import Button from '../../components/Button/Button';
 
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -60,45 +60,74 @@ export class WelcomeView extends React.Component {
     }
   };
 
-  render = () => (
-    <View
-      style={{
-        backgroundColor: colors.DARK_BLUE,
-        flex: 1,
-        flexDirection: 'column',
-        paddingHorizontal: 50,
-        alignItems: 'center',
-      }}
-    >
-      <Text
-        style={{
-          fontSize: fontSizes.WELCOME_MESSAGE,
-          fontFamily: fonts.TITLE,
-          color: colors.WHITE,
-        }}
-      >
-        FRIEND
-      </Text>
-      <Text
-        style={{
-          fontSize: fontSizes.WELCOME_MESSAGE,
-          fontFamily: fonts.TITLE,
-          color: colors.WHITE,
-        }}
-      >
-        SHIP !
-      </Text>
-      <Text
-        style={{
-          fontSize: fontSizes.HEADING_3,
-          fontFamily: fonts.TITLE,
-          color: colors.WHITE,
-        }}
-      >
-        YEAH! & NAAAH
-      </Text>
+  render = () => {
+    const { width } = Dimensions.get('window');
 
-      {/*<LaunchingPageWrapper>
+    return (
+      <View
+        style={{
+          backgroundColor: colors.DARK_BLUE,
+          flex: 1,
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+        }}
+      >
+        <Text
+          style={{
+            fontSize: fontSizes.WELCOME_MESSAGE,
+            fontFamily: fonts.TITLE,
+            color: colors.WHITE,
+          }}
+        >
+          FRIEND
+        </Text>
+        <Text
+          style={{
+            fontSize: fontSizes.WELCOME_MESSAGE,
+            fontFamily: fonts.TITLE,
+            color: colors.WHITE,
+          }}
+        >
+          SHIP !
+        </Text>
+        <Text
+          style={{
+            fontSize: fontSizes.HEADING_4,
+            fontFamily: fonts.TITLE,
+            color: colors.WHITE,
+          }}
+        >
+          YEAH! & NAAAH
+        </Text>
+        <Image
+          source={wave}
+          style={{
+            width,
+            resizeMode: 'stretch',
+            alignSelf: 'flex-end',
+            tintColor: colors.ORANGE,
+          }}
+        />
+        <View
+          style={{
+            backgroundColor: colors.ORANGE,
+            flexDirection: 'row',
+            width,
+            paddingVertical: paddings.SM,
+            alignItems: 'center',
+            justifyContent: 'space-around',
+          }}
+        >
+          <Button
+            text="Join"
+            primary
+            width="md"
+            onPress={this.props.openSignUp}
+          />
+          <Button text="Log In" width="md" onPress={this.props.openSignIn} />
+        </View>
+        {/*<LaunchingPageWrapper>
       <LaunchingMessage>
         <LaunchingPageLogo />
         <LaunchingPageMessage> YEAH! & NAAAH</LaunchingPageMessage>
@@ -133,8 +162,9 @@ export class WelcomeView extends React.Component {
         </Connection>
       </LaunchingNavigationOptions>
     </LaunchingPageWrapper>*/}
-    </View>
-  );
+      </View>
+    );
+  };
 }
 
 /* Container for the page */
@@ -172,14 +202,14 @@ const ConnectionOption = styled.View`
 `;
 
 /* Component for the app logo */
-const LaunchingPageLogo = styled.Image.attrs({
-  source: LaunchingPageLogoAsset,
-  resizeMode: 'contain',
-})`
-  margin: 49px 49px -15px 49px;
-  width: 261px;
-  height: 157px;
-`;
+// const LaunchingPageLogo = styled.Image.attrs({
+//   source: LaunchingPageLogoAsset,
+//   resizeMode: 'contain',
+// })`
+//   margin: 49px 49px -15px 49px;
+//   width: 261px;
+//   height: 157px;
+// `;
 
 /* Wrapper for the launching message */
 const LaunchingPageMessage = styled.Text`
