@@ -1,46 +1,45 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import ScrollableTabView, {
-  ScrollableTabBar,
-} from 'react-native-scrollable-tab-view';
 import Tag from '../Tags';
-import KeyboardAwareScrollView from 'react-native-keyboard-aware-scroll-view/lib/KeyboardAwareScrollView';
 
 export default class TabProfile extends Component {
   state = {
-    backcolor: '#faf6f0',
-    colorActif: '#6eb1ea',
-    colorInactif: '#b3abab',
-    colorTextButton: '#faf6f0',
-    colorBackButton: '#2d4359',
-    tabIndex: 0,
+    bckColor: '#2a343c',
+    yeahsTextColor: '#ff8a65',
+    nahsTextColor: '#949795',
+    btnType: 'dark',
+    tabIndex: true,
   };
 
   //allow when we change the tab to have the good colors
-  handleChangeTab = ({ i }) => {
-    // **Update ** save current page index
-    if (i === 0) {
-      // NAAHS
-      this.setState({
-        backcolor: '#faf6f0',
-        colorInactif: '#b3abab',
-        colorActif: '#6eb1ea',
-        colorTextButton: '#faf6f0',
-        colorBackButton: '#2d4359',
-      });
-    } else {
-      // YEAH
-      this.setState({
-        backcolor: '#2a343c',
-        colorActif: '#ff8a65',
-        colorInactif: '#b3abab',
-        colorTextButton: '#6eb1ea',
-        colorBackButton: '#faf6f0',
-      });
+  onChangeTab() {
+    const { tabIndex } = this.state;
+    let tmpState;
+    switch (tabIndex) {
+      case true:
+        tmpState = {
+          bckColor: '#2a343c',
+          yeahsTextColor: '#ff8a65',
+          nahsTextColor: '#949795',
+          btnType: 'dark',
+        };
+        break;
+      default:
+        tmpState = {
+          bckColor: '#ffffff',
+          yeahsTextColor: '#949795',
+          nahsTextColor: '#99ccff',
+          btnType: 'light',
+        };
     }
-  };
+    this.setState(prevState => ({
+      ...tmpState,
+      tabIndex: !prevState.tabIndex,
+    }));
+  }
 
   renderSendMsg() {
+    const { bckColor } = this.state;
     const roomExists =
       this.props.existingChatRoom !== undefined
         ? this.props.openChatView
@@ -48,7 +47,7 @@ export default class TabProfile extends Component {
 
     if (!this.props.myprofile) {
       return (
-        <View style={{ backgroundColor: this.state.backcolor }}>
+        <View style={{ backgroundColor: bckColor }}>
           <View style={styles.ButtonOption}>
             <TouchableOpacity
               onPress={roomExists}
@@ -72,6 +71,34 @@ export default class TabProfile extends Component {
     }
   }
 
+  renderTags(activities, interests) {
+    const { tabIndex } = this.state;
+    return (
+      <View>
+        <Text
+          style={tabIndex ? styles.tagCategoriesLove : styles.tagCategoriesHate}
+        >
+          ACTIVITIES
+        </Text>
+        <View style={styles.tagList}>
+          {activities.map(tag => (
+            <Tag key={tag.id} data={tag} dark={!tabIndex} />
+          ))}
+        </View>
+        <Text
+          style={tabIndex ? styles.tagCategoriesLove : styles.tagCategoriesHate}
+        >
+          INTERESTS
+        </Text>
+        <View style={styles.tagList}>
+          {interests.map(tag => (
+            <Tag key={tag.id} data={tag} dark={!tabIndex} />
+          ))}
+        </View>
+      </View>
+    );
+  }
+
   render = () => {
     const naahsActivities = this.props.hate.filter(e => e.category === 1);
     const naahsInterests = this.props.hate.filter(e => e.category === 2);
@@ -81,81 +108,82 @@ export default class TabProfile extends Component {
     const yeahInterests = this.props.love.filter(e => e.category === 2);
     const yeahFriendship = this.props.love.filter(e => e.category === 3);
 
+    let activities;
+    let interests;
+
+    switch (this.state.tabIndex) {
+      case true:
+        activities = yeahActivities;
+        interests = yeahInterests;
+        break;
+      default:
+        activities = naahsActivities;
+        interests = naahsInterests;
+    }
+
     return (
-      <View>
-        <ScrollableTabView
-          onChangeTab={this.handleChangeTab}
-          tabBarTextStyle={styles.tabLabel}
-          style={{ marginTop: 0, backgroundColor: this.state.backcolor }}
-          initialPage={0}
-          renderTabBar={() => <ScrollableTabBar />}
-          tabBarActiveTextColor={this.state.colorActif}
-          tabBarInactiveTextColor={this.state.colorInactif}
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: this.state.bckColor,
+        }}
+      >
+        <View
+          style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}
         >
-          <View tabLabel="NAAHS">
-            {naahsActivities.length > 0 && (
-              <View>
-                <Text style={styles.tagCategoriesHate}>ACTIVITIES</Text>
-                <View style={styles.tagList}>
-                  {naahsActivities.map(tag => (
-                    <Tag key={tag.id} data={tag} dark />
-                  ))}
-                </View>
-              </View>
-            )}
-
-            {naahsInterests.length > 0 && (
-              <View>
-                <Text style={styles.tagCategoriesHate}>INTERESTS</Text>
-                <View style={styles.tagList}>
-                  {naahsInterests.map(tag => (
-                    <Tag key={tag.id} data={tag} dark />
-                  ))}
-                </View>
-              </View>
-            )}
-
-            {naahsFriendship.length > 0 && (
-              <View>
-                <Text style={styles.tagCategoriesHate}>FRIENDSHIP</Text>
-                <View style={styles.tagList}>
-                  {naahsFriendship.map(tag => (
-                    <Tag key={tag.id} data={tag} dark />
-                  ))}
-                </View>
-              </View>
-            )}
-          </View>
-
-          <View tabLabel="YEAH">
-            {yeahActivities.length > 0 && (
-              <View>
-                <Text style={styles.tagCategoriesLove}>ACTIVITIES</Text>
-                <View style={styles.tagList}>
-                  {yeahActivities.map(tag => <Tag key={tag.id} data={tag} />)}
-                </View>
-              </View>
-            )}
-
-            {yeahInterests.length > 0 && (
-              <View>
-                <Text style={styles.tagCategoriesLove}>INTERESTS</Text>
-                <View style={styles.tagList}>
-                  {yeahInterests.map(tag => <Tag key={tag.id} data={tag} />)}
-                </View>
-              </View>
-            )}
-
-            {yeahFriendship.length > 0 && (
-              <View>
-                <Text style={styles.tagCategoriesLove}>FRIENDSHIP</Text>
-                <View style={styles.tagList}>
-                  {yeahFriendship.map(tag => <Tag key={tag.id} data={tag} />)}
-                </View>
-              </View>
-            )}
-          </View>
-        </ScrollableTabView>
+          <TouchableOpacity
+            style={{
+              flex: 1,
+              borderBottomColor: this.state.yeahsTextColor,
+              borderBottomWidth: 2,
+              marginHorizontal: 15,
+            }}
+            onPress={() => {
+              if (this.state.tabIndex) {
+                this.onChangeTab();
+              }
+            }}
+          >
+            <Text
+              style={{
+                textAlign: 'center',
+                fontFamily: 'Friendship_version_2',
+                fontSize: 30,
+                letterSpacing: 3.2,
+                color: this.state.yeahsTextColor,
+              }}
+            >
+              YEAHS
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              flex: 1,
+              borderBottomColor: this.state.nahsTextColor,
+              borderBottomWidth: 2,
+              marginHorizontal: 15,
+            }}
+            onPress={() => {
+              if (!this.state.tabIndex) {
+                this.onChangeTab();
+              }
+            }}
+          >
+            <Text
+              style={{
+                textAlign: 'center',
+                fontFamily: 'Friendship_version_2',
+                fontSize: 30,
+                letterSpacing: 3.2,
+                color: this.state.nahsTextColor,
+              }}
+            >
+              NAHS
+            </Text>
+          </TouchableOpacity>
+        </View>
+        {this.renderTags(activities, interests)}
         {this.renderSendMsg()}
       </View>
     );
@@ -176,7 +204,6 @@ const styles = StyleSheet.create({
     fontFamily: 'NunitoSans-Bold',
   },
   tagCategoriesLove: {
-    marginTop: 45,
     alignSelf: 'center',
     flexGrow: 1,
     textAlign: 'center',
@@ -184,7 +211,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   tagCategoriesHate: {
-    marginTop: 45,
     alignSelf: 'center',
     flexGrow: 1,
     textAlign: 'center',
