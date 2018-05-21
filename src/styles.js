@@ -8,6 +8,7 @@ export const colors = {
   DARK_GREY: '#d8d8d8',
   ORANGE: '#ff8a65',
   BLUE: '#99ccff',
+  WHITE: '#fff',
 };
 
 export const fonts = {
