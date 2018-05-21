@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text, View } from 'react-native';
 import styles from './styles';
+import { colors } from '../../styles';
 
 class Header extends Component {
   render() {
@@ -9,8 +10,8 @@ class Header extends Component {
 
     let backgroundColor;
     switch (color) {
-      case 'transparent':
-        backgroundColor = 'transparent';
+      case 'dark':
+        backgroundColor = colors.DARK_BLUE;
         break;
       case 'light':
         backgroundColor = '';
@@ -35,7 +36,7 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-  color: 'transparent',
+  color: 'dark',
 };
 
 export default Header;
