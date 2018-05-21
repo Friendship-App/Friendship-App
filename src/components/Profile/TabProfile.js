@@ -7,21 +7,38 @@ export default class TabProfile extends Component {
     bckColor: '#2a343c',
     yeahsTextColor: '#ff8a65',
     nahsTextColor: '#949795',
-    btnType: 'dark',
     tabIndex: true,
   };
+
+  componentWillMount() {
+    const naahsActivities = this.props.hate.filter(e => e.category === 1);
+    const naahsInterests = this.props.hate.filter(e => e.category === 2);
+    const naahsFriendship = this.props.hate.filter(e => e.category === 3);
+
+    const yeahActivities = this.props.love.filter(e => e.category === 1);
+    const yeahInterests = this.props.love.filter(e => e.category === 2);
+    const yeahFriendship = this.props.love.filter(e => e.category === 3);
+
+    this.setState({
+      yeahActivities,
+      naahsActivities,
+      yeahInterests,
+      naahsInterests,
+    });
+  }
 
   //allow when we change the tab to have the good colors
   onChangeTab() {
     const { tabIndex } = this.state;
     let tmpState;
     switch (tabIndex) {
-      case true:
+      case false:
         tmpState = {
           bckColor: '#2a343c',
           yeahsTextColor: '#ff8a65',
           nahsTextColor: '#949795',
           btnType: 'dark',
+          tabIndex: true,
         };
         break;
       default:
@@ -30,12 +47,11 @@ export default class TabProfile extends Component {
           yeahsTextColor: '#949795',
           nahsTextColor: '#99ccff',
           btnType: 'light',
+          tabIndex: false,
         };
     }
-    this.setState(prevState => ({
-      ...tmpState,
-      tabIndex: !prevState.tabIndex,
-    }));
+    console.log(tmpState);
+    this.setState(tmpState);
   }
 
   renderSendMsg() {
@@ -100,26 +116,20 @@ export default class TabProfile extends Component {
   }
 
   render = () => {
-    const naahsActivities = this.props.hate.filter(e => e.category === 1);
-    const naahsInterests = this.props.hate.filter(e => e.category === 2);
-    const naahsFriendship = this.props.hate.filter(e => e.category === 3);
-
-    const yeahActivities = this.props.love.filter(e => e.category === 1);
-    const yeahInterests = this.props.love.filter(e => e.category === 2);
-    const yeahFriendship = this.props.love.filter(e => e.category === 3);
-
     let activities;
     let interests;
 
     switch (this.state.tabIndex) {
       case true:
-        activities = yeahActivities;
-        interests = yeahInterests;
+        activities = this.state.yeahActivities;
+        interests = this.state.yeahInterests;
         break;
       default:
-        activities = naahsActivities;
-        interests = naahsInterests;
+        activities = this.state.naahsActivities;
+        interests = this.state.naahsInterests;
     }
+
+    console.log(this.state);
 
     return (
       <View
@@ -140,7 +150,7 @@ export default class TabProfile extends Component {
               marginHorizontal: 15,
             }}
             onPress={() => {
-              if (this.state.tabIndex) {
+              if (!this.state.tabIndex) {
                 this.onChangeTab();
               }
             }}
@@ -165,7 +175,7 @@ export default class TabProfile extends Component {
               marginHorizontal: 15,
             }}
             onPress={() => {
-              if (!this.state.tabIndex) {
+              if (this.state.tabIndex) {
                 this.onChangeTab();
               }
             }}
