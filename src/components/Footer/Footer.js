@@ -1,34 +1,43 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { colors, paddings } from '../../styles';
+import { colors } from '../../styles';
 import { Dimensions, Image, View } from 'react-native';
 import wave from '../../../assets/img/curve/curve.png';
+import styles from './styles';
 
 class Footer extends Component {
   render() {
-    const { children } = this.props;
+    const { children, color } = this.props;
     const { width } = Dimensions.get('window');
 
+    let tintColor;
+
+    switch (color) {
+      case 'orange':
+        tintColor = colors.ORANGE;
+        break;
+    }
+
     return (
-      <View style={{ position: 'absolute', bottom: 0, minHeight: 60 }}>
+      <View style={styles.footer}>
         <Image
           source={wave}
-          style={{
-            width,
-            resizeMode: 'stretch',
-            alignSelf: 'flex-end',
-            tintColor: colors.ORANGE,
-          }}
+          style={[
+            styles.footerWave,
+            {
+              width,
+              tintColor,
+            },
+          ]}
         />
         <View
-          style={{
-            backgroundColor: colors.ORANGE,
-            flexDirection: 'row',
-            width,
-            paddingVertical: paddings.SM,
-            alignItems: 'center',
-            justifyContent: 'space-around',
-          }}
+          style={[
+            styles.footerContent,
+            {
+              backgroundColor: tintColor,
+              width,
+            },
+          ]}
         >
           {children}
         </View>
@@ -37,6 +46,12 @@ class Footer extends Component {
   }
 }
 
-Footer.propTypes = {};
+Footer.propTypes = {
+  color: PropTypes.string,
+};
+
+Footer.defaultProps = {
+  color: 'orange',
+};
 
 export default Footer;
