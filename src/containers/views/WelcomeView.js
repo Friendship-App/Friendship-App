@@ -8,6 +8,8 @@ import PreviewLogoAsset from '../../../assets/drawable-mdpi/icon_preview.png';
 import Button from '../../components/Button';
 import RoundTab from '../../components/RoundTab';
 import rest from '../../utils/rest';
+import { Text, View } from 'react-native';
+import { colors, fonts, fontSizes } from '../../styles';
 
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -59,7 +61,34 @@ export class WelcomeView extends React.Component {
   };
 
   render = () => (
-    <LaunchingPageWrapper>
+    <View
+      style={{
+        backgroundColor: colors.DARK_BLUE,
+        flex: 1,
+        flexDirection: 'column',
+        paddingHorizontal: 50,
+        alignItems: 'center',
+      }}
+    >
+      <Text
+        style={{ fontSize: fontSizes.WELCOME_MESSAGE, fontFamily: fonts.TITLE }}
+      >
+        FRIEND
+      </Text>
+      <Text
+        style={{ fontSize: fontSizes.WELCOME_MESSAGE, fontFamily: fonts.TITLE }}
+      >
+        SHIP !
+      </Text>
+      <Text
+        style={{
+          fontSize: fontSizes.WELCOME_MESSAGE,
+          fontFamily: fonts.HEADING_3,
+        }}
+      >
+        YEAH! & NAAAH
+      </Text>
+      {/*<LaunchingPageWrapper>
       <LaunchingMessage>
         <LaunchingPageLogo />
         <LaunchingPageMessage> YEAH! & NAAAH</LaunchingPageMessage>
@@ -93,7 +122,8 @@ export class WelcomeView extends React.Component {
           </ConnectionOption>
         </Connection>
       </LaunchingNavigationOptions>
-    </LaunchingPageWrapper>
+    </LaunchingPageWrapper>*/}
+    </View>
   );
 }
 

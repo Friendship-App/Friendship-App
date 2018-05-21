@@ -1,4 +1,5 @@
-import { Platform } from 'react-native';
+import { Platform, View } from 'react-native';
+import React from 'react';
 
 export const colors = {
   DARK_BLUE: '#2a343c',
@@ -20,6 +21,7 @@ export const fonts = {
 };
 
 export const fontSizes = {
+  WELCOME_MESSAGE: 80,
   TITLE: 50,
   HEADING_1: 55,
   HEADING_2: 45,
