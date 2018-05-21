@@ -17,7 +17,12 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderColor: colors.BEIGE,
   },
-  buttonTextSecondary: {
+  headerButton: {
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
     color: colors.BEIGE,
     fontSize: fontSizes.BODY_TEXT,
     fontFamily: fonts.REGULAR,
