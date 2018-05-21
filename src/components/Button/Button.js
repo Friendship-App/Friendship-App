@@ -36,6 +36,17 @@ class Button extends Component {
   }
 }
 
-Button.propTypes = {};
+Button.propTypes = {
+  width: PropTypes.string,
+  text: PropTypes.string,
+  primary: PropTypes.bool,
+};
+
+Button.defaultProps = {
+  text: 'A Button',
+  primary: false,
+  width: 'md',
+  onPress: () => {},
+};
 
 export default Button;
