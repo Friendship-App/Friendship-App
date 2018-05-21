@@ -1,12 +1,41 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Text, View } from 'react-native';
+import styles from './styles';
 
 class Header extends Component {
   render() {
-    return <div />;
+    const { color, leftComponent, rightComponent, title } = this.props;
+
+    let backgroundColor;
+    switch (color) {
+      case 'transparent':
+        backgroundColor = 'transparent';
+        break;
+      case 'light':
+        backgroundColor = '';
+        break;
+    }
+
+    return (
+      <View style={[styles.header, { backgroundColor }]}>
+        {leftComponent}
+        <Text>{title}</Text>
+        {rightComponent}
+      </View>
+    );
   }
 }
 
-Header.propTypes = {};
+Header.propTypes = {
+  color: PropTypes.string,
+  leftComponent: PropTypes.element,
+  rightComponent: PropTypes.element,
+  title: PropTypes.string,
+};
+
+Header.defaultProps = {
+  color: 'transparent',
+};
 
 export default Header;
