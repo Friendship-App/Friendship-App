@@ -9,6 +9,7 @@ export const colors = {
   ORANGE: '#ff8a65',
   BLUE: '#99ccff',
   WHITE: '#fff',
+  BEIGE: '#faf6f0',
 };
 
 export const fonts = {
@@ -34,6 +35,14 @@ export const fontSizes = {
   MEDIUM_SMALL: 10,
   EXTRA_SMALL: 5,
   QUOTE: 20,
+};
+
+export const paddings = {
+  XL: 50,
+  LG: 25,
+  MD: 20,
+  SM: 15,
+  XS: 10,
 };
 
 export const styles = {
