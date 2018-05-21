@@ -5,7 +5,7 @@ import styles from './styles';
 
 class Button extends Component {
   render() {
-    const { primary, text, width } = this.props;
+    const { primary, text, width, onPress } = this.props;
 
     let style = primary ? styles.button : styles.buttonSecondary;
     let buttonTextStyle = primary
@@ -26,7 +26,10 @@ class Button extends Component {
     }
 
     return (
-      <TouchableOpacity style={[style, { width: buttonWidth }]}>
+      <TouchableOpacity
+        style={[style, { width: buttonWidth }]}
+        onPress={() => onPress()}
+      >
         <Text style={[buttonTextStyle]}>{text}</Text>
       </TouchableOpacity>
     );
