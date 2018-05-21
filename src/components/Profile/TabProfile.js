@@ -2,13 +2,20 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Tag from '../Tags';
 
+const initialState = {
+  bckColor: '#2a343c',
+  yeahsTextColor: '#ff8a65',
+  nahsTextColor: '#949795',
+  btnBackColor: '#faf5f0',
+  btnTextColor: '#2d4359',
+  tabIndex: true,
+};
+
 export default class TabProfile extends Component {
-  state = {
-    bckColor: '#2a343c',
-    yeahsTextColor: '#ff8a65',
-    nahsTextColor: '#949795',
-    tabIndex: true,
-  };
+  constructor() {
+    super();
+    this.state = initialState;
+  }
 
   componentWillMount() {
     const naahsActivities = this.props.hate.filter(e => e.category === 1);
@@ -33,20 +40,15 @@ export default class TabProfile extends Component {
     let tmpState;
     switch (tabIndex) {
       case false:
-        tmpState = {
-          bckColor: '#2a343c',
-          yeahsTextColor: '#ff8a65',
-          nahsTextColor: '#949795',
-          btnType: 'dark',
-          tabIndex: true,
-        };
+        tmpState = initialState;
         break;
       default:
         tmpState = {
           bckColor: '#ffffff',
           yeahsTextColor: '#949795',
           nahsTextColor: '#99ccff',
-          btnType: 'light',
+          btnBackColor: '#2a343c',
+          btnTextColor: '#faf5f0',
           tabIndex: false,
         };
     }
@@ -54,7 +56,7 @@ export default class TabProfile extends Component {
   }
 
   renderSendMsg() {
-    const { bckColor } = this.state;
+    const { bckColor, btnBackColor, btnTextColor } = this.state;
     const roomExists =
       this.props.existingChatRoom !== undefined
         ? this.props.openChatView
@@ -66,17 +68,9 @@ export default class TabProfile extends Component {
           <View style={styles.ButtonOption}>
             <TouchableOpacity
               onPress={roomExists}
-              style={[
-                styles.buttonStyle,
-                { backgroundColor: this.state.colorBackButton },
-              ]}
+              style={[styles.buttonStyle, { backgroundColor: btnBackColor }]}
             >
-              <Text
-                style={[
-                  styles.textButtonStyle,
-                  { color: this.state.colorTextButton },
-                ]}
-              >
+              <Text style={[styles.textButtonStyle, { color: btnTextColor }]}>
                 Send Message
               </Text>
             </TouchableOpacity>
