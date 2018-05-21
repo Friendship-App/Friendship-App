@@ -50,7 +50,6 @@ export default class TabProfile extends Component {
           tabIndex: false,
         };
     }
-    console.log(tmpState);
     this.setState(tmpState);
   }
 
@@ -128,9 +127,6 @@ export default class TabProfile extends Component {
         activities = this.state.naahsActivities;
         interests = this.state.naahsInterests;
     }
-
-    console.log(this.state);
-
     return (
       <View
         style={{
