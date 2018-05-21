@@ -62,7 +62,12 @@ export class WelcomeView extends React.Component {
             width="md"
             onPress={this.props.openSignUp}
           />
-          <Button text="Log In" width="md" onPress={this.props.openSignIn} />
+          <Button
+            text="Log In"
+            width="md"
+            onPress={this.props.openSignIn}
+            color="white"
+          />
         </Footer>
       </Background>
     );
