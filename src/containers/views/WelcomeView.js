@@ -71,23 +71,33 @@ export class WelcomeView extends React.Component {
       }}
     >
       <Text
-        style={{ fontSize: fontSizes.WELCOME_MESSAGE, fontFamily: fonts.TITLE }}
+        style={{
+          fontSize: fontSizes.WELCOME_MESSAGE,
+          fontFamily: fonts.TITLE,
+          color: colors.WHITE,
+        }}
       >
         FRIEND
       </Text>
       <Text
-        style={{ fontSize: fontSizes.WELCOME_MESSAGE, fontFamily: fonts.TITLE }}
+        style={{
+          fontSize: fontSizes.WELCOME_MESSAGE,
+          fontFamily: fonts.TITLE,
+          color: colors.WHITE,
+        }}
       >
         SHIP !
       </Text>
       <Text
         style={{
-          fontSize: fontSizes.WELCOME_MESSAGE,
-          fontFamily: fonts.HEADING_3,
+          fontSize: fontSizes.HEADING_3,
+          fontFamily: fonts.TITLE,
+          color: colors.WHITE,
         }}
       >
         YEAH! & NAAAH
       </Text>
+
       {/*<LaunchingPageWrapper>
       <LaunchingMessage>
         <LaunchingPageLogo />
