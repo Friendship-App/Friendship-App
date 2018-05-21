@@ -24,6 +24,7 @@ export const fonts = {
 
 export const fontSizes = {
   WELCOME_MESSAGE: 80,
+  WELCOME_SUBS: 25,
   TITLE: 50,
   HEADING_1: 55,
   HEADING_2: 45,

@@ -12,7 +12,7 @@ export default StyleSheet.create({
     lineHeight: 60,
   },
   welcomeSubtitle: {
-    fontSize: fontSizes.HEADING_4,
+    fontSize: fontSizes.WELCOME_SUBS,
     fontFamily: fonts.TITLE,
     color: colors.WHITE,
     lineHeight: 100,
