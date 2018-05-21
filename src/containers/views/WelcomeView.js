@@ -8,6 +8,7 @@ import { Dimensions, Image, Text, View } from 'react-native';
 import { colors, fonts, fontSizes, paddings } from '../../styles';
 import Button from '../../components/Button/Button';
 import Footer from '../../components/Footer';
+import Background from '../../components/Background/Background';
 
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -55,15 +56,7 @@ export class WelcomeView extends React.Component {
 
   render = () => {
     return (
-      <View
-        style={{
-          backgroundColor: colors.DARK_BLUE,
-          flex: 1,
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <Background color="blue">
         <Text
           style={{
             fontSize: fontSizes.WELCOME_MESSAGE,
@@ -103,7 +96,7 @@ export class WelcomeView extends React.Component {
           />
           <Button text="Log In" width="md" onPress={this.props.openSignIn} />
         </Footer>
-      </View>
+      </Background>
     );
   };
 }
