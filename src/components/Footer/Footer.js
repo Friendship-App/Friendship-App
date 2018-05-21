@@ -10,7 +10,7 @@ class Footer extends Component {
     const { width } = Dimensions.get('window');
 
     return (
-      <View style={{ position: 'absolute', bottom: 0 }}>
+      <View style={{ position: 'absolute', bottom: 0, minHeight: 60 }}>
         <Image
           source={wave}
           style={{
