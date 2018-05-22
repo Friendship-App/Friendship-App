@@ -26,4 +26,9 @@ export default StyleSheet.create({
     width: '100%',
     fontFamily: fonts.ITALIC,
   },
+  passwordIcon: {
+    position: 'absolute',
+    top: 40,
+    right: 15,
+  },
 });

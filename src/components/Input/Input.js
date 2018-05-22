@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import { colors } from '../../styles';
 
 class Input extends Component {
   state = {
-    text: '',
+    showPassword: false,
   };
 
-  handleChange = value => {
-    this.setState({ text: value });
+  togglePassword = () => {
+    this.setState(prevState => {
+      return { showPassword: !prevState.showPassword };
+    });
   };
 
   render() {
-    const { text } = this.state;
-    const { title, color } = this.props;
+    const { title, color, secureTextEntry } = this.props;
+    const { showPassword } = this.state;
 
     let titleColor;
     switch (color) {
@@ -24,6 +26,10 @@ class Input extends Component {
         break;
     }
 
+    let passwordIcon = showPassword
+      ? require('../../../assets/show_password.png')
+      : require('../../../assets/hidden_password.png');
+
     return (
       <View style={[styles.wrapper, this.props.style]}>
         <Text style={[styles.title, { color: titleColor }]}>{title}</Text>
@@ -31,10 +37,18 @@ class Input extends Component {
           style={[styles.textInput]}
           underlineColorAndroid="transparent"
           placeholderTextColor={colors.PLACEHOLDER}
-          onChangeText={value => this.handleChange(value)}
-          value={text}
+          onChangeText={value => this.props.handleChange(value)}
+          secureTextEntry={secureTextEntry ? !showPassword : null}
           {...this.props.inputProps}
         />
+        {secureTextEntry ? (
+          <TouchableOpacity
+            style={[styles.passwordIcon]}
+            onPress={this.togglePassword}
+          >
+            <Image source={passwordIcon} />
+          </TouchableOpacity>
+        ) : null}
         <View style={[styles.horizontalLine]} />
       </View>
     );
