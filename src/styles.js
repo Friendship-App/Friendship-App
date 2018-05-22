@@ -10,6 +10,8 @@ export const colors = {
   BLUE: '#99ccff',
   WHITE: '#fff',
   BEIGE: '#faf6f0',
+  BLACK: '#3b3b3d',
+  PLACEHOLDER: '#2d4359',
 };
 
 export const fonts = {
@@ -49,6 +51,6 @@ export const paddings = {
 export const styles = {
   rootContainer: {
     flex: 1,
-    marginTop: Platform.OS === 'ios' ? 20 : 0,
+    marginTop: 20,
   },
 };
