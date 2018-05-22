@@ -1,5 +1,5 @@
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, NavigationActions } from 'react-navigation';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyleInterpolator';
 
 // ## View Imports ##
@@ -19,6 +19,7 @@ import PeopleProfileView from '../views/PeopleProfileView';
 import MyProfileView from '../views/MyProfileView';
 import Header from '../../components/Header';
 import Button from '../../components/Button/Button';
+import HeaderContainer from '../HeaderContainer/HeaderContainer';
 
 /*const StackNavigatorConfig = {
   navigationOptions: {
@@ -47,8 +48,6 @@ export default StackNavigator(
       screen: WelcomeView,
       navigationOptions: { header: null },
     },
-    /* First view of the sign up process
-     * Basic information about the user are asked in that view */
     SignUp: {
       screen: Signup,
       navigationOptions: { header: null },
@@ -64,13 +63,7 @@ export default StackNavigator(
     SignIn: {
       screen: SignInView,
       navigationOptions: {
-        header: props => (
-          <Header
-            leftComponent={<Button text="Cancel" header />}
-            rightComponent={<Button text="Join" header />}
-            {...props}
-          />
-        ),
+        header: props => <HeaderContainer left="cancel" {...props} />,
       },
     },
     ChatView: {
