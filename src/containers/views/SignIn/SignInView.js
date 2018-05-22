@@ -8,7 +8,7 @@ import rest from '../../../utils/rest';
 import Input from '../../../components/Input/Input';
 import Background from '../../../components/Background';
 import Footer from '../../../components/Footer';
-import { paddings } from '../../../styles';
+import { colors, fonts, fontSizes, paddings } from '../../../styles';
 
 /**
  * Maps the auth state from to the props of this component
@@ -122,7 +122,7 @@ class SignInView extends React.Component {
           </View>
         </Background>
         <Footer onPress={() => this.signIn()}>
-          <Text>Log in</Text>
+          <Text style={styles.footerText}>Log in</Text>
         </Footer>
       </KeyboardAvoidingView>
     );
@@ -138,6 +138,11 @@ const styles = {
     textAlign: 'center',
     color: '#f673f7',
     marginTop: 20,
+  },
+  footerText: {
+    fontFamily: fonts.BOLD,
+    fontSize: fontSizes.BODY_TEXT,
+    color: colors.WHITE,
   },
 };
 
