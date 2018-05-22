@@ -47,14 +47,14 @@ export default class App extends React.Component {
     });
     this.setState({ fontLoaded: true });
 
-    this.keyboardHideListener = Keyboard.addListener(
+    /*this.keyboardHideListener = Keyboard.addListener(
       Platform.OS === 'android' ? 'keyboardDidHide' : 'keyboardWillHide',
       this.keyboardHideListener,
     );
     this.keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       this.keyboardDidShowListener,
-    );
+    );*/
 
     const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
     if (status !== 'granted') {
@@ -75,8 +75,8 @@ export default class App extends React.Component {
    * we remove the keyboard listeners
    */
   componentWillUnmount() {
-    this.keyboardHideListener.remove();
-    this.keyboardDidShowListener.remove();
+    /*this.keyboardHideListener.remove();
+    this.keyboardDidShowListener.remove();*/
   }
 
   /**
