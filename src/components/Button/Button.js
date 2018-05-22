@@ -41,7 +41,7 @@ class Button extends Component {
     return (
       <TouchableOpacity
         style={[style, { width: buttonWidth }]}
-        onPress={() => onPress()}
+        onPress={onPress}
       >
         <Text style={[styles.text, { color: buttonTextColor }]}>{text}</Text>
       </TouchableOpacity>
