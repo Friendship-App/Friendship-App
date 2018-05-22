@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
+  ScrollView,
   Text,
   TouchableWithoutFeedback,
   View,
@@ -17,8 +18,11 @@ import {
   Padding,
   ViewContainer,
 } from '../../../components/Layout/Layout';
-import TextInput from '../../../components/TextInput';
+import Input from '../../../components/Input/Input';
 import RoundTab from '../../../components/RoundTab';
+import Background from '../../../components/Background';
+import Footer from '../../../components/Footer';
+import { paddings } from '../../../styles';
 
 /**
  * Maps the auth state from to the props of this component
@@ -192,31 +196,43 @@ class SignInView extends React.Component {
     return (
       <KeyboardAvoidingView
         behavior="padding"
-        keyboardKey={this.props.keyboardKey}
+        enabled
+        keyboardVerticalOffset={20}
+        style={{ height: '100%', width: '100%' }}
       >
-        <ViewContainer keyboardShouldPersistTaps="always">
+        <Background scrollable>
+          <View
+            style={{
+              flexDirection: 'column',
+              flex: 1,
+              width: '100%',
+              paddingHorizontal: paddings.MD,
+              justifyContent: 'center',
+            }}
+          >
+            <Input
+              inputProps={{
+                placeholder: 'HELLO@FRIENDSHIP.COM',
+                keyboardType: 'email-address',
+              }}
+              title="EMAIL"
+              style={{ marginBottom: 30 }}
+            />
+            <Input
+              inputProps={{
+                placeholder: '*************',
+                secureTextEntry: true,
+              }}
+              title="PASSWORD"
+            />
+          </View>
+        </Background>
+        <Footer>
+          <Text>Log in</Text>
+        </Footer>
+        {/*<ViewContainer keyboardShouldPersistTaps="always">
           <TouchableWithoutFeedback onPress={this.viewClickHandler}>
             <Padding style={{ flex: 1 }}>
-              <HeaderWrapper>
-                <Text
-                  style={styles.headerText}
-                  onPress={() => {
-                    Keyboard.dismiss();
-                    this.props.openWelcomeScreen();
-                  }}
-                >
-                  Cancel
-                </Text>
-                <Text
-                  style={styles.headerText}
-                  onPress={() => {
-                    Keyboard.dismiss();
-                    this.props.openSignUp();
-                  }}
-                >
-                  Join
-                </Text>
-              </HeaderWrapper>
               <Centered style={{ flex: 2, paddingBottom: 40 }}>
                 <TextInput
                   titleColor="#f9f7f6"
@@ -267,7 +283,7 @@ class SignInView extends React.Component {
             </Padding>
           </TouchableWithoutFeedback>
           {this.renderSignInButton()}
-        </ViewContainer>
+        </ViewContainer>*/}
       </KeyboardAvoidingView>
     );
   }
