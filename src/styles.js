@@ -51,6 +51,6 @@ export const paddings = {
 export const styles = {
   rootContainer: {
     flex: 1,
-    marginTop: 20,
+    marginTop: Platform.OS === 'ios' ? 20 : 24,
   },
 };
