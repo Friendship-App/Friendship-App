@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { colors } from '../../styles';
-import { Dimensions, Image, View } from 'react-native';
+import { Dimensions, Image, TouchableOpacity, View } from 'react-native';
 import wave from '../../../assets/img/curve/curve.png';
 import styles from './styles';
 
 class Footer extends Component {
   render() {
-    const { children, color } = this.props;
+    const { children, color, activeOpacity, onPress } = this.props;
     const { width } = Dimensions.get('window');
 
     let tintColor;
@@ -19,7 +19,11 @@ class Footer extends Component {
     }
 
     return (
-      <View style={styles.footer}>
+      <TouchableOpacity
+        style={styles.footer}
+        onPress={onPress}
+        activeOpacity={activeOpacity}
+      >
         <Image
           source={wave}
           style={[
@@ -41,17 +45,21 @@ class Footer extends Component {
         >
           {children}
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
 
 Footer.propTypes = {
   color: PropTypes.string,
+  onPress: PropTypes.func,
+  activeOpacity: PropTypes.number,
 };
 
 Footer.defaultProps = {
   color: 'orange',
+  onPress: () => {},
+  activeOpacity: 1,
 };
 
 export default Footer;
