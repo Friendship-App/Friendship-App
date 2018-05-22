@@ -227,7 +227,8 @@ class SignInView extends React.Component {
             />
           </View>
         </Background>
-        <Footer>
+        {this.renderStatus()}
+        <Footer onPress={() => this.signIn()}>
           <Text>Log in</Text>
         </Footer>
         {/*<ViewContainer keyboardShouldPersistTaps="always">
