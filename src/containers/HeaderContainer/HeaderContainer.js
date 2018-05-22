@@ -39,7 +39,18 @@ class HeaderContainer extends Component {
     }
   }
 
-  getRightComponent(right) {}
+  getRightComponent(type) {
+    switch (type) {
+      case 'join':
+        return (
+          <Button
+            text="Join"
+            header
+            onPress={() => this.props.navigation.navigate('SignUp')}
+          />
+        );
+    }
+  }
 }
 
 HeaderContainer.propTypes = {};

@@ -63,7 +63,9 @@ export default StackNavigator(
     SignIn: {
       screen: SignInView,
       navigationOptions: {
-        header: props => <HeaderContainer left="cancel" {...props} />,
+        header: props => (
+          <HeaderContainer left="cancel" right="join" {...props} />
+        ),
       },
     },
     ChatView: {
