@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { colors } from '../../styles';
 import styles from './styles';
 
 class Background extends Component {
   render() {
-    const { children, color } = this.props;
+    const { children, color, scrollable } = this.props;
 
     let backgroundColor;
 
@@ -22,18 +22,28 @@ class Background extends Component {
         break;
     }
 
-    return (
+    return scrollable ? (
+      <ScrollView
+        contentContainerStyle={[styles.scrollableContent]}
+        style={{ backgroundColor }}
+      >
+        {children}
+      </ScrollView>
+    ) : (
       <View style={[styles.background, { backgroundColor }]}>{children}</View>
     );
   }
 }
 
 Background.propTypes = {
-  colors: PropTypes.string,
+  color: PropTypes.string,
+  scrollable: PropTypes.bool,
+  color: PropTypes.string,
 };
 
 Background.defaultProps = {
-  colors: 'blue',
+  color: 'blue',
+  scrollable: false,
 };
 
 export default Background;
