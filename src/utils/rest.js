@@ -158,6 +158,16 @@ const rest = reduxApi({
       },
     ],
   },
+  updateUserInformation: {
+    url: `${apiRoot}/users/:id`,
+    crud: true,
+    options: { method: 'PATCH' },
+    postfetch: [
+      function({ dispatch }) {
+        dispatch(NavigationActions.navigate({ routeName: 'Tabs' }));
+      },
+    ],
+  },
   register: {
     url: `${apiRoot}/users`,
     transformer: authTransformer,
