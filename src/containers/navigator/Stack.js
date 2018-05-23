@@ -17,6 +17,7 @@ import PeopleProfileView from '../views/PeopleProfileView';
 import MyProfileView from '../views/MyProfileView';
 import HeaderContainer from '../HeaderContainer/HeaderContainer';
 import EditPersonalitiesScreen from '../views/EditPersonalitiesScreen';
+import EditForm from '../../components/Profile/EditForm';
 
 const StackNavigatorConfig = {
   transitionConfig: () => ({
@@ -44,6 +45,10 @@ export default StackNavigator(
     },
     EditPersonalities: {
       screen: EditPersonalitiesScreen,
+      navigationOptions: { header: null },
+    },
+    EditForm: {
+      screen: EditForm,
       navigationOptions: { header: null },
     },
     SignUp: {
