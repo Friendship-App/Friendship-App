@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import rest from '../../../utils/rest';
 import { connect } from 'react-redux';
 import Background from '../../../components/Background';
+import EditPersonalitiesList from '../../../components/EditPersonalitiesList';
 
 const mapStateToProps = state => ({
   personalities: state.personalities,
