@@ -7,9 +7,9 @@ import { Text } from 'react-native';
 class EditPersonalitiesScreen extends Component {
   render() {
     return (
-      <Background scrollable>
+      <Background>
         <EditPersonalitiesList />
-        <Footer>
+        <Footer secondary>
           <Text>SAVE</Text>
         </Footer>
       </Background>
