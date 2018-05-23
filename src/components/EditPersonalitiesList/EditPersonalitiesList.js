@@ -5,6 +5,7 @@ import rest from '../../utils/rest';
 import { connect } from 'react-redux';
 import Personality from '../SignUp/Personality';
 import { colors, paddings } from '../../styles';
+import EditTwoPersonalities from '../EditTwoPersonalities';
 
 const mapStateToProps = state => ({
   personalities: state.personalities,
@@ -14,34 +15,14 @@ const mapDispatchToProps = dispatch => ({
   getPersonalities: () => dispatch(rest.actions.personalities()),
 });
 
-const renderItem = ({ item }) => {
+const renderItem = (item, updatePersonalities, selectedPersonalities) => {
+  const pos = selectedPersonalities.indexOf(item.firstPersonality.id);
   return (
-    <View
-      style={{
-        marginVertical: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-      }}
-    >
-      <Personality
-        profile
-        title={item.firstPersonality.name}
-        image={item.firstPersonality.name}
-        onPress={() => {
-          console.log('clicked...');
-        }}
-      />
-      <Text>or</Text>
-      <Personality
-        profile
-        title={item.secondPersonality.name}
-        image={item.secondPersonality.name}
-        onPress={() => {
-          console.log('clicked...');
-        }}
-      />
-    </View>
+    <EditTwoPersonalities
+      item={item}
+      currentSelected={pos > -1 ? 'first' : 'second'}
+      updatePersonalities={updatePersonalities}
+    />
   );
 };
 
@@ -64,7 +45,11 @@ class EditPersonalitiesList extends Component {
   }
 
   render() {
-    const { personalities } = this.props;
+    const {
+      personalities,
+      updatePersonalities,
+      selectedPersonalities,
+    } = this.props;
 
     if (personalities.loading || !personalities.sync) {
       return <ActivityIndicator />;
@@ -75,7 +60,8 @@ class EditPersonalitiesList extends Component {
     return (
       <FlatList
         data={data}
-        renderItem={renderItem}
+        renderItem={({ item }) =>
+          renderItem(item, updatePersonalities, selectedPersonalities)}
         keyExtractor={keyExtractor}
         style={{ width: '100%', marginVertical: paddings.SM }}
       />
