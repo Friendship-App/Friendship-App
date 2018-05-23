@@ -13,6 +13,13 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getUserPersonalities: userId =>
     dispatch(rest.actions.personalitiesForUser.get({ userId })),
+  updateUserPersonalities: credentials =>
+    dispatch(
+      rest.actions.updateUserPersonalities(
+        {},
+        { body: JSON.stringify({ ...credentials }) },
+      ),
+    ),
 });
 
 class EditPersonalitiesScreen extends Component {
@@ -22,7 +29,7 @@ class EditPersonalitiesScreen extends Component {
 
   componentWillMount() {
     // const userId = this.props.navigation.state.params.personId;
-    this.props.getUserPersonalities(1).then(data => this.prepareData(data));
+    this.props.getUserPersonalities(2).then(data => this.prepareData(data));
   }
 
   prepareData = selectedPersonalities => {
@@ -46,7 +53,7 @@ class EditPersonalitiesScreen extends Component {
   };
 
   render() {
-    const { userPersonalities } = this.props;
+    const { userPersonalities, updateUserPersonalities } = this.props;
     const { selectedPersonalities } = this.state;
 
     if (
@@ -63,7 +70,15 @@ class EditPersonalitiesScreen extends Component {
           updatePersonalities={this.updatePersonalities}
           selectedPersonalities={selectedPersonalities}
         />
-        <Footer secondary>
+        <Footer
+          secondary
+          onPress={() => {
+            updateUserPersonalities({
+              userId: 10,
+              personalities: selectedPersonalities,
+            });
+          }}
+        >
           <Text>SAVE</Text>
         </Footer>
       </Background>
