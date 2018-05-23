@@ -28,8 +28,10 @@ class EditPersonalitiesScreen extends Component {
   };
 
   componentWillMount() {
-    // const userId = this.props.navigation.state.params.personId;
-    this.props.getUserPersonalities(2).then(data => this.prepareData(data));
+    const userId = this.props.navigation.state.params.userId;
+    this.props
+      .getUserPersonalities(userId)
+      .then(data => this.prepareData(data));
   }
 
   prepareData = selectedPersonalities => {
@@ -74,7 +76,7 @@ class EditPersonalitiesScreen extends Component {
           secondary
           onPress={() => {
             updateUserPersonalities({
-              userId: 10,
+              userId: this.props.navigation.state.params.userId,
               personalities: selectedPersonalities,
             });
           }}
