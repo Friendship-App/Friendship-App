@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ActivityIndicator, FlatList } from 'react-native';
+import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import rest from '../../utils/rest';
 import { connect } from 'react-redux';
 import Personality from '../SignUp/Personality';
+import { colors, paddings } from '../../styles';
 
 const mapStateToProps = state => ({
   personalities: state.personalities,
@@ -14,19 +15,48 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const renderItem = ({ item }) => {
-  console.log(item);
   return (
-    <Personality
-      title={item.name}
-      image={item.name}
-      onPress={() => {
-        console.log('clicked');
+    <View
+      style={{
+        marginVertical: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
       }}
-    />
+    >
+      <Personality
+        profile
+        title={item.firstPersonality.name}
+        image={item.firstPersonality.name}
+        onPress={() => {
+          console.log('clicked...');
+        }}
+      />
+      <Text>or</Text>
+      <Personality
+        profile
+        title={item.secondPersonality.name}
+        image={item.secondPersonality.name}
+        onPress={() => {
+          console.log('clicked...');
+        }}
+      />
+    </View>
   );
 };
 
-const keyExtractor = personality => `personality-${personality.id}`;
+const keyExtractor = (personality, index) => `personality-${index}`;
+
+const prepareData = personalities => {
+  let preparedData = [];
+  for (let i = 0; i < personalities.length; i += 2) {
+    preparedData.push({
+      firstPersonality: personalities[i],
+      secondPersonality: personalities[i + 1],
+    });
+  }
+  return preparedData;
+};
 
 class EditPersonalitiesList extends Component {
   componentWillMount() {
@@ -40,12 +70,14 @@ class EditPersonalitiesList extends Component {
       return <ActivityIndicator />;
     }
 
+    const data = prepareData(personalities.data);
+
     return (
       <FlatList
-        data={this.props.personalities.data}
+        data={data}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
-        style={{ width: '100%' }}
+        style={{ width: '100%', marginVertical: paddings.SM }}
       />
     );
   }
