@@ -20,6 +20,7 @@ import MyProfileView from '../views/MyProfileView';
 import Header from '../../components/Header';
 import Button from '../../components/Button/Button';
 import HeaderContainer from '../HeaderContainer/HeaderContainer';
+import EditPersonalitiesScreen from '../views/EditPersonalitiesScreen';
 
 /*const StackNavigatorConfig = {
   navigationOptions: {
@@ -44,6 +45,10 @@ import HeaderContainer from '../HeaderContainer/HeaderContainer';
 //props => (<Header title='Welcome' {...props}/>)
 export default StackNavigator(
   {
+    EditPersonalities: {
+      screen: EditPersonalitiesScreen,
+      navigationOptions: { header: null },
+    },
     Welcome: {
       screen: WelcomeView,
       navigationOptions: { header: null },
