@@ -38,6 +38,13 @@ const mapDispatchToProps = dispatch => ({
   signOut: () => {
     dispatch({ type: 'SIGN_OUT' });
   },
+  openEditForm: userData =>
+    dispatch(
+      NavigationActions.navigate({
+        routeName: 'EditForm',
+        params: { userData },
+      }),
+    ),
 });
 
 class MyProfile extends React.Component {
@@ -200,7 +207,8 @@ class MyProfile extends React.Component {
           myProfile
           birthyear={this.props.currentUser.data.birthyear}
           genderList={this.props.currentUser.data.genderlist}
-          showEditForm={() => this.setState({ showEditForm: true })}
+          showEditForm={() =>
+            this.props.openEditForm(this.props.currentUser.data)}
         />
 
         <DescriptionWrapper>
