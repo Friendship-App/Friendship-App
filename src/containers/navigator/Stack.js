@@ -1,7 +1,5 @@
 import React from 'react';
-import { StackNavigator, NavigationActions } from 'react-navigation';
-import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyleInterpolator';
-
+import { StackNavigator } from 'react-navigation';
 // ## View Imports ##
 import Tabs from './Tabs';
 import WelcomeView from '../views/WelcomeView';
@@ -17,15 +15,10 @@ import Feedback from '../views/Feedback/Feedback';
 import Signup from '../views/SignUp/Signup';
 import PeopleProfileView from '../views/PeopleProfileView';
 import MyProfileView from '../views/MyProfileView';
-import Header from '../../components/Header';
-import Button from '../../components/Button/Button';
 import HeaderContainer from '../HeaderContainer/HeaderContainer';
 import EditPersonalitiesScreen from '../views/EditPersonalitiesScreen';
 
-/*const StackNavigatorConfig = {
-  navigationOptions: {
-    header: props => {console.log(props); return <Header {...props} />},
-  },
+const StackNavigatorConfig = {
   transitionConfig: () => ({
     screenInterpolator: screenProps => {
       // Disable the transition animation when resetting to the welcome screen.
@@ -40,17 +33,17 @@ import EditPersonalitiesScreen from '../views/EditPersonalitiesScreen';
       return CardStackStyleInterpolator.forHorizontal(screenProps);
     },
   }),
-};*/
+};
 
 //props => (<Header title='Welcome' {...props}/>)
 export default StackNavigator(
   {
-    EditPersonalities: {
-      screen: EditPersonalitiesScreen,
-      navigationOptions: { header: null },
-    },
     Welcome: {
       screen: WelcomeView,
+      navigationOptions: { header: null },
+    },
+    EditPersonalities: {
+      screen: EditPersonalitiesScreen,
       navigationOptions: { header: null },
     },
     SignUp: {
