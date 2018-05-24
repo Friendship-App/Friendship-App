@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Background from '../../../components/Background';
 import Footer from '../../../components/Footer';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 import EditPersonalitiesScreen from '../EditPersonalitiesScreen';
 import rest from '../../../utils/rest';
 import { connect } from 'react-redux';
+import EditYeahsAndNahsScreen from '../EditYeahsAndNahsScreen/EditYeahsAndNahsScreen';
 
 const mapDispatchToProps = dispatch => ({
   updateUserPersonalities: credentials =>
@@ -14,28 +15,29 @@ const mapDispatchToProps = dispatch => ({
         { body: JSON.stringify({ ...credentials }) },
       ),
     ),
+  updateUserTags: credentials =>
+    dispatch(
+      rest.actions.updateUserTags(
+        {},
+        { body: JSON.stringify({ ...credentials }) },
+      ),
+    ),
 });
 
 class UpdateUserInformationScreen extends Component {
   state = {
     selectedPersonalities: [],
+    selectedYeahs: [],
+    selectedNahs: [],
   };
 
-  updatePersonalities = (oldPersonality, newPersonality) => {
-    let newSelectedPersonalities = this.state.selectedPersonalities;
-    let pos = newSelectedPersonalities.indexOf(oldPersonality);
-    if (pos > -1) {
-      newSelectedPersonalities.splice(pos, 1, newPersonality);
-    } else {
-      newSelectedPersonalities.push(newPersonality);
-    }
-    newSelectedPersonalities.sort();
+  updatePersonalities = newSelectedPersonalities => {
     this.setState({ selectedPersonalities: newSelectedPersonalities });
   };
 
   render() {
     const { updateUserPersonalities } = this.props;
-    const { selectedPersonalities } = this.state;
+    const { selectedPersonalities, selectedYeahs, selectedNahs } = this.state;
 
     let screen;
     let updateMethod;
@@ -55,11 +57,9 @@ class UpdateUserInformationScreen extends Component {
         };
         break;
       case 'tags':
-        screen = <View />;
+        screen = <EditYeahsAndNahsScreen />;
         break;
     }
-
-    console.log(screen);
 
     return (
       <Background>

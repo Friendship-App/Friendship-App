@@ -41,8 +41,20 @@ class EditPersonalitiesScreen extends Component {
     this.setState({ selectedPersonalities: data });
   };
 
+  updatePersonalities = (oldPersonality, newPersonality) => {
+    let newSelectedPersonalities = this.state.selectedPersonalities;
+    let pos = newSelectedPersonalities.indexOf(oldPersonality);
+    if (pos > -1) {
+      newSelectedPersonalities.splice(pos, 1, newPersonality);
+    } else {
+      newSelectedPersonalities.push(newPersonality);
+    }
+    newSelectedPersonalities.sort();
+    this.props.updatePersonalities(newSelectedPersonalities);
+    this.setState({ selectedPersonalities: newSelectedPersonalities });
+  };
+
   render() {
-    console.log(this.state);
     const { userPersonalities } = this.props;
     const { selectedPersonalities } = this.state;
 
@@ -56,7 +68,7 @@ class EditPersonalitiesScreen extends Component {
 
     return (
       <EditPersonalitiesList
-        updatePersonalities={this.props.updatePersonalities}
+        updatePersonalities={this.updatePersonalities}
         selectedPersonalities={selectedPersonalities}
       />
     );

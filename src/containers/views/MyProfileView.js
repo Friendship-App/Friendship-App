@@ -43,6 +43,7 @@ const mapDispatchToProps = dispatch => ({
       NavigationActions.navigate({
         routeName: 'EditUserProfile',
         params: { userId: userData, updateScreen: 'personalities' },
+        // params: { userData },
       }),
     ),
 });
@@ -178,20 +179,6 @@ class MyProfile extends React.Component {
       return <ActivityIndicator />;
     }
 
-    if (this.state.showEditForm) {
-      return (
-        <EditForm
-          userData={this.props.currentUser.data}
-          closeEditForm={() => this.setState({ showEditForm: false })}
-          onRefresh={() => this.fetchCurrentUserInfo()}
-        />
-        /*<EditProfile
-          closeEditForm={() => this.setState({ showEditForm: false })}
-          userData={this.props.currentUser.data}
-        />*/
-      );
-    }
-
     return (
       <ProfileContainer>
         <ProfileTopPart
@@ -209,6 +196,7 @@ class MyProfile extends React.Component {
           genderList={this.props.currentUser.data.genderlist}
           showEditForm={() =>
             this.props.openEditForm(this.props.currentUser.data.id)}
+          // this.props.openEditForm(this.props.currentUser.data)}
         />
 
         <DescriptionWrapper>
