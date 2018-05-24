@@ -12,13 +12,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getUserPersonalities: userId =>
     dispatch(rest.actions.personalitiesForUser.get({ userId })),
-  updateUserPersonalities: credentials =>
-    dispatch(
-      rest.actions.updateUserPersonalities(
-        {},
-        { body: JSON.stringify({ ...credentials }) },
-      ),
-    ),
 });
 
 class EditPersonalitiesScreen extends Component {
