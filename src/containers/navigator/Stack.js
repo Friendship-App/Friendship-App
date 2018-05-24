@@ -47,7 +47,7 @@ export default StackNavigator(
     EditUserProfile: {
       screen: UpdateUserInformationScreen,
       navigationOptions: {
-        header: props => <HeaderContainer left="cancel" {...props} />,
+        header: props => <HeaderContainer left="back" {...props} />,
       },
     },
     EditForm: {
@@ -56,7 +56,7 @@ export default StackNavigator(
         header: props => (
           <HeaderContainer
             left="cancel"
-            right="more-edit"
+            right="edit-more"
             color="light"
             {...props}
           />
