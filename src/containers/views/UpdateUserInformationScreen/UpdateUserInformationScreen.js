@@ -35,6 +35,10 @@ class UpdateUserInformationScreen extends Component {
     this.setState({ selectedPersonalities: newSelectedPersonalities });
   };
 
+  updateTags = (newYeahs, newNahs) => {
+    this.setState({ selectedYeahs: newYeahs, selectedNahs: newNahs });
+  };
+
   render() {
     const { updateUserPersonalities } = this.props;
     const { selectedPersonalities, selectedYeahs, selectedNahs } = this.state;
@@ -57,7 +61,12 @@ class UpdateUserInformationScreen extends Component {
         };
         break;
       case 'tags':
-        screen = <EditYeahsAndNahsScreen />;
+        screen = (
+          <EditYeahsAndNahsScreen
+            updateTags={this.updateTags}
+            userId={this.props.navigation.state.params.userId}
+          />
+        );
         break;
     }
 
