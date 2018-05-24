@@ -16,7 +16,7 @@ import Signup from '../views/SignUp/Signup';
 import PeopleProfileView from '../views/PeopleProfileView';
 import MyProfileView from '../views/MyProfileView';
 import HeaderContainer from '../HeaderContainer/HeaderContainer';
-import EditPersonalitiesScreen from '../views/EditPersonalitiesScreen';
+import UpdateUserInformationScreen from '../views/UpdateUserInformationScreen';
 import EditForm from '../../components/Profile/EditForm';
 import CardStackStyleInterpolator from 'react-navigation/lib-rn/views/CardStackStyleInterpolator';
 
@@ -44,9 +44,11 @@ export default StackNavigator(
       screen: WelcomeView,
       navigationOptions: { header: null },
     },
-    EditPersonalities: {
-      screen: EditPersonalitiesScreen,
-      navigationOptions: { header: null },
+    EditUserProfile: {
+      screen: UpdateUserInformationScreen,
+      navigationOptions: {
+        header: props => <HeaderContainer left="cancel" {...props} />,
+      },
     },
     EditForm: {
       screen: EditForm,

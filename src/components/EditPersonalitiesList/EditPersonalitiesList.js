@@ -63,7 +63,11 @@ class EditPersonalitiesList extends Component {
         renderItem={({ item }) =>
           renderItem(item, updatePersonalities, selectedPersonalities)}
         keyExtractor={keyExtractor}
-        style={{ width: '100%', marginVertical: paddings.SM }}
+        style={{
+          width: '100%',
+          marginBottom: paddings.SM,
+          marginTop: paddings.HEADER,
+        }}
       />
     );
   }

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Background from '../../../components/Background';
+import PropTypes from 'prop-types';
 import EditPersonalitiesList from '../../../components/EditPersonalitiesList';
-import Footer from '../../../components/Footer';
-import { ActivityIndicator, Text } from 'react-native';
 import rest from '../../../utils/rest';
+import { ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
@@ -28,7 +27,7 @@ class EditPersonalitiesScreen extends Component {
   };
 
   componentWillMount() {
-    const userId = this.props.navigation.state.params.userId;
+    const userId = this.props.userId;
     this.props
       .getUserPersonalities(userId)
       .then(data => this.prepareData(data));
@@ -42,20 +41,9 @@ class EditPersonalitiesScreen extends Component {
     this.setState({ selectedPersonalities: data });
   };
 
-  updatePersonalities = (oldPersonality, newPersonality) => {
-    let newSelectedPersonalities = this.state.selectedPersonalities;
-    let pos = newSelectedPersonalities.indexOf(oldPersonality);
-    if (pos > -1) {
-      newSelectedPersonalities.splice(pos, 1, newPersonality);
-    } else {
-      newSelectedPersonalities.push(newPersonality);
-    }
-    newSelectedPersonalities.sort();
-    this.setState({ selectedPersonalities: newSelectedPersonalities });
-  };
-
   render() {
-    const { userPersonalities, updateUserPersonalities } = this.props;
+    console.log(this.state);
+    const { userPersonalities } = this.props;
     const { selectedPersonalities } = this.state;
 
     if (
@@ -67,23 +55,10 @@ class EditPersonalitiesScreen extends Component {
     }
 
     return (
-      <Background>
-        <EditPersonalitiesList
-          updatePersonalities={this.updatePersonalities}
-          selectedPersonalities={selectedPersonalities}
-        />
-        <Footer
-          secondary
-          onPress={() => {
-            updateUserPersonalities({
-              userId: this.props.navigation.state.params.userId,
-              personalities: selectedPersonalities,
-            });
-          }}
-        >
-          <Text>SAVE</Text>
-        </Footer>
-      </Background>
+      <EditPersonalitiesList
+        updatePersonalities={this.props.updatePersonalities}
+        selectedPersonalities={selectedPersonalities}
+      />
     );
   }
 }

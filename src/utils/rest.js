@@ -154,7 +154,16 @@ const rest = reduxApi({
     options: { method: 'POST' },
     postfetch: [
       function({ dispatch }) {
-        dispatch(NavigationActions.navigate({ routeName: 'Tabs' }));
+        dispatch(
+          NavigationActions.reset({
+            index: 0,
+            actions: [
+              NavigationActions.navigate({
+                routeName: 'Tabs',
+              }),
+            ],
+          }),
+        );
       },
     ],
   },
