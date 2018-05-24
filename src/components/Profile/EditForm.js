@@ -21,6 +21,7 @@ import Modal from 'react-native-modal';
 import apiRoot from '../../utils/api.config';
 import { getPreSignedUrl } from '../../utils/aws';
 import { NavigationActions } from 'react-navigation';
+import { paddings } from '../../styles';
 
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -254,23 +255,10 @@ class EditForm extends React.Component {
         enableResetScrollToCoords={false}
         enableOnAndroid={true}
         enableAutoAutomaticScroll={true}
+        style={{ marginTop: 60 }}
       >
         <ViewContainer>
           <HeaderWrapper>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginTop: 30,
-                marginLeft: 20,
-                marginRight: 20,
-              }}
-            >
-              <TouchableOpacity onPress={() => this.props.closeEditForm()}>
-                <Text style={styles.headerText}>Cancel</Text>
-              </TouchableOpacity>
-            </View>
             <SignUpTitle>EDIT PROFILE</SignUpTitle>
             <LabelText style={{ marginTop: 21, marginLeft: 30 }}>
               PICK YOUR MOOD

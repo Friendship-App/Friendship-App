@@ -52,7 +52,16 @@ export default StackNavigator(
     },
     EditForm: {
       screen: EditForm,
-      navigationOptions: { header: null },
+      navigationOptions: {
+        header: props => (
+          <HeaderContainer
+            left="cancel"
+            right="more-edit"
+            color="light"
+            {...props}
+          />
+        ),
+      },
     },
     SignUp: {
       screen: Signup,

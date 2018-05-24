@@ -28,6 +28,7 @@ class HeaderContainer extends Component {
         leftComponent={this.getLeftComponent(this.props.left)}
         rightComponent={this.getRightComponent(this.props.right)}
         title={this.props.title}
+        color={this.props.color}
       />
     );
   }

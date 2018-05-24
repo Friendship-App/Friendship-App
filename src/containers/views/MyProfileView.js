@@ -41,9 +41,9 @@ const mapDispatchToProps = dispatch => ({
   openEditForm: userData =>
     dispatch(
       NavigationActions.navigate({
-        routeName: 'EditUserProfile',
-        params: { userId: userData, updateScreen: 'personalities' },
-        // params: { userData },
+        routeName: 'EditForm',
+        // params: { userId: userData, updateScreen: 'tags' },
+        params: { userData },
       }),
     ),
 });
@@ -195,8 +195,8 @@ class MyProfile extends React.Component {
           birthyear={this.props.currentUser.data.birthyear}
           genderList={this.props.currentUser.data.genderlist}
           showEditForm={() =>
-            this.props.openEditForm(this.props.currentUser.data.id)}
-          // this.props.openEditForm(this.props.currentUser.data)}
+            this.props.openEditForm(this.props.currentUser.data)}
+          // this.props.openEditForm(this.props.currentUser.data.id)}
         />
 
         <DescriptionWrapper>

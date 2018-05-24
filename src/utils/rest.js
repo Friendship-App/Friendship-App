@@ -167,6 +167,25 @@ const rest = reduxApi({
       },
     ],
   },
+  updateUserTags: {
+    url: `${apiRoot}/user_tags`,
+    crud: true,
+    options: { method: 'POST' },
+    postfetch: [
+      function({ dispatch }) {
+        dispatch(
+          NavigationActions.reset({
+            index: 0,
+            actions: [
+              NavigationActions.navigate({
+                routeName: 'Tabs',
+              }),
+            ],
+          }),
+        );
+      },
+    ],
+  },
   updateUserInformation: {
     url: `${apiRoot}/users/:id`,
     crud: true,

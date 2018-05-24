@@ -31,6 +31,7 @@ class EditPersonalitiesScreen extends Component {
     selectedPersonalities.map(personality =>
       data.push(personality.personalityId),
     );
+    this.props.updatePersonalities(data);
     this.setState({ selectedPersonalities: data });
   };
 

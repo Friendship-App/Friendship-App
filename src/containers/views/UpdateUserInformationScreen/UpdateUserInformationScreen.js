@@ -40,7 +40,7 @@ class UpdateUserInformationScreen extends Component {
   };
 
   render() {
-    const { updateUserPersonalities } = this.props;
+    const { updateUserPersonalities, updateUserTags } = this.props;
     const { selectedPersonalities, selectedYeahs, selectedNahs } = this.state;
 
     let screen;
@@ -67,6 +67,12 @@ class UpdateUserInformationScreen extends Component {
             userId={this.props.navigation.state.params.userId}
           />
         );
+        updateMethod = () => {
+          updateUserTags({
+            yeahs: selectedYeahs,
+            nahs: selectedNahs,
+          });
+        };
         break;
     }
 
