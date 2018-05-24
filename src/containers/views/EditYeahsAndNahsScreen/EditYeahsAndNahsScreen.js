@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ActivityIndicator, View } from 'react-native';
 import rest from '../../../utils/rest';
 import { connect } from 'react-redux';
+import EditTagsList from '../../../components/EditTagsList';
 
 const mapDispatchToProps = dispatch => ({
   getUserTags: userId => dispatch(rest.actions.tagsForUser.get({ userId })),
