@@ -18,6 +18,7 @@ import MyProfileView from '../views/MyProfileView';
 import HeaderContainer from '../HeaderContainer/HeaderContainer';
 import EditPersonalitiesScreen from '../views/EditPersonalitiesScreen';
 import EditForm from '../../components/Profile/EditForm';
+import CardStackStyleInterpolator from 'react-navigation/lib-rn/views/CardStackStyleInterpolator';
 
 const StackNavigatorConfig = {
   transitionConfig: () => ({
@@ -108,5 +109,5 @@ export default StackNavigator(
     },
     // ## End StackNavigator Views ##
   },
-  // StackNavigatorConfig,
+  StackNavigatorConfig,
 );
