@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, fonts, fontSizes } from '../../../styles';
+import { colors, fonts, fontSizes, paddings } from '../../../styles';
 
 export default StyleSheet.create({
   statusTextStyle: {
@@ -15,5 +15,19 @@ export default StyleSheet.create({
     fontFamily: fonts.BOLD,
     fontSize: fontSizes.BODY_TEXT,
     color: colors.WHITE,
+  },
+  container: {
+    flexDirection: 'column',
+    flex: 1,
+    width: '100%',
+    paddingHorizontal: paddings.MD,
+    justifyContent: 'center',
+  },
+  keyboardView: {
+    height: '100%',
+    width: '100%',
+  },
+  input: {
+    marginBottom: 30,
   },
 });
