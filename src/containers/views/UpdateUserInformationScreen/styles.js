@@ -3,7 +3,7 @@ import { colors, fonts, fontSizes } from '../../../styles';
 
 export default StyleSheet.create({
   footerText: {
-    fontFamily: fonts.BOLD,
+    fontFamily: fonts.REGULAR,
     fontSize: fontSizes.BODY_TEXT,
     color: colors.WHITE,
   },
