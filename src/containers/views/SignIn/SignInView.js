@@ -8,7 +8,8 @@ import rest from '../../../utils/rest';
 import Input from '../../../components/Input/Input';
 import Background from '../../../components/Background';
 import Footer from '../../../components/Footer';
-import { colors, fonts, fontSizes, paddings } from '../../../styles';
+import { paddings } from '../../../styles';
+import styles from './styles';
 
 /**
  * Maps the auth state from to the props of this component
@@ -128,22 +129,5 @@ class SignInView extends React.Component {
     );
   }
 }
-
-const styles = {
-  statusTextStyle: {
-    fontFamily: 'NunitoSans-Regular',
-    width: '100%',
-    height: 20,
-    fontSize: 15,
-    textAlign: 'center',
-    color: '#f673f7',
-    marginTop: 20,
-  },
-  footerText: {
-    fontFamily: fonts.BOLD,
-    fontSize: fontSizes.BODY_TEXT,
-    color: colors.WHITE,
-  },
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInView);
