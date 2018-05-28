@@ -64,14 +64,6 @@ export class PeopleView extends React.Component {
     this.props.refreshUsersSearch(username);
   }, 1000);
 
-  renderPeopleList() {
-    /*const data =
-      this.state.searchedUsername.length > 0
-        ? this.props.usersSearch.data
-        : this.state.userData;*/
-    return <PeopleList />;
-  }
-
   render() {
     return (
       <Background color="grey">
