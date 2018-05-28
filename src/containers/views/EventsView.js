@@ -9,7 +9,7 @@ import _ from 'lodash';
 import rest from '../../utils/rest';
 import { connect } from 'react-redux';
 import { IconImage } from '../../components/Layout/Layout';
-import EventsHeader from '../../components/Events/EventsHeader';
+import EventsHeader from '../../components/EventsHeader';
 import EventsList from '../../components/Events/EventsList';
 import Background from '../../components/Background';
 
