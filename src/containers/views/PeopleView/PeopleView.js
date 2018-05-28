@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ActivityIndicator } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import rest from '../../../utils/rest';
 import throttle from 'lodash/throttle';
@@ -9,14 +8,10 @@ import PeopleList from '../../../components/PeopleList';
 
 const mapStateToProps = state => ({
   usersSearch: state.usersSearch,
-  /*usersByPage: state.usersByPage,*/
   auth: state.auth,
 });
 
 const mapDispatchToProps = dispatch => ({
-  /*  fetchUsersByPage: number => {
-    dispatch(rest.actions.usersByPage({ number }));
-  },*/
   refreshUsersSearch: username => {
     /* .force() abort previous request if it performs and after that perform new request. This
     method combines abort and direct call action methods. it prevent a warning about unhandled
@@ -34,9 +29,7 @@ const mapDispatchToProps = dispatch => ({
 
 export class PeopleView extends React.Component {
   state = {
-    userData: [],
     searchedUsername: '',
-    currentPage: 0,
   };
 
   componentDidMount() {
@@ -65,23 +58,6 @@ export class PeopleView extends React.Component {
     }
   };
 
-  /*// fetch 10 users and add them to the state.data
-  fetchUsersForPage = currentPage => {
-    this.props.fetchUsersByPage(currentPage);
-    this.setState({ currentPage: this.state.currentPage + 1 });
-  };
-
-  //this variable prevent handleEnd() to be called during the first render (know RN bug)
-  onEndReachedCalledDuringMomentum = true;
-
-  handleEnd = () => {
-    if (!this.onEndReachedCalledDuringMomentum) {
-      // fetch 10 more users from the db
-      this.fetchUsersForPage(this.state.currentPage);
-      this.onEndReachedCalledDuringMomentum = true;
-    }
-  };
-*/
   // Creates a throttled function that only invokes refreshUsersSearch at most once per every 1 second.
   getUserByUsername = throttle(username => {
     this.setState({ searchedUsername: username });
@@ -99,29 +75,6 @@ export class PeopleView extends React.Component {
   render() {
     return (
       <Background color="grey">
-        {/*<SearchBar
-          lightTheme
-          containerStyle={{
-            backgroundColor: '#e8e9e8',
-            borderTopColor: '#e8e9e8',
-            borderBottomColor: '#e8e9e8',
-            marginVertical: 10,
-            marginHorizontal: 5,
-          }}
-          inputStyle={{ backgroundColor: '#fff' }}
-          onChangeText={username => this.getUserByUsername(username)}
-          onClearText={username => this.getUserByUsername(username)}
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder="Search People"
-          clearIcon
-          value={this.state.searchedUsername}
-        />*/}
-        {/*{!this.props.usersByPage.data ? (
-          <ActivityIndicator />
-        ) : (
-          this.renderPeopleList()
-        )}*/}
         <PeopleList />
       </Background>
     );
