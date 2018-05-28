@@ -30,40 +30,34 @@ export default StackNavigator(
       screen: ChatView,
       navigationOptions: {
         tabBarVisible: false,
-        header: props => {
-          console.log(
-            props.navigation.state.routes[props.navigation.state.index].params,
-          );
-          return (
-            <HeaderContainer
-              titleComponent={
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Image
-                    source={{
-                      uri:
-                        props.navigation.state.routes[
-                          props.navigation.state.index
-                        ].params.userEmoji,
-                    }}
-                    style={{ width: 35, height: 35, marginRight: 5 }}
-                  />
-                  <Text
-                    style={{ fontFamily: 'NunitoSans-Regular', fontSize: 15 }}
-                  >
-                    {
+        header: props => (
+          <HeaderContainer
+            titleComponent={
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Image
+                  source={{
+                    uri:
                       props.navigation.state.routes[
                         props.navigation.state.index
-                      ].params.username
-                    }
-                  </Text>
-                </View>
-              }
-              left="back"
-              color="light"
-              {...props}
-            />
-          );
-        },
+                      ].params.userEmoji,
+                  }}
+                  style={{ width: 35, height: 35, marginRight: 5 }}
+                />
+                <Text
+                  style={{ fontFamily: 'NunitoSans-Regular', fontSize: 15 }}
+                >
+                  {
+                    props.navigation.state.routes[props.navigation.state.index]
+                      .params.username
+                  }
+                </Text>
+              </View>
+            }
+            left="back"
+            color="light"
+            {...props}
+          />
+        ),
       },
     },
     ChatRequest: {
