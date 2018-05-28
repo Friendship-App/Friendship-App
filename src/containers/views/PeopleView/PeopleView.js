@@ -1,27 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ActivityIndicator, FlatList, View } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import rest from '../../../utils/rest';
-import { SearchBar } from 'react-native-elements';
 import throttle from 'lodash/throttle';
-
-import { Centered, ViewContainerTop } from '../../../components/Layout/Layout';
-import Person from '../../../components/Person';
-import RoundTab from '../../../components/RoundTab';
 import Background from '../../../components/Background/Background';
-import { paddings } from '../../../styles';
+import PeopleList from '../../../components/PeopleList';
 
 const mapStateToProps = state => ({
   usersSearch: state.usersSearch,
-  usersByPage: state.usersByPage,
+  /*usersByPage: state.usersByPage,*/
   auth: state.auth,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchUsersByPage: number => {
+  /*  fetchUsersByPage: number => {
     dispatch(rest.actions.usersByPage({ number }));
-  },
+  },*/
   refreshUsersSearch: username => {
     /* .force() abort previous request if it performs and after that perform new request. This
     method combines abort and direct call action methods. it prevent a warning about unhandled
@@ -46,7 +41,7 @@ export class PeopleView extends React.Component {
 
   componentDidMount() {
     this.redirectWhenNotLoggedIn();
-    this.fetchUsersForPage(this.state.currentPage);
+    /*this.fetchUsersForPage(this.state.currentPage);*/
   }
 
   componentWillReceiveProps(nextProps) {
@@ -70,7 +65,7 @@ export class PeopleView extends React.Component {
     }
   };
 
-  // fetch 10 users and add them to the state.data
+  /*// fetch 10 users and add them to the state.data
   fetchUsersForPage = currentPage => {
     this.props.fetchUsersByPage(currentPage);
     this.setState({ currentPage: this.state.currentPage + 1 });
@@ -86,7 +81,7 @@ export class PeopleView extends React.Component {
       this.onEndReachedCalledDuringMomentum = true;
     }
   };
-
+*/
   // Creates a throttled function that only invokes refreshUsersSearch at most once per every 1 second.
   getUserByUsername = throttle(username => {
     this.setState({ searchedUsername: username });
@@ -94,31 +89,11 @@ export class PeopleView extends React.Component {
   }, 1000);
 
   renderPeopleList() {
-    const data =
+    /*const data =
       this.state.searchedUsername.length > 0
         ? this.props.usersSearch.data
-        : this.state.userData;
-    return (
-      <View style={{ flex: 1, marginTop: paddings.SM }}>
-        <RoundTab tint="#ffffff" title="PEOPLE" />
-        <Centered
-          style={{ backgroundColor: '#fff', flex: 1, paddingBottom: 20 }}
-        >
-          <FlatList
-            data={data}
-            keyExtractor={(item, index) => 'list-item-' + index}
-            renderItem={({ item }) => <Person box data={item} />}
-            onEndReached={this.handleEnd}
-            onEndReachedThreshold={0.4}
-            onMomentumScrollBegin={() => {
-              this.onEndReachedCalledDuringMomentum = false;
-            }}
-            horizontal
-            style={{ maxHeight: 500 }}
-          />
-        </Centered>
-      </View>
-    );
+        : this.state.userData;*/
+    return <PeopleList />;
   }
 
   render() {
@@ -142,11 +117,12 @@ export class PeopleView extends React.Component {
           clearIcon
           value={this.state.searchedUsername}
         />*/}
-        {!this.props.usersByPage.data ? (
+        {/*{!this.props.usersByPage.data ? (
           <ActivityIndicator />
         ) : (
           this.renderPeopleList()
-        )}
+        )}*/}
+        <PeopleList />
       </Background>
     );
   }
