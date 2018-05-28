@@ -7,6 +7,7 @@ import { Centered } from '../Layout/Layout';
 import Person from '../Person';
 import rest from '../../utils/rest';
 import { connect } from 'react-redux';
+import styles from './styles';
 
 const mapStateToProps = state => ({
   people: state.usersByPage,
@@ -71,11 +72,9 @@ class PeopleList extends Component {
     }
 
     return (
-      <View style={{ flex: 1, marginTop: paddings.SM }}>
+      <View style={[styles.peopleList]}>
         <RoundTab tint="#ffffff" title="PEOPLE" />
-        <Centered
-          style={{ backgroundColor: '#fff', flex: 1, paddingBottom: 20 }}
-        >
+        <View style={[styles.people]}>
           <FlatList
             data={userData}
             keyExtractor={(item, index) => 'list-item-' + index}
@@ -86,9 +85,9 @@ class PeopleList extends Component {
               this.onEndReachedCalledDuringMomentum = false;
             }}
             horizontal
-            style={{ maxHeight: 500 }}
+            style={[styles.list]}
           />
-        </Centered>
+        </View>
       </View>
     );
   }
