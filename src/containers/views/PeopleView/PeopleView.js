@@ -2,13 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ActivityIndicator, FlatList, View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-import rest from '../../utils/rest';
+import rest from '../../../utils/rest';
 import { SearchBar } from 'react-native-elements';
 import throttle from 'lodash/throttle';
 
-import { Centered, ViewContainerTop } from '../../components/Layout/Layout';
-import Person from '../../components/Person';
-import RoundTab from '../../components/RoundTab';
+import { Centered, ViewContainerTop } from '../../../components/Layout/Layout';
+import Person from '../../../components/Person';
+import RoundTab from '../../../components/RoundTab';
+import Background from '../../../components/Background/Background';
+import { paddings } from '../../../styles';
 
 const mapStateToProps = state => ({
   usersSearch: state.usersSearch,
@@ -59,11 +61,11 @@ export class PeopleView extends React.Component {
 
   setStateWithUsersData = nextProps => {
     if (
-      nextProps.usersByPage.data.data &&
-      nextProps.usersByPage.data.data !== this.props.usersByPage.data.data
+      nextProps.usersByPage.data &&
+      nextProps.usersByPage.data !== this.props.usersByPage.data
     ) {
       this.setState({
-        userData: [...this.state.userData, ...nextProps.usersByPage.data.data],
+        userData: [...this.state.userData, ...nextProps.usersByPage.data],
       });
     }
   };
@@ -97,7 +99,7 @@ export class PeopleView extends React.Component {
         ? this.props.usersSearch.data
         : this.state.userData;
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, marginTop: paddings.SM }}>
         <RoundTab tint="#ffffff" title="PEOPLE" />
         <Centered
           style={{ backgroundColor: '#fff', flex: 1, paddingBottom: 20 }}
@@ -121,8 +123,8 @@ export class PeopleView extends React.Component {
 
   render() {
     return (
-      <View style={{ height: '100%', backgroundColor: '#e8e9e8' }}>
-        <SearchBar
+      <Background color="grey">
+        {/*<SearchBar
           lightTheme
           containerStyle={{
             backgroundColor: '#e8e9e8',
@@ -139,13 +141,13 @@ export class PeopleView extends React.Component {
           placeholder="Search People"
           clearIcon
           value={this.state.searchedUsername}
-        />
-        {!this.props.usersByPage.data.data ? (
+        />*/}
+        {!this.props.usersByPage.data ? (
           <ActivityIndicator />
         ) : (
           this.renderPeopleList()
         )}
-      </View>
+      </Background>
     );
   }
 }
