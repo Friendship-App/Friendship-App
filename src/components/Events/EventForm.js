@@ -161,10 +161,7 @@ class EventForm extends Component {
       await this.props.navigation.navigate('Events');
       this.props.openEvent(id);
     } else {
-      await this.props.createEvent(formdata);
-      const id = this.props.events.data.id;
-      await this.props.navigation.navigate('Events');
-      this.props.openEvent(id);
+      this.props.createEvent(formdata);
     }
   }
 

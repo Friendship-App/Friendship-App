@@ -58,7 +58,7 @@ class EventDetailView extends Component {
 
   _hideModal = () => this.setState({ isModalVisible: false });
 
-  componentDidMount = () => {
+  componentWillMount = () => {
     const { eventId } = this.props.navigation.state.params;
     const userId = this.props.auth.data.decoded
       ? this.props.auth.data.decoded.id

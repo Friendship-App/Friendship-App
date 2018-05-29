@@ -232,6 +232,22 @@ const rest = reduxApi({
     url: `${apiRoot}/events`,
     reducerName: 'events',
     options: { method: 'POST' },
+    postfetch: [
+      function({ data, dispatch }) {
+        dispatch(
+          NavigationActions.reset({
+            index: 1,
+            actions: [
+              NavigationActions.navigate({ routeName: 'Tabs' }),
+              NavigationActions.navigate({
+                routeName: 'EventDetailView',
+                params: { eventId: data.id },
+              }),
+            ],
+          }),
+        );
+      },
+    ],
   },
   updateEvent: {
     url: `${apiRoot}/events/:id`,
