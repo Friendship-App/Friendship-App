@@ -32,10 +32,6 @@ const authTransformer = (data = {}) => {
 };
 
 const rest = reduxApi({
-  notificationsToken: {
-    url: `${apiRoot}/users/push-token`,
-    crud: true,
-  },
   activities: {
     url: `${apiRoot}/activities`,
     transformer: transformers.array,

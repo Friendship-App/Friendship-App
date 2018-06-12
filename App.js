@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  BackHandler,
-  ActivityIndicator,
-  Keyboard,
-  Platform,
-  View,
-} from 'react-native';
+import { ActivityIndicator, BackHandler, View } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
 import persistStore from './src/utils/persist';
@@ -13,11 +7,8 @@ import * as keyboard from './src/state/keyboard';
 import Navigator, {
   handleBackButton,
 } from './src/containers/navigator/Navigator';
-import {
-  FullscreenCentered,
-  AppContainer,
-} from './src/components/Layout/Layout';
-import { Font, Permissions, Notifications } from 'expo';
+import { FullscreenCentered } from './src/components/Layout/Layout';
+import { Font, Notifications, Permissions } from 'expo';
 import { MenuProvider } from 'react-native-popup-menu';
 import { styles } from './src/styles';
 import apiRoot from './src/utils/api.config';
@@ -111,9 +102,8 @@ export default class App extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        token: {
-          value: token,
-        },
+        token: token,
+        userId: store.getState().auth.data.decoded.id,
       }),
     });
   };
