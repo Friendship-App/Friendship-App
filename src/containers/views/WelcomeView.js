@@ -6,6 +6,8 @@ import Button from '../../components/Button/Button';
 import Footer from '../../components/Footer';
 import Background from '../../components/Background';
 import WelcomeMessage from '../../components/WelcomeMessage';
+import { View } from 'react-native';
+import { paddings } from '../../styles';
 
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -64,6 +66,19 @@ export class WelcomeView extends React.Component {
             onPress={this.props.openSignIn}
             color="white"
           />
+          {/*<View style={{flex: 1, alignItems: 'center'}}>
+            <Button text="Preview" width="md" onPress={this.props.openSignUp}/>
+            <View style={{flex: 1, flexDirection: 'row', paddingTop: paddings.XS, justifyContent: 'space-between'}}>
+              <Button text="Join" width="md" onPress={this.props.openSignUp}/>
+              <Button
+                text="Log In"
+                type="secondary"
+                width="md"
+                onPress={this.props.openSignIn}
+                color="white"
+              />
+            </View>
+          </View>*/}
         </Footer>
       </Background>
     );
