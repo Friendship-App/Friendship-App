@@ -154,7 +154,7 @@ export class SignUpLoveAndHate extends React.Component {
 
     return (
       <View style={{ backgroundColor: '#2a343c' }}>
-        <ViewContainer style={{ marginBottom: 80 }}>
+        <ViewContainer style={{ marginBottom: 90 }}>
           <ProgressBar steps={INTERESTS} />
           <Padding>
             <View style={{ flexDirection: 'row' }}>
