@@ -32,4 +32,12 @@ export default StyleSheet.create({
   input: {
     marginBottom: 30,
   },
+  forgottenPassword: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  forgottenPasswordText: {
+    color: colors.BEIGE,
+    textDecorationLine: 'underline',
+  },
 });

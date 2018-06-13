@@ -121,6 +121,11 @@ class SignInView extends React.Component {
               handleChange={value => this.setState({ password: value })}
             />
             {this.renderStatus()}
+            <View style={styles.forgottenPassword}>
+              <Text style={styles.forgottenPasswordText}>
+                Forgot your password ?
+              </Text>
+            </View>
           </View>
         </Background>
         <Footer onPress={() => this.signIn()}>
