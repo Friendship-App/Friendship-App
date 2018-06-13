@@ -190,15 +190,6 @@ export default class YeahAndNaah extends React.Component {
           }}
         >
           <Text style={styles.activity}>{this.props.activityName}</Text>
-          {/*          <LoveAndHateButton
-            style={{
-              flex: 1,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            position={this.state.wrapperColor}
-          >
-          </LoveAndHateButton>*/}
         </LoveAndHatePart>
 
         {/* Right part of the component. Contain the button to Nah the activity */}
