@@ -122,7 +122,12 @@ class SignInView extends React.Component {
             />
             {this.renderStatus()}
             <View style={styles.forgottenPassword}>
-              <Text style={styles.forgottenPasswordText}>
+              <Text
+                style={styles.forgottenPasswordText}
+                onPress={() => {
+                  console.log('pressed');
+                }}
+              >
                 Forgot your password ?
               </Text>
             </View>

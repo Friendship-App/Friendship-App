@@ -39,5 +39,6 @@ export default StyleSheet.create({
   forgottenPasswordText: {
     color: colors.BEIGE,
     textDecorationLine: 'underline',
+    paddingTop: paddings.SM,
   },
 });
