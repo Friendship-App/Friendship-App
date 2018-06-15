@@ -47,6 +47,7 @@ class SignInView extends React.Component {
     error: false,
     validationError: '',
     passwordSecure: true,
+    showStatus: false,
   };
 
   componentWillReceiveProps() {
@@ -75,7 +76,9 @@ class SignInView extends React.Component {
 
     return (
       <HideWithKeyboard>
-        <Text style={styles.statusTextStyle}>{status}</Text>
+        <Text style={styles.statusTextStyle} numberOfLines={2}>
+          {status}
+        </Text>
       </HideWithKeyboard>
     );
   }
@@ -87,6 +90,7 @@ class SignInView extends React.Component {
         validationError: 'Please enter both email & password!',
       });
     }
+    this.setState({ showStatus: true });
     this.props.signIn({ email, password });
   }
 
@@ -125,7 +129,7 @@ class SignInView extends React.Component {
               title="PASSWORD"
               handleChange={value => this.setState({ password: value })}
             />
-            {this.renderStatus()}
+            {this.state.showStatus ? this.renderStatus() : null}
           </View>
         </Background>
         <Footer onPress={() => this.signIn()}>
