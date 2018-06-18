@@ -11,7 +11,7 @@ export const colors = {
   WHITE: '#fff',
   BEIGE: '#faf6f0',
   BLACK: '#3b3b3d',
-  PLACEHOLDER: '#2d4359',
+  PLACEHOLDER: 'rgba(44, 66, 88, 0.3)',
 };
 
 export const fonts = {

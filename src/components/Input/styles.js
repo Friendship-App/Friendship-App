@@ -24,7 +24,7 @@ export default StyleSheet.create({
     paddingHorizontal: paddings.SM,
     borderRadius: 50,
     width: '100%',
-    fontFamily: fonts.ITALIC,
+    fontFamily: fonts.REGULAR,
   },
   passwordIcon: {
     position: 'absolute',
