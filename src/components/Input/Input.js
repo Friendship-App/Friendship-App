@@ -37,7 +37,9 @@ class Input extends Component {
           style={[styles.textInput]}
           underlineColorAndroid="transparent"
           placeholderTextColor={colors.PLACEHOLDER}
-          onChangeText={value => this.props.handleChange(value)}
+          onChangeText={value => {
+            this.props.handleChange(value);
+          }}
           secureTextEntry={secureTextEntry ? !showPassword : null}
           {...this.props.inputProps}
         />
