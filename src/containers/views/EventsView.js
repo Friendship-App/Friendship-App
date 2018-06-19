@@ -203,9 +203,8 @@ export class EventsView extends Component {
               this.props.openEventForm(() => (this.touchableInactive = false));
             }
           }}
-        >
-          <Icon name="md-add" />
-        </ActionButton>
+          renderIcon={() => <Icon name="md-add" size={40} color={'white'} />}
+        />
       </Background>
     );
   };
