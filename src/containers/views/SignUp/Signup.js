@@ -23,14 +23,11 @@ class Signup extends React.Component {
     switch (this.state.page) {
       case 1:
         return (
-          <UserInformation
-            onSubmitSucceeded={() => this.nextPage(this.state.page)}
-          />
+          <Locations onSubmitSucceeded={() => this.nextPage(this.state.page)} />
         );
       case 2:
         return (
-          <Locations
-            previousPage={this.previousPage}
+          <UserInformation
             onSubmitSucceeded={() => this.nextPage(this.state.page)}
           />
         );
