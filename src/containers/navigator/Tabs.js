@@ -16,6 +16,7 @@ import {
   Profile,
   Profile_selected,
 } from '../../../assets/tabIcons';
+import { colors } from '../../styles';
 
 const tabNavigationOptions = title => {
   switch (title) {
@@ -56,7 +57,7 @@ const TabNavigatorConfig = {
   tabBarPosition: 'bottom',
   tabBarOptions: {
     tintColor: 'black',
-    activeTintColor: '#219412',
+    activeTintColor: colors.ORANGE,
     inactiveTintColor: '#000000',
     style: {
       backgroundColor: 'white',
