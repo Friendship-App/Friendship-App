@@ -15,6 +15,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import rest from '../../../utils/rest';
 import PopUpMenu from '../../../components/PopUpMenu';
+import HeaderContainer from '../../HeaderContainer/HeaderContainer';
 
 const mapDispatchToProps = dispatch => ({
   onViewProfile: profileId =>
@@ -58,7 +59,25 @@ const mapStateToProps = state => ({
 class ChatView extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: (
+      header: props => (
+        <HeaderContainer
+          left="white-back"
+          color="light"
+          titleComponent={
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={{ uri: navigation.state.params.userEmoji }}
+                style={{ width: 35, height: 35, marginRight: 5 }}
+              />
+              <Text style={{ fontFamily: 'NunitoSans-Regular', fontSize: 15 }}>
+                {navigation.state.params.username}
+              </Text>
+            </View>
+          }
+          {...props}
+        />
+      ),
+      /*titleComponent: (
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Image
             source={{ uri: navigation.state.params.userEmoji }}
@@ -95,7 +114,7 @@ class ChatView extends Component {
             navigation.navigate('Report', { data: navigation.state.params })}
           chat
         />
-      ),
+      ),*/
     };
   };
 
