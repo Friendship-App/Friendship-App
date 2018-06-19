@@ -75,7 +75,7 @@ export class SignUpLoveAndHate extends React.Component {
       this.state.category === 1
         ? this.props.activities.data
         : this.props.interests.data;
-    tags = tags.slice(this.state.index, this.state.index + 5);
+    // tags = tags.slice(this.state.index, this.state.index + 5);
 
     return (
       <Field
@@ -90,15 +90,22 @@ export class SignUpLoveAndHate extends React.Component {
 
   renderTitle() {
     return (
-      this.state.page +
+      this.state.category +
       '/ ' +
-      this.getNumberOfPages() +
+      2 +
       (this.state.category === 1 ? ' Activities' : ' Interests')
     );
   }
 
   handleClick = () => {
-    switch (this.state.category) {
+    if (this.state.category < 2) {
+      this.changeTagsCategory();
+    } else {
+      this.selectedTags()
+        ? this.props.dispatch(submit('signup'))
+        : this.rollback();
+    }
+    /*switch (this.state.category) {
       case 1:
         this.state.index + 5 <= this.props.activities.data.length - 1
           ? this.updateBookmarks()
@@ -113,7 +120,7 @@ export class SignUpLoveAndHate extends React.Component {
         break;
       default:
         console.log('DEFAULT ...');
-    }
+    }*/
   };
 
   selectedTags() {
