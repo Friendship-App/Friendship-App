@@ -55,11 +55,11 @@ class EditYeahsAndNahsScreen extends Component {
         tmpYeahs.push(tag);
         break;
       default:
-        tagPos = this.getTagPos(tmpYeahs);
+        tagPos = this.getTagPos(tag, tmpYeahs);
         if (tagPos > -1) {
           tmpYeahs.splice(tagPos, 1);
         } else {
-          tagPos = this.getTagPos(tmpNahs);
+          tagPos = this.getTagPos(tag, tmpNahs);
           tmpNahs.splice(tagPos, 1);
         }
     }

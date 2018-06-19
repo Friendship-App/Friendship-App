@@ -57,17 +57,18 @@ export default class TabProfile extends Component {
 
   renderSendMsg() {
     const { bckColor, btnBackColor, btnTextColor } = this.state;
-    const roomExists =
+    const openChat = () => {
       this.props.existingChatRoom !== undefined
-        ? this.props.openChatView
-        : this.props.onChatRequest;
+        ? this.props.openChatView()
+        : this.props.onChatRequest();
+    };
 
     if (!this.props.myprofile) {
       return (
         <View style={{ backgroundColor: bckColor }}>
           <View style={styles.ButtonOption}>
             <TouchableOpacity
-              onPress={roomExists}
+              onPress={openChat}
               style={[styles.buttonStyle, { backgroundColor: btnBackColor }]}
             >
               <Text style={[styles.textButtonStyle, { color: btnTextColor }]}>
