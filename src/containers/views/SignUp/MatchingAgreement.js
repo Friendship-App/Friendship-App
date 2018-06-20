@@ -14,7 +14,10 @@ import {
 } from '../../../state/validate';
 import { Field, reduxForm, submit } from 'redux-form';
 import Toggle from '../../../components/Toggle';
-import { FieldContainer } from '../../../components/Layout/SignupLayout';
+import {
+  Container,
+  FieldContainer,
+} from '../../../components/Layout/SignupLayout';
 import rest from '../../../utils/rest';
 import apiRoot from '../../../utils/api.config';
 import { getPreSignedUrl } from '../../../utils/aws';
@@ -121,11 +124,17 @@ class SignUpMatching extends React.Component {
           android: () => 'padding',
         })()}
       >
-        <ViewContainer style={{ backgroundColor: '#e8e9e8' }}>
+        <Container
+          style={{
+            backgroundColor: '#e8e9e8',
+            height: '100%',
+            justifyContent: 'space-between',
+          }}
+        >
           <ProgressBar steps={MATCHING_AGREEMENT} />
           <Padding>
             <Title>FINDING THE RIGHT PEOPLE FOR YOU</Title>
-            <P>Do you want to receive recommendation on people</P>
+            {/*<P>Do you want to receive recommendation on people</P>
             <Field
               name={'enableMatching'}
               component={Toggle}
@@ -138,9 +147,9 @@ class SignUpMatching extends React.Component {
             <InfoText>
               This means that your profile is public when you join an event or a
               group, but you won’t be recommended people near your location
-            </InfoText>
+            </InfoText>*/}
 
-            <SubTitle>WOULD YOU LIKE TO ADD A SMALL BIO?</SubTitle>
+            <P>WOULD YOU LIKE TO ADD A SMALL BIO?</P>
             <Field
               name={'description'}
               component={DescriptionBubble}
@@ -161,7 +170,7 @@ class SignUpMatching extends React.Component {
             titleColor="#fff"
             onPress={() => this.props.dispatch(submit('signup'))}
           />
-        </ViewContainer>
+        </Container>
       </KeyboardAvoidingView>
     );
   };

@@ -5,11 +5,12 @@ export const Bubble = styled.View`
   background-color: #fff;
   min-height: 132;
   flex-direction: column;
-  width: 320;
+  width: 100%;
   align-self: center;
   ${'' /* width: 320 ${Dimensions.get("window").width - 60}; */} margin-bottom: 10;
   border-radius: 33;
   overflow: hidden;
+  padding-horizontal: 10;
 `;
 export const Title = styled.Text`
   color: ${props => props.titleColor || '#2d4359'};
