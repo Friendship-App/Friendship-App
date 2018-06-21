@@ -50,8 +50,8 @@ class Person extends React.Component {
   }
 
   getGenders = () => {
-    const genders = this.props.data.genderlist
-      ? this.props.data.genderlist.map(x => x && x.toLowerCase()).join(', ')
+    const genders = this.props.data.genders
+      ? this.props.data.genders.map(x => x && x.toLowerCase()).join(', ')
       : '';
     this.setState({ genders });
   };
