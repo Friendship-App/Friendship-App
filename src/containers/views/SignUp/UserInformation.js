@@ -36,16 +36,10 @@ class UserInformation extends React.Component {
   }
 }
 
-const initial = {
-  enableMatching: false,
-  description: '',
-};
-
 export default reduxForm({
   form: 'signup',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
-  initialValues: initial,
   onSubmit: validateUserInformations,
   onSubmitSuccess: (result, dispatch, props) => {
     dispatch(props.onSubmitSucceeded);
