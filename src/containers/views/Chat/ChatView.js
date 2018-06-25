@@ -65,7 +65,7 @@ class ChatView extends Component {
           titleComponent={
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Image
-                source={{ uri: navigation.state.params.userEmoji }}
+                source={{ uri: navigation.state.params.avatar }}
                 style={{ width: 35, height: 35, marginRight: 5 }}
               />
               <Text style={{ fontFamily: 'NunitoSans-Regular', fontSize: 15 }}>
@@ -76,44 +76,6 @@ class ChatView extends Component {
           {...props}
         />
       ),
-      /*titleComponent: (
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Image
-            source={{ uri: navigation.state.params.userEmoji }}
-            style={{ width: 35, height: 35, marginRight: 5 }}
-          />
-          <Text style={{ fontFamily: 'NunitoSans-Regular', fontSize: 15 }}>
-            {navigation.state.params.username}
-          </Text>
-        </View>
-      ),
-      headerLeft: (
-        <Icon
-          style={{ paddingLeft: 15, fontSize: 26 }}
-          name={'md-arrow-back'}
-          onPress={() => {
-            navigation.dispatch(
-              NavigationActions.reset({
-                index: 0,
-                actions: [
-                  NavigationActions.navigate({
-                    routeName: navigation.state.params.previousRoute
-                      ? navigation.state.params.previousRoute
-                      : 'InboxView',
-                  }),
-                ],
-              }),
-            );
-          }}
-        />
-      ),
-      headerRight: (
-        <PopUpMenu
-          isReportVisible={() =>
-            navigation.navigate('Report', { data: navigation.state.params })}
-          chat
-        />
-      ),*/
     };
   };
 
@@ -383,7 +345,7 @@ const styles = {
   SendCard: {
     flex: 1,
     padding: 10,
-    marginLeft: 40,
+    marginLeft: 60,
     backgroundColor: colors.ORANGE,
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5,
@@ -393,7 +355,7 @@ const styles = {
   ReceiveCard: {
     flex: 1,
     padding: 10,
-    marginRight: 40,
+    marginRight: 60,
     backgroundColor: colors.MEDIUM_GREY,
     borderTopRightRadius: 5,
     borderBottomLeftRadius: 5,
