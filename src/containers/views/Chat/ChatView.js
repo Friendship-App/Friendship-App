@@ -12,10 +12,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import rest from '../../../utils/rest';
-import PopUpMenu from '../../../components/PopUpMenu';
 import HeaderContainer from '../../HeaderContainer/HeaderContainer';
+import { colors } from '../../../styles';
 
 const mapDispatchToProps = dispatch => ({
   onViewProfile: profileId =>
@@ -184,6 +183,14 @@ class ChatView extends Component {
       item.user_id === this.props.currentUserId
         ? styles.SendCard
         : styles.ReceiveCard;
+    const CardMargin =
+      item.user_id === this.props.currentUserId
+        ? { marginRight: 20 }
+        : { marginLeft: 20 };
+    const chatIcon =
+      item.user_id === this.props.currentUserId
+        ? '../../../../assets/chatBubble/chatBubbleMe.png'
+        : '../../../../assets/chatBubble/chatBubbleOther.png';
 
     let time = '';
     const msgTime = new Date(item.chat_time);
@@ -266,19 +273,43 @@ class ChatView extends Component {
           msgTime.toTimeString().split(' ')[0];
       }
     }
+
+    /*marginLeft: 20*/
     return (
-      <View style={messageCardStyle}>
-        <Text
-          style={{
-            textAlign,
-            fontSize: 10,
-            color: '#60686d',
-            marginBottom: 10,
-          }}
-        >
-          {time}
-        </Text>
-        <Text style={{ color: '#4a4a4a', textAlign }}>{item.text_message}</Text>
+      <View
+        style={[
+          styles.Card,
+          CardMargin,
+          { display: 'flex', flexDirection: 'row' },
+        ]}
+      >
+        {item.user_id === this.props.currentUserId ? null : (
+          <Image
+            source={require('../../../../assets/chatBubble/chatBubbleOther.png')}
+            style={{ tintColor: colors.MEDIUM_GREY }}
+          />
+        )}
+        <View style={messageCardStyle}>
+          <Text
+            style={{
+              textAlign,
+              fontSize: 10,
+              color: '#60686d',
+              marginBottom: 10,
+            }}
+          >
+            {time}
+          </Text>
+          <Text style={{ color: '#4a4a4a', textAlign }}>
+            {item.text_message}
+          </Text>
+        </View>
+        {item.user_id === this.props.currentUserId ? (
+          <Image
+            source={require('../../../../assets/chatBubble/chatBubbleMe.png')}
+            style={{ tintColor: colors.ORANGE }}
+          />
+        ) : null}
       </View>
     );
   };
@@ -346,26 +377,27 @@ const TextInputCard = styled.View`
 `;
 
 const styles = {
+  Card: {
+    marginVertical: 10,
+  },
   SendCard: {
     flex: 1,
-    padding: 20,
-    paddingBottom: 30,
-    margin: 10,
-    marginRight: 20,
+    padding: 10,
     marginLeft: 40,
-    backgroundColor: '#f79a6f',
-    borderRadius: 20,
+    backgroundColor: colors.ORANGE,
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
     alignSelf: 'flex-end',
   },
   ReceiveCard: {
     flex: 1,
-    padding: 20,
-    paddingBottom: 30,
-    margin: 10,
+    padding: 10,
     marginRight: 40,
-    marginLeft: 20,
-    backgroundColor: '#e0dddb',
-    borderRadius: 20,
+    backgroundColor: colors.MEDIUM_GREY,
+    borderTopRightRadius: 5,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
     alignSelf: 'flex-start',
   },
 };
