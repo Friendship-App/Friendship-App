@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => ({
   openEvent: eventId =>
     dispatch(
       NavigationActions.navigate({
-        routeName: 'EventDetailView',
+        routeName: 'EventDetails',
         params: { eventId },
       }),
     ),

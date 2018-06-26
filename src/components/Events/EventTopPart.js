@@ -59,14 +59,14 @@ const EventTopPart = props => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          height: '100%',
+          height: '70%',
           width: '100%',
           position: 'absolute',
           bottom: 0,
           left: 0,
         }}
       >
-        <View style={styles.backAndSettingsView}>
+        {/*<View style={styles.backAndSettingsView}>
           <TouchableOpacity
             onPress={navigateBack}
             style={{
@@ -81,12 +81,12 @@ const EventTopPart = props => {
           >
             <Icon name="md-arrow-back" size={26} style={styles.backButton} />
           </TouchableOpacity>
-        </View>
+        </View>*/}
         <View
           style={{
             flex: 2,
             backgroundColor: 'transparent',
-            justifyContent: 'center',
+            justifyContent: 'flex-end',
           }}
         >
           <Image
@@ -96,7 +96,6 @@ const EventTopPart = props => {
           />
           <View
             style={{
-              flex: 1,
               flexDirection: 'column',
               backgroundColor: '#F9F6F1',
             }}

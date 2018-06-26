@@ -1,8 +1,8 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import EventsView from '../views/EventsView';
-import EventsDetail from '../../components/Events/EventsDetail';
 import EventCreateView from '../views/EventCreateView';
+import EventDetailView from '../views/EventDetailView';
 import HeaderContainer from '../HeaderContainer/HeaderContainer';
 
 export default StackNavigator({
@@ -11,9 +11,12 @@ export default StackNavigator({
     navigationOptions: { header: () => null },
   },
   EventDetails: {
-    screen: EventsDetail,
+    screen: EventDetailView,
     navigationOptions: {
       tabBarVisible: false,
+      header: props => (
+        <HeaderContainer left="white-back" color="transparent" {...props} />
+      ),
     },
   },
   CreateEvent: {
