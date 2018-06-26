@@ -3,7 +3,7 @@ import { TabNavigator } from 'react-navigation';
 import { IconImage } from '../../components/Layout/Layout';
 
 import InboxChat from './InboxChat';
-import PeopleChat from './PeopleChat';
+import PeopleNavigator from './People';
 import MyProfile from '../views/MyProfileView';
 import EventsView from '../views/EventsView';
 import {
@@ -73,7 +73,7 @@ const TabNavigatorConfig = {
 export default TabNavigator(
   {
     People: {
-      screen: PeopleChat,
+      screen: PeopleNavigator,
       navigationOptions: tabNavigationOptions('People'),
     },
     Events: {
