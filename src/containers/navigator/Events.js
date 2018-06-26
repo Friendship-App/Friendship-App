@@ -22,6 +22,7 @@ export default StackNavigator({
   CreateEvent: {
     screen: EventCreateView,
     navigationOptions: {
+      tabBarVisible: false,
       header: props => (
         <HeaderContainer left="white-back" color="transparent" {...props} />
       ),
