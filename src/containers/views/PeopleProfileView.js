@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, Text, View, BackHandler } from 'react-native';
+import { ActivityIndicator, BackHandler, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import {
@@ -10,7 +10,6 @@ import {
 import { Description } from '../../components/Layout/TextLayout';
 import rest from '../../utils/rest';
 import TabProfile from '../../components/Profile/TabProfile';
-import PopUpMenu from '../../components/PopUpMenu';
 import Personality from '../../components/SignUp/Personality';
 import ProfileTopPart from '../../components/Profile/ProfileTopPart';
 
@@ -37,16 +36,15 @@ const mapDispatchToProps = dispatch => ({
         params: { user, route: previousRoute },
       }),
     ),
-  openChatView: (existingChatRoomId, username, userEmoji, id, previousRoute) =>
+  openChatView: (existingChatRoomId, username, avatar, id) =>
     dispatch(
       NavigationActions.navigate({
         routeName: 'ChatView',
         params: {
           existingChatRoomId,
           username,
-          userEmoji,
+          avatar,
           id,
-          previousRoute,
         },
       }),
     ),
@@ -211,7 +209,6 @@ class ProfileUser extends React.Component {
               this.props.userDetails.data.username,
               this.props.userDetails.data.avatar,
               this.props.userDetails.data.id,
-              'People',
             )}
           hate={hate}
           love={love}
