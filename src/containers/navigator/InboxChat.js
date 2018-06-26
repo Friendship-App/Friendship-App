@@ -8,6 +8,7 @@ import ChatRequest from '../views/Chat/ChatRequest';
 import InboxView from '../views/Chat/ChatInbox';
 import HeaderContainer from '../HeaderContainer';
 import { Image, Text, View } from 'react-native';
+import ProfileUser from '../views/PeopleProfileView';
 
 const StackNavigatorConfig = {
   navigationOptions: {
@@ -32,11 +33,12 @@ export default StackNavigator(
         tabBarVisible: false,
       },
     },
-    ChatRequest: {
-      screen: ChatRequest,
+    ProfileUser: {
+      screen: ProfileUser,
       navigationOptions: {
-        header: () => null,
-        tabBarVisible: false,
+        header: props => (
+          <HeaderContainer left="white-back" color="transparent" {...props} />
+        ),
       },
     },
     // ## End StackNavigator Views ##

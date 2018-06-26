@@ -17,11 +17,11 @@ import HeaderContainer from '../../HeaderContainer/HeaderContainer';
 import { colors } from '../../../styles';
 
 const mapDispatchToProps = dispatch => ({
-  onViewProfile: profileId =>
+  openProfile: (personId, personName) =>
     dispatch(
       NavigationActions.navigate({
         routeName: 'ProfileUser',
-        params: { profileId },
+        params: { personId, personName },
       }),
     ),
   chatRoomMessages: id => {
@@ -68,7 +68,19 @@ class ChatView extends Component {
             ) : null
           }
           titleComponent={
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <TouchableOpacity
+              style={{ flexDirection: 'row', alignItems: 'center' }}
+              onPress={() =>
+                navigation.dispatch(
+                  NavigationActions.navigate({
+                    routeName: 'ProfileUser',
+                    params: {
+                      personId: navigation.state.params.id,
+                      personName: navigation.state.params.username,
+                    },
+                  }),
+                )}
+            >
               <Image
                 source={{ uri: navigation.state.params.avatar }}
                 style={{ width: 35, height: 35, marginRight: 5 }}
@@ -76,12 +88,20 @@ class ChatView extends Component {
               <Text style={{ fontFamily: 'NunitoSans-Regular', fontSize: 15 }}>
                 {navigation.state.params.username}
               </Text>
-            </View>
+            </TouchableOpacity>
           }
           {...props}
         />
       ),
     };
+  };
+
+  open = () => {
+    console.log('pressed...');
+    this.props.openProfile(
+      this.props.navigation.state.params.id,
+      this.props.navigation.state.params.username,
+    );
   };
 
   state = {
