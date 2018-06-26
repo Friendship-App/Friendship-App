@@ -62,6 +62,11 @@ class ChatView extends Component {
         <HeaderContainer
           left="white-back"
           color="light"
+          backTo={
+            navigation.state.params.previousRoute ? (
+              { key: navigation.state.params.previousRoute }
+            ) : null
+          }
           titleComponent={
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Image
