@@ -9,7 +9,7 @@ import { colors, fonts, fontSizes, paddings } from '../../styles';
 import { View, Animated, TouchableOpacity, Text } from 'react-native';
 
 const mapDispatchToProps = dispatch => ({
-  back: () => dispatch(NavigationActions.back()),
+  back: (backTo = {}) => dispatch(NavigationActions.back(backTo)),
   navigateTo: (screen, args = {}) =>
     dispatch(
       NavigationActions.reset({
@@ -121,7 +121,7 @@ class HeaderContainer extends Component {
             text="Cancel"
             type="secondary"
             header
-            onPress={this.props.back}
+            onPress={() => this.props.back(this.props.backTo)}
           />
         );
       case 'back':
@@ -132,7 +132,7 @@ class HeaderContainer extends Component {
             }
             type="secondary"
             header
-            onPress={this.props.back}
+            onPress={() => this.props.back(this.props.backTo)}
           />
         );
       case 'white-back':
@@ -143,7 +143,7 @@ class HeaderContainer extends Component {
             }
             type="floatingButton"
             header
-            onPress={this.props.back}
+            onPress={() => this.props.back(this.props.backTo)}
           />
         );
     }
