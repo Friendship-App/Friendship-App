@@ -28,8 +28,13 @@ const mapDispatchToProps = dispatch => ({
     ),
   openTabs: () =>
     dispatch(
-      NavigationActions.navigate({
-        routeName: 'Tabs',
+      NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({
+            routeName: 'Tabs',
+          }),
+        ],
       }),
     ),
   openSignIn: () =>
