@@ -4,7 +4,7 @@ import { IconImage } from '../../components/Layout/Layout';
 
 import InboxChat from './InboxChat';
 import PeopleNavigator from './People';
-import MyProfile from '../views/MyProfileView';
+import MyProfile from './Profile';
 import EventsNavigator from './Events';
 import {
   Chat,
