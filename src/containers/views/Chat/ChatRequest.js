@@ -1,25 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
+  Image,
   Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
-  Platform,
-  KeyboardAvoidingView,
-  Image,
-  Dimensions,
-  ScrollView,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-import {
-  HideWithKeyboard,
-  ShowWithKeyboard,
-} from 'react-native-hide-with-keyboard';
 
 import rest from '../../../utils/rest';
-import RoundTab from '../../../components/RoundTab';
 
 import waveShape from '../../../../assets/img/curve/curve.png';
 
@@ -50,13 +44,19 @@ const mapDispatchToProps = dispatch => ({
       ),
     );
   },
-  openChatView: (chatroomId, username, userEmoji, id, previousRoute) =>
-    dispatch(
+  openChatView: (chatroomId, username, avatar, id, previousRoute) => {
+    return dispatch(
       NavigationActions.navigate({
         routeName: 'ChatView',
-        params: { chatroomId, username, userEmoji, id, previousRoute },
+        params: { chatroomId, username, avatar, id, previousRoute },
       }),
-    ),
+      /*NavigationActions.replace({
+        key: previousRoute,
+        routeName: 'ChatView',
+        params: {chatroomId, username, userEmoji, id, previousRoute},
+      })*/
+    );
+  },
 });
 
 export class ChatRequest extends React.Component {
@@ -84,22 +84,23 @@ export class ChatRequest extends React.Component {
     this.props.createChatRoom(userCreatorId, userReceiverId, this.openChatView);
   };
 
-  openChatView = chatroomId => {
+  openChatView = async chatroomId => {
     Keyboard.dismiss();
     const { username, avatar } = this.props.navigation.state.params.user;
+
+    await this.props.sendMessage(
+      chatroomId,
+      this.state.text,
+      this.props.currentUserId,
+      this.openChatView,
+    );
 
     this.props.openChatView(
       chatroomId,
       username,
       avatar,
       this.props.navigation.state.params.user.id,
-      this.props.navigation.state.params.route,
-    );
-    this.props.sendMessage(
-      chatroomId,
-      this.state.text,
-      this.props.currentUserId,
-      this.openChatView,
+      this.props.navigation.state.key,
     );
   };
 
