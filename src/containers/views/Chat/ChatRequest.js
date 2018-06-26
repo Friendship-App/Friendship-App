@@ -50,11 +50,6 @@ const mapDispatchToProps = dispatch => ({
         routeName: 'ChatView',
         params: { chatroomId, username, avatar, id, previousRoute },
       }),
-      /*NavigationActions.replace({
-        key: previousRoute,
-        routeName: 'ChatView',
-        params: {chatroomId, username, userEmoji, id, previousRoute},
-      })*/
     );
   },
 });
