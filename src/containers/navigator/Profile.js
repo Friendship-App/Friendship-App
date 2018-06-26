@@ -14,6 +14,7 @@ export default StackNavigator({
   EditForm: {
     screen: EditForm,
     navigationOptions: {
+      tabBarVisible: false,
       header: props => (
         <HeaderContainer
           left="cancel"

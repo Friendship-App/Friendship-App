@@ -161,7 +161,7 @@ const rest = reduxApi({
             index: 0,
             actions: [
               NavigationActions.navigate({
-                routeName: 'Tabs',
+                routeName: 'MyProfile',
               }),
             ],
           }),
@@ -180,7 +180,7 @@ const rest = reduxApi({
             index: 0,
             actions: [
               NavigationActions.navigate({
-                routeName: 'Tabs',
+                routeName: 'MyProfile',
               }),
             ],
           }),
@@ -199,7 +199,7 @@ const rest = reduxApi({
             index: 0,
             actions: [
               NavigationActions.navigate({
-                routeName: 'Tabs',
+                routeName: 'MyProfile',
               }),
             ],
           }),
