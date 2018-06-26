@@ -58,7 +58,7 @@ const TabNavigatorConfig = {
   swipeEnabled: false,
   tabBarOptions: {
     indicatorStyle: {
-      tintColor: colors.ORANGE,
+      opacity: 0,
     },
     tintColor: 'black',
     activeTintColor: colors.ORANGE,
