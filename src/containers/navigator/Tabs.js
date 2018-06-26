@@ -5,7 +5,7 @@ import { IconImage } from '../../components/Layout/Layout';
 import InboxChat from './InboxChat';
 import PeopleNavigator from './People';
 import MyProfile from '../views/MyProfileView';
-import EventsView from '../views/EventsView';
+import EventsNavigator from './Events';
 import {
   Chat,
   Chat_selected,
@@ -77,7 +77,7 @@ export default TabNavigator(
       navigationOptions: tabNavigationOptions('People'),
     },
     Events: {
-      screen: EventsView,
+      screen: EventsNavigator,
       navigationOptions: tabNavigationOptions('Events'),
     },
     Inbox: {

@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
   openEventForm: setState => {
     dispatch(
       NavigationActions.navigate({
-        routeName: 'EventCreateView',
+        routeName: 'CreateEvent',
       }),
     );
     setTimeout(() => {
