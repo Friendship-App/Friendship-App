@@ -7,6 +7,7 @@ import ChatRequest from '../views/Chat/ChatRequest';
 import PeopleView from '../views/PeopleView';
 import ProfileUser from '../views/PeopleProfileView';
 import HeaderContainer from '../HeaderContainer/HeaderContainer';
+import UsersForTagView from '../views/UsersForTagView';
 
 const StackNavigatorConfig = {
   navigationOptions: {
@@ -43,6 +44,15 @@ export default StackNavigator({
     navigationOptions: {
       header: () => null,
       tabBarVisible: false,
+    },
+  },
+  UsersForTag: {
+    screen: UsersForTagView,
+    navigationOptions: {
+      tabBarVisible: false,
+      header: props => (
+        <HeaderContainer left="white-back" color="transparent" {...props} />
+      ),
     },
   },
   // ## End StackNavigator Views ##

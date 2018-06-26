@@ -9,6 +9,7 @@ import InboxView from '../views/Chat/ChatInbox';
 import HeaderContainer from '../HeaderContainer';
 import { Image, Text, View } from 'react-native';
 import ProfileUser from '../views/PeopleProfileView';
+import UsersForTagView from '../views/UsersForTagView';
 
 const StackNavigatorConfig = {
   navigationOptions: {
@@ -36,6 +37,15 @@ export default StackNavigator(
     ProfileUser: {
       screen: ProfileUser,
       navigationOptions: {
+        header: props => (
+          <HeaderContainer left="white-back" color="transparent" {...props} />
+        ),
+      },
+    },
+    UsersForTag: {
+      screen: UsersForTagView,
+      navigationOptions: {
+        tabBarVisible: false,
         header: props => (
           <HeaderContainer left="white-back" color="transparent" {...props} />
         ),
