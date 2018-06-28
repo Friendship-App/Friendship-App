@@ -12,9 +12,12 @@ import { Description } from '../../components/Layout/TextLayout';
 import EventTopPart from '../../components/Events/EventTopPart';
 import EventBottomPart from '../../components/Events/EventBottomPart';
 import MyEventModal from '../../components/Events/MyEventModal';
+import HeaderContainer from '../HeaderContainer';
+import store from '../../redux/store';
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  navigatorState: state.navigatorState,
   eventDetails: state.eventDetails,
   eventParticipants: state.eventParticipants,
   eventPersonalities: state.eventPersonalities,

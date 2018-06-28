@@ -161,7 +161,7 @@ const rest = reduxApi({
             index: 0,
             actions: [
               NavigationActions.navigate({
-                routeName: 'Tabs',
+                routeName: 'MyProfile',
               }),
             ],
           }),
@@ -180,7 +180,7 @@ const rest = reduxApi({
             index: 0,
             actions: [
               NavigationActions.navigate({
-                routeName: 'Tabs',
+                routeName: 'MyProfile',
               }),
             ],
           }),
@@ -199,7 +199,7 @@ const rest = reduxApi({
             index: 0,
             actions: [
               NavigationActions.navigate({
-                routeName: 'Tabs',
+                routeName: 'MyProfile',
               }),
             ],
           }),
@@ -239,9 +239,9 @@ const rest = reduxApi({
           NavigationActions.reset({
             index: 1,
             actions: [
-              NavigationActions.navigate({ routeName: 'Tabs' }),
+              NavigationActions.navigate({ routeName: 'Events' }),
               NavigationActions.navigate({
-                routeName: 'EventDetailView',
+                routeName: 'EventDetails',
                 params: { eventId: data.id },
               }),
             ],
@@ -260,9 +260,9 @@ const rest = reduxApi({
           NavigationActions.reset({
             index: 1,
             actions: [
-              NavigationActions.navigate({ routeName: 'Tabs' }),
+              NavigationActions.navigate({ routeName: 'Events' }),
               NavigationActions.navigate({
-                routeName: 'EventDetailView',
+                routeName: 'EventDetails',
                 params: { eventId: data.data[0].id, refresh: true },
               }),
             ],

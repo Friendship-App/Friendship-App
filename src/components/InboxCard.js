@@ -8,11 +8,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  openChatView: (chatroomId, id, username, userEmoji) =>
+  openChatView: (chatroomId, id, username, avatar) =>
     dispatch(
       NavigationActions.navigate({
         routeName: 'ChatView',
-        params: { chatroomId, id, username, userEmoji },
+        params: { chatroomId, id, username, avatar },
       }),
     ),
 });

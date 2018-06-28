@@ -59,6 +59,7 @@ export default class TabForTags extends PureComponent {
           flexDirection: 'column',
           height: '100%',
           backgroundColor: this.state.bckColor,
+          paddingTop: 58,
         }}
       >
         <View

@@ -45,7 +45,31 @@ export default StackNavigator(
       screen: WelcomeView,
       navigationOptions: { header: null },
     },
-    EditUserProfile: {
+    ProfileCreated: {
+      screen: ProfileCreatedScreen,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    SignUp: {
+      screen: Signup,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    Tabs: {
+      screen: Tabs,
+      navigationOptions: { header: null },
+    },
+    SignIn: {
+      screen: SignInView,
+      navigationOptions: {
+        header: props => (
+          <HeaderContainer left="cancel" right="join" {...props} />
+        ),
+      },
+    },
+    /*EditUserProfile: {
       screen: UpdateUserInformationScreen,
       navigationOptions: {
         header: props => <HeaderContainer left="back" {...props} />,
@@ -63,43 +87,16 @@ export default StackNavigator(
           />
         ),
       },
-    },
-    ProfileCreated: {
-      screen: ProfileCreatedScreen,
-      navigationOptions: {
-        header: null,
-      },
-    },
-    SignUp: {
-      screen: Signup,
-      navigationOptions: {
-        // header: props => (
-        //   <HeaderContainer left="cancel" color="light" {...props} />
-        // ),
-        header: null,
-      },
-    },
-    Tabs: {
-      screen: Tabs,
-      navigationOptions: { header: null },
-    },
-    UsersForTag: {
+    },*/
+    /*UsersForTag: {
       screen: UsersForTagView,
       navigationOptions: {
         header: props => (
           <HeaderContainer left="white-back" color="light" {...props} />
         ),
       },
-    },
-    SignIn: {
-      screen: SignInView,
-      navigationOptions: {
-        header: props => (
-          <HeaderContainer left="cancel" right="join" {...props} />
-        ),
-      },
-    },
-    ChatView: {
+    },*/
+    /*    ChatView: {
       screen: ChatView,
     },
     ChatRequest: {
@@ -117,8 +114,8 @@ export default StackNavigator(
           <HeaderContainer left="back" color="light" {...props} />
         ),
       },
-    },
-    EventEditView: {
+    },*/
+    /*EventEditView: {
       screen: EventEditView,
       navigationOptions: { header: null },
     },
@@ -137,7 +134,7 @@ export default StackNavigator(
     MyProfileView: {
       screen: MyProfileView,
       navigationOptions: { header: null },
-    },
+    },*/
     // ## End StackNavigator Views ##
   },
   StackNavigatorConfig,

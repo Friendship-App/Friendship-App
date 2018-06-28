@@ -60,9 +60,15 @@ class SignUpLocation extends React.Component {
   }
 }
 
+const initial = {
+  enableMatching: false,
+  description: '',
+};
+
 export default connect(mapStateToProps, null)(
   reduxForm({
     form: 'signup',
+    initialValues: initial,
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true,
     onSubmit: validateLocations,

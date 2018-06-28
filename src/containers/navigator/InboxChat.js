@@ -8,6 +8,8 @@ import ChatRequest from '../views/Chat/ChatRequest';
 import InboxView from '../views/Chat/ChatInbox';
 import HeaderContainer from '../HeaderContainer';
 import { Image, Text, View } from 'react-native';
+import ProfileUser from '../views/PeopleProfileView';
+import UsersForTagView from '../views/UsersForTagView';
 
 const StackNavigatorConfig = {
   navigationOptions: {
@@ -30,41 +32,24 @@ export default StackNavigator(
       screen: ChatView,
       navigationOptions: {
         tabBarVisible: false,
+      },
+    },
+    ProfileUser: {
+      screen: ProfileUser,
+      navigationOptions: {
+        tabBarVisible: false,
         header: props => (
-          <HeaderContainer
-            titleComponent={
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Image
-                  source={{
-                    uri:
-                      props.navigation.state.routes[
-                        props.navigation.state.index
-                      ].params.userEmoji,
-                  }}
-                  style={{ width: 35, height: 35, marginRight: 5 }}
-                />
-                <Text
-                  style={{ fontFamily: 'NunitoSans-Regular', fontSize: 15 }}
-                >
-                  {
-                    props.navigation.state.routes[props.navigation.state.index]
-                      .params.username
-                  }
-                </Text>
-              </View>
-            }
-            left="back"
-            color="light"
-            {...props}
-          />
+          <HeaderContainer left="white-back" color="transparent" {...props} />
         ),
       },
     },
-    ChatRequest: {
-      screen: ChatRequest,
+    UsersForTag: {
+      screen: UsersForTagView,
       navigationOptions: {
-        header: () => null,
         tabBarVisible: false,
+        header: props => (
+          <HeaderContainer left="white-back" color="transparent" {...props} />
+        ),
       },
     },
     // ## End StackNavigator Views ##

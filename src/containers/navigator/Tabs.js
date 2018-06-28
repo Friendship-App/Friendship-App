@@ -3,9 +3,9 @@ import { TabNavigator } from 'react-navigation';
 import { IconImage } from '../../components/Layout/Layout';
 
 import InboxChat from './InboxChat';
-import PeopleChat from './PeopleChat';
-import MyProfile from '../views/MyProfileView';
-import EventsView from '../views/EventsView';
+import PeopleNavigator from './People';
+import MyProfile from './Profile';
+import EventsNavigator from './Events';
 import {
   Chat,
   Chat_selected,
@@ -55,7 +55,11 @@ const tabNavigationOptions = title => {
 
 const TabNavigatorConfig = {
   tabBarPosition: 'bottom',
+  swipeEnabled: false,
   tabBarOptions: {
+    indicatorStyle: {
+      opacity: 0,
+    },
     tintColor: 'black',
     activeTintColor: colors.ORANGE,
     inactiveTintColor: '#000000',
@@ -73,11 +77,11 @@ const TabNavigatorConfig = {
 export default TabNavigator(
   {
     People: {
-      screen: PeopleChat,
+      screen: PeopleNavigator,
       navigationOptions: tabNavigationOptions('People'),
     },
     Events: {
-      screen: EventsView,
+      screen: EventsNavigator,
       navigationOptions: tabNavigationOptions('Events'),
     },
     Inbox: {
