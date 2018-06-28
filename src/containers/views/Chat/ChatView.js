@@ -15,7 +15,7 @@ import {
 import rest from '../../../utils/rest';
 import HeaderContainer from '../../HeaderContainer/HeaderContainer';
 import { colors } from '../../../styles';
-
+import Icon from 'react-native-vector-icons/Ionicons';
 const mapDispatchToProps = dispatch => ({
   openProfile: (personId, personName) =>
     dispatch(
@@ -307,8 +307,8 @@ class ChatView extends Component {
         style={{ flex: 1 }}
         behavior="padding"
         keyboardVerticalOffset={Platform.select({
-          ios: () => 60,
-          android: () => 80,
+          ios: () => 20,
+          android: () => 0,
         })()}
       >
         <ReversedFlatList
@@ -332,17 +332,17 @@ class ChatView extends Component {
               onPress={() => this.sendMessage()}
               disabled={!this.state.text.trim().length > 0}
             >
-              <Text
-                style={{
-                  fontFamily: 'NunitoSans-Regular',
-                  fontSize: 16,
-                  color:
-                    !this.state.text.trim().length > 0 ? 'gray' : '#ff8a65',
-                  paddingRight: 15,
-                }}
-              >
-                Send
-              </Text>
+              <Icon
+                name={'md-send'}
+                color={
+                  this.state.text.trim().length > 0 ? (
+                    colors.ORANGE
+                  ) : (
+                    colors.DARK_GREY
+                  )
+                }
+                size={26}
+              />
             </TouchableOpacity>
           </ChatInputButtonCard>
         </TextInputCard>
