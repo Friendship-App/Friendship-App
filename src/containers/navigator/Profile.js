@@ -5,6 +5,7 @@ import UsersForTagView from '../views/UsersForTagView';
 import HeaderContainer from '../HeaderContainer';
 import UpdateUserInformationScreen from '../views/UpdateUserInformationScreen';
 import EditForm from '../../components/Profile/EditForm';
+import ProfileUser from '../views/PeopleProfileView';
 
 export default StackNavigator({
   MyProfile: {
@@ -30,6 +31,15 @@ export default StackNavigator({
     navigationOptions: {
       tabBarVisible: false,
       header: props => <HeaderContainer left="back" {...props} />,
+    },
+  },
+  ProfileUser: {
+    screen: ProfileUser,
+    navigationOptions: {
+      tabBarVisible: false,
+      header: props => (
+        <HeaderContainer left="white-back" color="transparent" {...props} />
+      ),
     },
   },
   UsersForTag: {

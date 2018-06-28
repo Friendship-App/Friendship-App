@@ -37,6 +37,7 @@ export default StackNavigator(
     ProfileUser: {
       screen: ProfileUser,
       navigationOptions: {
+        tabBarVisible: false,
         header: props => (
           <HeaderContainer left="white-back" color="transparent" {...props} />
         ),
