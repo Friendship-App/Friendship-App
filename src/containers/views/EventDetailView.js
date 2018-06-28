@@ -14,6 +14,8 @@ import EventBottomPart from '../../components/Events/EventBottomPart';
 import MyEventModal from '../../components/Events/MyEventModal';
 import HeaderContainer from '../HeaderContainer';
 import store from '../../redux/store';
+import Footer from '../../components/Footer';
+import { fonts, fontSizes } from '../../styles';
 
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -157,35 +159,49 @@ class EventDetailView extends Component {
       } = this.props.eventDetails.data;
 
       return (
-        <EventContainer>
-          <EventTopPart
-            eventTitle={title}
-            address={address}
-            city={city}
-            srcImage={eventImage}
-            navigateBack={this.navigateBack}
-            eventDate={eventDate}
-            isHost={this.props.eventDetails.data.hostId === userId}
-          />
-          <DescriptionWrapper>
-            <Description>{description}</Description>
-          </DescriptionWrapper>
-          <EventBottomPart
-            loaded={this.state.loaded}
-            participants={this.props.eventParticipants}
-            personalities={this.props.eventPersonalities}
-            tags={this.props.eventTags}
-            showModal={this._showModal}
-            onButtonPress={() => this.handleButtonPress(eventId, userId)}
-            participation={this.props.eventParticipation}
-            isHost={this.props.eventDetails.data.hostId === userId}
-            eventFull={this.props.eventDetails.data.maxParticipantNumberExceed}
-            currentUser={userId}
-            hostId={this.props.eventDetails.data.hostId}
-            eventDetails={this.props.eventDetails.data}
-            openEditForm={eventsDetail => this.openEditForm(eventsDetail)}
-          />
-        </EventContainer>
+        <View style={{ display: 'flex', height: '100%', width: '100%' }}>
+          <EventContainer>
+            <EventTopPart
+              eventTitle={title}
+              address={address}
+              city={city}
+              srcImage={eventImage}
+              navigateBack={this.navigateBack}
+              eventDate={eventDate}
+              isHost={this.props.eventDetails.data.hostId === userId}
+            />
+            <DescriptionWrapper>
+              <Description>{description}</Description>
+            </DescriptionWrapper>
+            <EventBottomPart
+              loaded={this.state.loaded}
+              participants={this.props.eventParticipants}
+              personalities={this.props.eventPersonalities}
+              tags={this.props.eventTags}
+              showModal={this._showModal}
+              onButtonPress={() => this.handleButtonPress(eventId, userId)}
+              participation={this.props.eventParticipation}
+              isHost={this.props.eventDetails.data.hostId === userId}
+              eventFull={
+                this.props.eventDetails.data.maxParticipantNumberExceed
+              }
+              currentUser={userId}
+              hostId={this.props.eventDetails.data.hostId}
+              eventDetails={this.props.eventDetails.data}
+              openEditForm={eventsDetail => this.openEditForm(eventsDetail)}
+            />
+          </EventContainer>
+          <Footer>
+            <Text
+              style={{
+                fontFamily: fonts.REGULAR,
+                fontSize: fontSizes.BODY_TEXT,
+              }}
+            >
+              Send Message
+            </Text>
+          </Footer>
+        </View>
       );
     }
   }

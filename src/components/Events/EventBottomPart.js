@@ -97,7 +97,7 @@ export default class EventBottomPart extends PureComponent {
     });
 
     return (
-      <View style={{ backgroundColor: '#ffffff' }}>
+      <View style={{ backgroundColor: '#ffffff', paddingBottom: 60 }}>
         {this.renderJoinButton(this.props.isHost, this.props.eventFull)}
         <ParticipantList
           participants={this.props.participants}
