@@ -6,6 +6,7 @@ import EventDetailView from '../views/EventDetailView';
 import HeaderContainer from '../HeaderContainer/HeaderContainer';
 import UsersForTagView from '../views/UsersForTagView';
 import EventEditView from '../views/EventEditView';
+import ProfileUser from '../views/PeopleProfileView';
 
 export default StackNavigator({
   Events: {
@@ -41,6 +42,15 @@ export default StackNavigator({
   },
   UsersForTag: {
     screen: UsersForTagView,
+    navigationOptions: {
+      tabBarVisible: false,
+      header: props => (
+        <HeaderContainer left="white-back" color="transparent" {...props} />
+      ),
+    },
+  },
+  ProfileUser: {
+    screen: ProfileUser,
     navigationOptions: {
       tabBarVisible: false,
       header: props => (
