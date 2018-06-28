@@ -260,9 +260,9 @@ const rest = reduxApi({
           NavigationActions.reset({
             index: 1,
             actions: [
-              NavigationActions.navigate({ routeName: 'Tabs' }),
+              NavigationActions.navigate({ routeName: 'Events' }),
               NavigationActions.navigate({
-                routeName: 'EventDetailView',
+                routeName: 'EventDetails',
                 params: { eventId: data.data[0].id, refresh: true },
               }),
             ],
