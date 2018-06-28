@@ -97,7 +97,6 @@ class ChatView extends Component {
   };
 
   open = () => {
-    console.log('pressed...');
     this.props.openProfile(
       this.props.navigation.state.params.id,
       this.props.navigation.state.params.username,
@@ -308,7 +307,7 @@ class ChatView extends Component {
         behavior="padding"
         keyboardVerticalOffset={Platform.select({
           ios: () => 20,
-          android: () => 0,
+          android: () => 20,
         })()}
       >
         <ReversedFlatList
@@ -325,6 +324,7 @@ class ChatView extends Component {
             onChangeText={text => this.setState({ text })}
             value={this.state.text}
             onSubmitEditing={() => this.sendMessage()}
+            underlineColorAndroid={'transparent'}
           />
 
           <ChatInputButtonCard>
