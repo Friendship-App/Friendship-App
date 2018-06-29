@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, BackHandler, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  BackHandler,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Dropdown } from 'react-native-material-dropdown';
 import ActionButton from 'react-native-action-button';
@@ -12,6 +19,8 @@ import { IconImage } from '../../components/Layout/Layout';
 import EventsHeader from '../../components/EventsHeader';
 import EventsList from '../../components/Events/EventsList';
 import Background from '../../components/Background';
+import { colors } from '../../styles';
+import { disableTouchableOpacity } from '../../actions';
 
 const mapStateToProps = state => ({
   events: state.events,
@@ -21,15 +30,12 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchEvents: userId => dispatch(rest.actions.events.get({ userId })),
-  openEventForm: setState => {
+  openEventForm: () => {
     dispatch(
       NavigationActions.navigate({
         routeName: 'CreateEvent',
       }),
     );
-    setTimeout(() => {
-      setState();
-    }, 500);
   },
 
   fetchEventParticipantsNum: () =>
@@ -55,8 +61,8 @@ export class EventsView extends Component {
     this.state = {
       initialOrder: true,
       sorting: 'Recommended',
+      disabled: false,
     };
-    this.touchableInactive = false;
   }
 
   componentDidMount = () => {
@@ -194,17 +200,28 @@ export class EventsView extends Component {
       <Background color="grey">
         <EventsHeader headerText="Events" rightText={this.rightText()} />
         {this.renderContent()}
-        <ActionButton
-          buttonColor="#ff6e40"
-          degrees={0}
-          onPress={() => {
-            if (!this.touchableInactive) {
-              this.touchableInactive = true;
-              this.props.openEventForm(() => (this.touchableInactive = false));
-            }
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            bottom: 30,
+            right: 30,
+            height: 60,
+            width: 60,
+            display: 'flex',
+            backgroundColor: colors.ORANGE,
+            borderRadius: 30,
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
-          renderIcon={() => <Icon name="md-add" size={40} color={'white'} />}
-        />
+          disabled={this.state.disabled}
+          activeOpacity={0.8}
+          onPress={() => {
+            disableTouchableOpacity(this);
+            this.props.openEventForm();
+          }}
+        >
+          <Icon name="md-add" size={45} color={'white'} />
+        </TouchableOpacity>
       </Background>
     );
   };
