@@ -20,6 +20,7 @@ import {
   NaahColor,
   YeahColor,
 } from './Layout/TextLayout';
+import { disableTouchableOpacity } from '../actions';
 
 const mapStateToProps = () => ({});
 const mapDispatchToProps = dispatch => ({
@@ -38,6 +39,7 @@ class Person extends React.Component {
     genders: '',
     locations: '',
     shortUser: '',
+    disable: false,
   };
 
   componentDidMount() {
@@ -92,8 +94,11 @@ class Person extends React.Component {
     return (
       <TouchableOpacity
         style={styles.mainView}
-        onPress={() =>
-          this.props.openProfile(this.props.data.id, this.props.data.username)}
+        disabled={this.state.disabled}
+        onPress={() => {
+          disableTouchableOpacity(this);
+          this.props.openProfile(this.props.data.id, this.props.data.username);
+        }}
       >
         <View style={styles.topPart}>
           <Image
@@ -168,7 +173,11 @@ class Person extends React.Component {
 
       <TouchableOpacity
         style={styles.nameView}
-        onPress={() => this.props.openProfile(this.props.data.userId)}
+        disabled={this.state.disabled}
+        onPress={() => {
+          disableTouchableOpacity(this);
+          this.props.openProfile(this.props.data.userId);
+        }}
       >
         <Text style={styles.listName}>{this.props.data.username}</Text>
       </TouchableOpacity>

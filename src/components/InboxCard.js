@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { Image, Text, TouchableHighlight, View } from 'react-native';
+import { disableTouchableOpacity } from '../actions';
 
 const mapStateToProps = state => ({
   currentUserId: state.auth.data.decoded ? state.auth.data.decoded.id : null,
@@ -20,6 +21,7 @@ const mapDispatchToProps = dispatch => ({
 class InboxCard extends React.Component {
   state = {
     time: '',
+    disabled: false,
   };
 
   componentDidMount() {
@@ -125,8 +127,11 @@ class InboxCard extends React.Component {
         : creator.avatar;
     return (
       <TouchableHighlight
-        onPress={() =>
-          this.props.openChatView(this.props.data.id, userId, username, emoji)}
+        onPress={() => {
+          disableTouchableOpacity(this);
+          this.props.openChatView(this.props.data.id, userId, username, emoji);
+        }}
+        disabled={this.state.disabled}
         underlayColor={'#ddd'}
       >
         <View style={styles.inboxCard}>
