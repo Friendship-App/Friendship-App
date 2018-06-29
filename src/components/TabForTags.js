@@ -53,6 +53,7 @@ export default class TabForTags extends PureComponent {
         contentContainerStyle={{
           alignItems: 'center',
         }}
+        bounces={false}
       >
         {users.map(user => <Person key={user.userId} data={user} />)}
       </ScrollView>
