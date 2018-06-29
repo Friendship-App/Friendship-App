@@ -15,6 +15,7 @@ import moment from 'moment';
 
 import CardSection from './CardSection';
 import Card from './Card';
+import { disableTouchableOpacity } from '../../actions';
 
 const mapDispatchToProps = dispatch => ({
   openEvent: eventId =>
@@ -27,6 +28,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class EventsDetail extends Component {
+  state = { disabled: false };
+
   openMap = (city, address) => {
     if (Platform.OS === 'ios') {
       Linking.openURL(`http://maps.apple.com/maps?address=${city}, ${address}`);
@@ -86,7 +89,13 @@ class EventsDetail extends Component {
     const { titleTextStyle } = styles;
 
     return (
-      <Card onPress={() => this.props.openEvent(id)}>
+      <Card
+        disabled={this.state.disabled}
+        onPress={() => {
+          disableTouchableOpacity(this);
+          this.props.openEvent(id);
+        }}
+      >
         <Image
           source={{ uri: srcImage }}
           style={{ width: '100%', height: 250 }}
