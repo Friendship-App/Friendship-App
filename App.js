@@ -1,5 +1,12 @@
 import React from 'react';
-import { ActivityIndicator, BackHandler, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Animated,
+  BackHandler,
+  Platform,
+  Text,
+  View,
+} from 'react-native';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
 import persistStore from './src/utils/persist';
@@ -10,8 +17,7 @@ import Navigator, {
 import { FullscreenCentered } from './src/components/Layout/Layout';
 import { Font, Notifications, Permissions } from 'expo';
 import { MenuProvider } from 'react-native-popup-menu';
-import { styles } from './src/styles';
-import apiRoot from './src/utils/api.config';
+import { colors, paddings, styles } from './src/styles';
 import { registerForPushNotificationsAsync } from './src/utils/notifications';
 
 export default class App extends React.Component {
@@ -19,6 +25,8 @@ export default class App extends React.Component {
     rehydrated: false,
     fontLoaded: false,
     cameraRoll: false,
+    notification: {},
+    anim: new Animated.Value(0),
   };
 
   componentDidMount = async () => {
@@ -68,6 +76,10 @@ export default class App extends React.Component {
 
   _handleNotification = notification => {
     this.setState({ notification: notification });
+    Animated.timing(this.state.anim, {
+      toValue: 1,
+      duration: 1000,
+    }).start();
   };
 
   askPermissionsAsync = async () => {
@@ -118,11 +130,49 @@ export default class App extends React.Component {
       </MenuProvider>
     ) : null;
 
+  renderNotification = () => {
+    if (this.state.notification.data && Platform.OS === 'ios') {
+      return (
+        <Animated.View
+          style={{
+            width: '90%',
+            padding: paddings.SM,
+            position: 'absolute',
+            alignSelf: 'center',
+            borderRadius: 10,
+            backgroundColor: colors.ORANGE,
+            top: this.state.anim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [-400, 20],
+            }),
+          }}
+          onStartShouldSetResponder={event => {
+            this.setState({ startingTouch: event.nativeEvent.locationY });
+            return true;
+          }}
+          onResponderRelease={event => {
+            if (this.state.startingTouch > event.nativeEvent.locationY) {
+              Animated.timing(this.state.anim, {
+                toValue: 0,
+                duration: 800,
+              }).start();
+            }
+          }}
+          hitSlop={{ top: 10, bottom: 100, left: 0, right: 0 }}
+        >
+          <Text>Title: {this.state.notification.data.title}</Text>
+          <Text>Message : {this.state.notification.data.message}</Text>
+        </Animated.View>
+      );
+    }
+  };
+
   render = () => {
     return (
       <View style={styles.rootContainer}>
         {this.renderActivityIndicator()}
         {this.renderApp()}
+        {/*{this.renderNotification()}*/}
       </View>
     );
   };

@@ -1,9 +1,13 @@
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
-const Card = ({ children, onPress }) => {
+const Card = ({ children, onPress, disabled }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.containerStyle}>
+    <TouchableOpacity
+      onPress={onPress}
+      disabled={disabled}
+      style={styles.containerStyle}
+    >
       {children}
     </TouchableOpacity>
   );

@@ -1,5 +1,12 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import ScrollableTabView, {
   ScrollableTabBar,
 } from 'react-native-scrollable-tab-view';
@@ -41,13 +48,15 @@ export default class TabForTags extends PureComponent {
   renderUsers(users) {
     const { tabIndex } = this.state;
     return (
-      <View>
-        <View>
-          <View style={styles.tagList}>
-            {users.map(user => <Person key={user.userId} data={user} />)}
-          </View>
-        </View>
-      </View>
+      <ScrollView
+        style={styles.tagList}
+        contentContainerStyle={{
+          alignItems: 'center',
+        }}
+        bounces={false}
+      >
+        {users.map(user => <Person key={user.userId} data={user} />)}
+      </ScrollView>
     );
   }
 
@@ -55,8 +64,6 @@ export default class TabForTags extends PureComponent {
     return (
       <View
         style={{
-          display: 'flex',
-          flexDirection: 'column',
           height: '100%',
           backgroundColor: this.state.bckColor,
           paddingTop: 58,
@@ -126,10 +133,8 @@ export default class TabForTags extends PureComponent {
 
 const styles = StyleSheet.create({
   tagList: {
-    margin: 22,
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-    flexDirection: 'column',
+    width: '100%',
+    marginVertical: 22,
   },
   textButtonStyle: {
     alignSelf: 'center',
