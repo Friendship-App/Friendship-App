@@ -180,7 +180,7 @@ class MyProfile extends React.Component {
     }
 
     return (
-      <ProfileContainer>
+      <ProfileContainer bounces={false}>
         <ProfileTopPart
           username={this.props.currentUser.data.username}
           srcImage={this.props.currentUser.data.image}
