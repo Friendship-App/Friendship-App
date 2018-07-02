@@ -69,9 +69,9 @@ export default class App extends React.Component {
     if (store.getState().auth.data.decoded) {
       registerForPushNotificationsAsync(store.getState().auth.data.decoded.id);
     }
-    this._notificationSubscription = Notifications.addListener(
+    /*this._notificationSubscription = Notifications.addListener(
       this._handleNotification,
-    );
+    );*/
   };
 
   _handleNotification = notification => {
