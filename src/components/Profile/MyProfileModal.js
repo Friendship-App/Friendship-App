@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, Image, View, StyleSheet, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 import styled from 'styled-components/native';
+import { colors } from '../../styles';
 
 const ButtonOption = styled.View`
   align-items: center;
@@ -18,11 +19,15 @@ const MyProfileModal = ({
 }) => {
   return (
     <Modal
-      backdropColor="#2a343c"
+      backdropColor={colors.DARK_BLUE}
       backdropOpacity={0.96}
       isVisible={isModalVisible}
     >
-      <View style={{ flex: 1 }}>
+      <View
+        style={{ flex: 1 }}
+        onStartShouldSetResponder={() => true}
+        onResponderGrant={event => hideModal()}
+      >
         <TouchableOpacity
           onPress={hideModal}
           style={{
