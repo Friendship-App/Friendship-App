@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { Image, Text, TouchableHighlight, View } from 'react-native';
 import { disableTouchableOpacity } from '../actions';
+import io from 'socket.io-client';
+import apiRoot from '../utils/api.config';
 
 const mapStateToProps = state => ({
   currentUserId: state.auth.data.decoded ? state.auth.data.decoded.id : null,
@@ -23,6 +25,18 @@ class InboxCard extends React.Component {
     time: '',
     disabled: false,
   };
+
+  constructor(props) {
+    super(props);
+
+    this.onReceivedMessage = this.onReceivedMessage.bind(this);
+    this.socket = io(apiRoot);
+    this.socket.on('message', this.onReceivedMessage);
+  }
+
+  onReceivedMessage(messages) {
+    console.log(messages);
+  }
 
   componentDidMount() {
     let messArr = this.props.data.messages;

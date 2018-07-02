@@ -7,6 +7,7 @@ import HeaderContainer from '../HeaderContainer/HeaderContainer';
 import UsersForTagView from '../views/UsersForTagView';
 import EventEditView from '../views/EventEditView';
 import ProfileUser from '../views/PeopleProfileView';
+import ChatView from '../views/Chat/ChatView';
 
 export default StackNavigator({
   Events: {
@@ -18,7 +19,12 @@ export default StackNavigator({
     navigationOptions: {
       tabBarVisible: false,
       header: props => (
-        <HeaderContainer left="white-back" color="transparent" {...props} />
+        <HeaderContainer
+          left="white-back"
+          right="event-chat"
+          color="transparent"
+          {...props}
+        />
       ),
     },
   },
@@ -56,6 +62,12 @@ export default StackNavigator({
       header: props => (
         <HeaderContainer left="white-back" color="transparent" {...props} />
       ),
+    },
+  },
+  ChatView: {
+    screen: ChatView,
+    navigationOptions: {
+      tabBarVisible: false,
     },
   },
   // ## End StackNavigator Views ##

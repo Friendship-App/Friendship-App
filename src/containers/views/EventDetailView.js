@@ -191,16 +191,6 @@ class EventDetailView extends Component {
               openEditForm={eventsDetail => this.openEditForm(eventsDetail)}
             />
           </EventContainer>
-          <Footer onPress={() => console.log('send group message')}>
-            <Text
-              style={{
-                fontFamily: fonts.REGULAR,
-                fontSize: fontSizes.BODY_TEXT,
-              }}
-            >
-              Send Message
-            </Text>
-          </Footer>
         </View>
       );
     }

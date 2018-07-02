@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import Header from '../../components/Header/Header';
 import Button from '../../components/Button/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { colors, fonts, fontSizes, paddings } from '../../styles';
-import { View, Animated, TouchableOpacity, Text } from 'react-native';
+import { Animated, Text, TouchableOpacity, View } from 'react-native';
+import { Chat } from '../../../assets/tabIcons';
+import { IconImage } from '../../components/Layout/Layout';
 
 const mapDispatchToProps = dispatch => ({
   back: (backTo = {}) => dispatch(NavigationActions.back(backTo)),
@@ -179,6 +180,28 @@ class HeaderContainer extends Component {
             header
             onPress={() => {
               this.toggleDropdown(300);
+            }}
+          />
+        );
+      case 'event-chat':
+        return (
+          <Button
+            icon={
+              <IconImage
+                source={Chat}
+                tintColor={colors.WHITE}
+                style={{ marginVertical: paddings.XXS }}
+              />
+            }
+            type="floatingButton"
+            header
+            onPress={() => {
+              /*params: { chatroomId, id, username, avatar },*/
+              this.props.navigateTo('ChatView', {
+                chatroomId: this.props.navigation.state.routes[
+                  this.props.navigation.state.routes.length - 1
+                ].params.eventId,
+              });
             }}
           />
         );

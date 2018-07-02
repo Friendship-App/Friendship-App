@@ -29,6 +29,7 @@ class ChatList extends Component {
         await this.props.chatRoomsWithUserId(this.props.currentUserId),
       3000,
     );
+    console.log(this);
   }
 
   componentWillUnmount() {
