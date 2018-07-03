@@ -16,6 +16,9 @@ import rest from '../../../utils/rest';
 import HeaderContainer from '../../HeaderContainer/HeaderContainer';
 import { colors } from '../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
+import io from 'socket.io-client';
+import apiRoot from '../../../utils/api.config';
+
 const mapDispatchToProps = dispatch => ({
   openProfile: (personId, personName) =>
     dispatch(
@@ -96,6 +99,11 @@ class ChatView extends Component {
     };
   };
 
+  constructor() {
+    super();
+    this.socket = io(apiRoot);
+  }
+
   open = () => {
     this.props.openProfile(
       this.props.navigation.state.params.id,
@@ -126,7 +134,7 @@ class ChatView extends Component {
         : this.props.navigation.state.params.existingChatRoomId,
     );
     //update all unread messages after 3 seconds to make sure all the chatroom messages have been fetched
-    setTimeout(() => this.getUnreadMessagesAndUpdateStatus(), 200);
+    /*setTimeout(() => this.getUnreadMessagesAndUpdateStatus(), 200);*/
   };
 
   componentWillReceiveProps = () => {
@@ -157,6 +165,7 @@ class ChatView extends Component {
     const userId = this.props.currentUserId;
 
     this.props.sendMessage(chatroomId, textMessage, userId);
+    this.socket.emit('message', textMessage);
     this.setState({ text: '' });
   };
 
