@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import InboxCard from '../InboxCard';
 import styles from './styles';
 import EmptyChatMessage from '../EmptyChatMessage';
+import io from 'socket.io-client';
+import apiRoot from '../../utils/api.config';
 
 const mapStateToProps = state => ({
   currentUserId: state.auth.data.decoded ? state.auth.data.decoded.id : null,
@@ -35,6 +37,17 @@ class ChatList extends Component {
   componentWillUnmount() {
     clearInterval(this.timer);
   }*/
+  constructor() {
+    super();
+
+    this.onReceivedMessage = this.onReceivedMessage.bind(this);
+    this.socket = io(apiRoot);
+    this.socket.on('message', this.onReceivedMessage);
+  }
+
+  onReceivedMessage(message) {
+    this.props.chatRoomsWithUserId(this.props.currentUserId);
+  }
 
   componentWillMount() {
     this.props.chatRoomsWithUserId(this.props.currentUserId);
