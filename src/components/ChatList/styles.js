@@ -11,19 +11,4 @@ export default StyleSheet.create({
     backgroundColor: colors.WHITE,
     minHeight: 300,
   },
-  emptyChat: {
-    flex: 1,
-    backgroundColor: colors.WHITE,
-    padding: paddings.MD,
-  },
-  title: {
-    fontFamily: fonts.BOLD,
-  },
-  message: {
-    paddingBottom: paddings.MD,
-  },
-  redirect: {
-    textDecorationLine: 'underline',
-    color: colors.ORANGE,
-  },
 });

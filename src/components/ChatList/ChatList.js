@@ -7,6 +7,7 @@ import rest from '../../utils/rest';
 import { connect } from 'react-redux';
 import InboxCard from '../InboxCard';
 import styles from './styles';
+import EmptyChatMessage from '../EmptyChatMessage';
 
 const mapStateToProps = state => ({
   currentUserId: state.auth.data.decoded ? state.auth.data.decoded.id : null,
@@ -23,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class ChatList extends Component {
-  componentDidMount() {
+  /*componentDidMount() {
     this.timer = setInterval(
       async () =>
         await this.props.chatRoomsWithUserId(this.props.currentUserId),
@@ -33,6 +34,10 @@ class ChatList extends Component {
 
   componentWillUnmount() {
     clearInterval(this.timer);
+  }*/
+
+  componentWillMount() {
+    this.props.chatRoomsWithUserId(this.props.currentUserId);
   }
 
   keyExtractor = (item, index) => 'list-item-' + index;
@@ -61,22 +66,7 @@ class ChatList extends Component {
             style={[styles.chats]}
           />
         ) : (
-          <View style={[styles.emptyChat]}>
-            <Text style={[styles.title, styles.message]}>
-              Get busy chatting!
-            </Text>
-            <Text style={[styles.message]}>
-              You have no active chats yet. To start a new chat, first find a
-              person that seems interesting to you. Open their profile, see what
-              you have in common and take it from there.
-            </Text>
-            <Text
-              style={[styles.redirect]}
-              onPress={() => this.props.goToPeopleView()}
-            >
-              Browse profiles
-            </Text>
-          </View>
+          <EmptyChatMessage goToPeopleView={this.props.goToPeopleView} />
         )}
       </View>
     );
