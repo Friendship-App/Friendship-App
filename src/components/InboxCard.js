@@ -6,6 +6,7 @@ import { disableTouchableOpacity } from '../actions';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { colors } from '../styles';
+import rest from '../utils/rest';
 
 const mapStateToProps = state => ({
   currentUserId: state.auth.data.decoded ? state.auth.data.decoded.id : null,
@@ -19,22 +20,38 @@ const mapDispatchToProps = dispatch => ({
         params: { chatroomId, id, username, avatar },
       }),
     ),
+  updateReadMessages: (chatroomId, userId) => {
+    dispatch(
+      rest.actions.updateReadMessages(
+        {},
+        { body: JSON.stringify({ chatroomId, userId }) },
+      ),
+    );
+  },
 });
 
 class InboxCard extends React.Component {
   state = {
     time: '',
+    totalUnreadMessages: 0,
     disabled: false,
   };
 
   componentDidMount() {
-    let messArr = this.props.data.messages;
-    if (messArr.length !== 0) {
-      for (let message of messArr) {
-      }
-    }
     this.getTime();
+    this.getUnreadMessages();
   }
+
+  getUnreadMessages = () => {
+    const { messages } = this.props.data;
+    console.log(messages);
+    const totalUnreadMessages = messages.filter(
+      message =>
+        message.read === false && message.user_id !== this.props.currentUserId,
+    );
+
+    this.setState({ totalUnreadMessages: totalUnreadMessages.length });
+  };
 
   getMessageTime = lastMessageTime => {
     const currentDay = moment().format('dddd');
@@ -63,13 +80,11 @@ class InboxCard extends React.Component {
 
   render() {
     const { creator, receiver, messages } = this.props.data;
-    const totalUnreadMessages = messages.filter(
-      message =>
-        message.read === false && message.user_id !== this.props.currentUserId,
-    );
+    const { totalUnreadMessages, time } = this.state;
+
     const unreadMessagesText =
-      totalUnreadMessages.length > 0
-        ? `( ${totalUnreadMessages.length} unread messages )`
+      totalUnreadMessages > 0
+        ? `( ${totalUnreadMessages} unread messages )`
         : '';
     const lastMessage = messages[messages.length - 1];
     const lastMessageText =
@@ -90,7 +105,9 @@ class InboxCard extends React.Component {
       <TouchableHighlight
         onPress={() => {
           disableTouchableOpacity(this);
+          this.props.updateReadMessages(this.props.data.id, userId);
           this.props.openChatView(this.props.data.id, userId, username, emoji);
+          this.setState({ totalUnreadMessages: 0 });
         }}
         disabled={this.state.disabled}
         underlayColor={'#ddd'}
@@ -102,10 +119,10 @@ class InboxCard extends React.Component {
           <View style={styles.inboxCardContent}>
             <View style={styles.inboxCardHeader}>
               <Text style={styles.inboxCardName}>{username}</Text>
-              <Text style={styles.inboxCardTime}>{this.state.time}</Text>
+              <Text style={styles.inboxCardTime}>{time}</Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              {totalUnreadMessages.length > 0 ? (
+              {totalUnreadMessages > 0 ? (
                 <Icon
                   name={'md-mail'}
                   color={colors.ORANGE}

@@ -165,7 +165,7 @@ class ChatView extends Component {
     const userId = this.props.currentUserId;
 
     this.props.sendMessage(chatroomId, textMessage, userId);
-    this.socket.emit('message', { chatroomId, textMessage });
+    this.socket.emit('message', { chatroomId, textMessage, userId });
     this.setState({ text: '' });
   };
 
