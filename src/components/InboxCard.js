@@ -6,6 +6,8 @@ import { disableTouchableOpacity } from '../actions';
 import io from 'socket.io-client';
 import apiRoot from '../utils/api.config';
 import moment from 'moment';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { colors } from '../styles';
 
 const mapStateToProps = state => ({
   currentUserId: state.auth.data.decoded ? state.auth.data.decoded.id : null,
@@ -116,7 +118,17 @@ class InboxCard extends React.Component {
               <Text style={styles.inboxCardName}>{username}</Text>
               <Text style={styles.inboxCardTime}>{this.state.time}</Text>
             </View>
-            <Text style={styles.inboxCardMessage}>{unreadMessagesText}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              {totalUnreadMessages.length > 0 ? (
+                <Icon
+                  name={'md-mail'}
+                  color={colors.ORANGE}
+                  size={10}
+                  style={{ marginRight: 5 }}
+                />
+              ) : null}
+              <Text style={styles.inboxCardMessage}>{unreadMessagesText}</Text>
+            </View>
             <Text style={styles.inboxCardMessage}>{lastMessageText}</Text>
           </View>
         </View>
