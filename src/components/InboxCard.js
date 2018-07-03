@@ -5,6 +5,7 @@ import { Image, Text, TouchableHighlight, View } from 'react-native';
 import { disableTouchableOpacity } from '../actions';
 import io from 'socket.io-client';
 import apiRoot from '../utils/api.config';
+import moment from 'moment';
 
 const mapStateToProps = state => ({
   currentUserId: state.auth.data.decoded ? state.auth.data.decoded.id : null,
@@ -47,71 +48,29 @@ class InboxCard extends React.Component {
     this.getTime();
   }
 
+  getMessageTime = lastMessageTime => {
+    const currentDay = moment().format('dddd');
+    const currentMonth = moment().format('MMM');
+    const currentYear = moment().format('YYYY');
+
+    if (currentYear === moment(lastMessageTime).format('YYYY')) {
+      if (currentMonth === moment(lastMessageTime).format('MMM')) {
+        if (currentDay === moment(lastMessageTime).format('dddd')) {
+          return moment(lastMessageTime).format('hh:mm');
+        }
+        return moment(lastMessageTime).format('dddd');
+      }
+      return moment(lastMessageTime).format('dddd MMM');
+    }
+    return moment(lastMessageTime).format('dddd MMM YYYY');
+  };
+
   getTime = () => {
     const { messages } = this.props.data;
-    const msgTime = new Date(messages[messages.length - 1].chat_time);
-    if (msgTime) {
-      const msgDate = msgTime.getDate();
-      const msgMonth = msgTime.getMonth();
-      const msgYear = msgTime.getFullYear();
-      const now = new Date();
-      const diff =
-        Math.abs(now.getTime() - msgTime.getTime()) / (1000 * 60 * 60 * 24);
+    const lastMessageTime = messages[messages.length - 1].chat_time;
+    let msgTime = this.getMessageTime(lastMessageTime);
 
-      let time = '';
-
-      const days = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-      ];
-      const month_names = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ];
-      const timeArr = msgTime
-        .toTimeString()
-        .split(' ')[0]
-        .split(':');
-
-      if (now.getFullYear() !== msgYear) {
-        time = month_names[msgMonth] + ' ' + msgDate + ' ' + msgYear; //not same year
-      } else if (now.getFullYear() === msgYear && diff > 7) {
-        time = month_names[msgMonth] + ' ' + msgDate; //if not within a week
-      } else if (now.getFullYear() === msgYear && diff <= 7) {
-        time = days[msgTime.getDay()]; //day of week
-      } else if (
-        now.getFullYear() === msgYear &&
-        now.getMonth() === msgMonth &&
-        now.getDate() === msgDate
-      ) {
-        time = timeArr[0] ? timeArr[0] + ':' + timeArr[1] : ''; //today
-      } else if (now.getTime() - msgTime.getTime() < 0) {
-        time =
-          month_names[msgMonth] +
-          ' ' +
-          msgDate +
-          ' ' +
-          msgYear +
-          ' ' +
-          msgTime.toTimeString().split(' ')[0];
-      }
-      this.setState({ time });
-    }
+    this.setState({ time: msgTime });
   };
 
   render() {
