@@ -89,8 +89,6 @@ class InboxCard extends React.Component {
   };
 
   render() {
-    console.log(this.props.data);
-    console.log(this.state.totalUnreadMessages);
     const { creator, receiver, messages } = this.props.data;
 
     const time = this.getTime();
