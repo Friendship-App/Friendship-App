@@ -184,7 +184,9 @@ class HeaderContainer extends Component {
           />
         );
       case 'event-chat':
-        return (
+        return this.props.navigation.state.routes[
+          this.props.navigation.state.routes.length - 1
+        ].params.participate ? (
           <Button
             icon={
               <IconImage
@@ -196,7 +198,6 @@ class HeaderContainer extends Component {
             type="floatingButton"
             header
             onPress={() => {
-              /*params: { chatroomId, id, username, avatar },*/
               this.props.navigation.navigate('ChatView', {
                 chatroomId: this.props.navigation.state.routes[
                   this.props.navigation.state.routes.length - 1
@@ -211,7 +212,7 @@ class HeaderContainer extends Component {
               });
             }}
           />
-        );
+        ) : null;
     }
   }
 }

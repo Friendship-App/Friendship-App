@@ -23,7 +23,6 @@ const EventsList = ({
         );
       }
     });
-
     return (
       <EventsDetail
         title={item.title}
@@ -34,6 +33,7 @@ const EventsList = ({
         id={item.id}
         srcImage={item.eventImage}
         avatars={avatars}
+        hostId={item.hostId}
       />
     );
   };
