@@ -15,10 +15,12 @@ import Navigator, {
   handleBackButton,
 } from './src/containers/navigator/Navigator';
 import { FullscreenCentered } from './src/components/Layout/Layout';
-import { Font, Notifications, Permissions } from 'expo';
+import { Font, Permissions } from 'expo';
 import { MenuProvider } from 'react-native-popup-menu';
 import { colors, paddings, styles } from './src/styles';
 import { registerForPushNotificationsAsync } from './src/utils/notifications';
+import { socket } from './src/utils/socket';
+import rest from './src/utils/rest';
 
 export default class App extends React.Component {
   state = {
@@ -72,6 +74,14 @@ export default class App extends React.Component {
     /*this._notificationSubscription = Notifications.addListener(
       this._handleNotification,
     );*/
+
+    socket.on('message', () => {
+      store.dispatch(
+        rest.actions.chatRoomsWithUserId({
+          id: store.getState().auth.data.decoded.id,
+        }),
+      );
+    });
   };
 
   _handleNotification = notification => {
