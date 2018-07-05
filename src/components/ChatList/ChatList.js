@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import RoundTab from '../RoundTab';
-import { FlatList, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import rest from '../../utils/rest';
 import { connect } from 'react-redux';
 import InboxCard from '../InboxCard';
 import styles from './styles';
 import EmptyChatMessage from '../EmptyChatMessage';
-import io from 'socket.io-client';
-import apiRoot from '../../utils/api.config';
+import { FullscreenCentered } from '../Layout/Layout';
 
 const mapStateToProps = state => ({
   currentUserId: state.auth.data.decoded ? state.auth.data.decoded.id : null,
+  chatroomLoadingStage: {
+    sync: state.chatRoomsWithUserId.sync,
+    syncing: state.chatRoomsWithUserId.syncing,
+    loading: state.chatRoomsWithUserId.loading,
+  },
   chatrooms: state.chatRoomsWithUserId.data,
-  chatroomRefreshState: state.chatRoomsWithUserId,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -26,31 +28,26 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class ChatList extends Component {
-  /*componentDidMount() {
-    this.timer = setInterval(
-      async () =>
-        await this.props.chatRoomsWithUserId(this.props.currentUserId),
-      3000,
-    );
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }*/
-  constructor() {
-    super();
-
-    this.onReceivedMessage = this.onReceivedMessage.bind(this);
-    this.socket = io(apiRoot);
-    this.socket.on('message', this.onReceivedMessage);
-  }
-
-  onReceivedMessage(message) {
-    this.props.chatRoomsWithUserId(this.props.currentUserId);
-  }
-
   componentWillMount() {
     this.props.chatRoomsWithUserId(this.props.currentUserId);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
+    if (nextProps.chatrooms.length !== this.props.chatrooms.length) {
+      return true;
+    }
+
+    for (let i = 0; i < nextProps.chatrooms.length; i++) {
+      if (
+        nextProps.chatrooms[i].messages.length !==
+        this.props.chatrooms[i].messages.length
+      ) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   keyExtractor = (item, index) => 'list-item-' + index;
@@ -60,6 +57,20 @@ class ChatList extends Component {
   };
 
   render() {
+    const { chatroomLoadingStage } = this.props;
+
+    if (
+      chatroomLoadingStage.syncing ||
+      chatroomLoadingStage.loading ||
+      !chatroomLoadingStage.sync
+    ) {
+      return (
+        <FullscreenCentered>
+          <ActivityIndicator size="large" />
+        </FullscreenCentered>
+      );
+    }
+
     const sortedChatrooms = this.props.chatrooms
       ? this.props.chatrooms.sort(function(a, b) {
           const aLastMessageTime = a.messages[a.messages.length - 1].chat_time;

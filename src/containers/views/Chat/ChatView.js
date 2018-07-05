@@ -16,10 +16,13 @@ import rest from '../../../utils/rest';
 import HeaderContainer from '../../HeaderContainer/HeaderContainer';
 import { colors } from '../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
-import io from 'socket.io-client';
-import apiRoot from '../../../utils/api.config';
+import { socket } from '../../../utils/socket';
+import moment from 'moment/moment';
 
 const mapDispatchToProps = dispatch => ({
+  chatRoomsWithUserId: id => {
+    dispatch(rest.actions.chatRoomsWithUserId({ id }));
+  },
   openProfile: (personId, personName) =>
     dispatch(
       NavigationActions.navigate({
@@ -31,11 +34,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch(rest.actions.chatRoomMessages({ id }));
   },
   //update all messages that have been read
-  updateReadMessages: messageIdArr => {
+  updateReadMessages: (chatroomId, userId) => {
     dispatch(
       rest.actions.updateReadMessages(
         {},
-        { body: JSON.stringify({ messageIdArr: messageIdArr }) },
+        { body: JSON.stringify({ chatroomId, userId }) },
       ),
     );
   },
@@ -101,7 +104,11 @@ class ChatView extends Component {
 
   constructor() {
     super();
-    this.socket = io(apiRoot);
+    socket.on('message', message => {
+      this.props.chatRoomMessages(
+        this.props.navigation.state.params.chatroomId,
+      );
+    });
   }
 
   open = () => {
@@ -117,6 +124,7 @@ class ChatView extends Component {
     description: '',
     isOptionsVisible: false,
   };
+
   componentDidMount = () => {
     this.setState({
       chatroomId: this.props.navigation.state.params.chatroomId
@@ -133,8 +141,6 @@ class ChatView extends Component {
         ? this.props.navigation.state.params.chatroomId
         : this.props.navigation.state.params.existingChatRoomId,
     );
-    //update all unread messages after 3 seconds to make sure all the chatroom messages have been fetched
-    /*setTimeout(() => this.getUnreadMessagesAndUpdateStatus(), 200);*/
   };
 
   componentWillReceiveProps = () => {
@@ -143,30 +149,39 @@ class ChatView extends Component {
     }
   };
 
-  getUnreadMessagesAndUpdateStatus = () => {
-    //get an array of all the unread messages which have the 'read' field equals to 'false' and user_id not equals to current user id
-    let messageArr = this.props.chatRoom.messages
-      ? this.props.chatRoom.messages.filter(
-          message =>
-            message.read === false &&
-            message.user_id !== this.props.currentUserId,
-        )
-      : [];
-    //get an array of all the id of unread messages
-    let messageIdArr = messageArr.map(message => message.id);
-    //call the update function to change the 'read' field into 'true'
-    this.props.updateReadMessages(messageIdArr);
-  };
+  async componentWillUnmount() {
+    this.props.updateReadMessages(
+      this.props.navigation.state.params.chatroomId,
+      this.props.navigation.state.params.currentUser,
+    );
+    await this.props.chatRoomsWithUserId(
+      this.props.navigation.state.params.currentUser,
+    );
+  }
 
   sendMessage = () => {
-    //Keyboard.dismiss();
     const chatroomId = this.state.chatroomId;
     const textMessage = this.state.text;
     const userId = this.props.currentUserId;
 
     this.props.sendMessage(chatroomId, textMessage, userId);
-    this.socket.emit('message', { chatroomId, textMessage, userId });
+    socket.emit('message', { chatroomId, textMessage, userId });
     this.setState({ text: '' });
+  };
+
+  getMessageTime = lastMessageTime => {
+    const currentDay = moment().format('dddd');
+    const currentMonth = moment().format('MMM');
+    const currentYear = moment().format('YYYY');
+
+    if (
+      currentYear === moment(lastMessageTime).format('YYYY') &&
+      currentMonth === moment(lastMessageTime).format('MMM') &&
+      currentDay === moment(lastMessageTime).format('dddd')
+    ) {
+      return moment(lastMessageTime).format('HH:mm');
+    }
+    return moment(lastMessageTime).format('dddd - HH:mm');
   };
 
   keyExtractor = (item, index) => `msg-${index}`;
@@ -182,94 +197,9 @@ class ChatView extends Component {
       item.user_id === this.props.currentUserId
         ? { marginRight: 20 }
         : { marginLeft: 20 };
-    const chatIcon =
-      item.user_id === this.props.currentUserId
-        ? '../../../../assets/chatBubble/chatBubbleMe.png'
-        : '../../../../assets/chatBubble/chatBubbleOther.png';
 
-    let time = '';
-    const msgTime = new Date(item.chat_time);
-    if (msgTime) {
-      const msgDate = msgTime.getDate();
-      const msgMonth = msgTime.getMonth();
-      const msgYear = msgTime.getFullYear();
-      const now = new Date();
-      const diff =
-        Math.abs(now.getTime() - msgTime.getTime()) / (1000 * 60 * 60 * 24);
+    let time = this.getMessageTime(item.chat_time);
 
-      const days = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-      ];
-      const months = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ];
-      const timeArr = msgTime
-        .toTimeString()
-        .split(' ')[0]
-        .split(':');
-
-      if (now.getFullYear() !== msgYear) {
-        //not same year
-        time =
-          months[msgMonth] +
-          ' ' +
-          msgDate +
-          ' ' +
-          msgYear +
-          ' - ' +
-          timeArr[0] +
-          ':' +
-          timeArr[1];
-      } else if (now.getFullYear() === msgYear && diff > 7) {
-        //if not within a week
-        time =
-          months[msgMonth] +
-          ' ' +
-          msgDate +
-          ' - ' +
-          timeArr[0] +
-          ':' +
-          timeArr[1];
-      } else if (now.getFullYear() === msgYear && diff <= 7) {
-        //day of week
-        time = days[msgTime.getDay()] + ' - ' + timeArr[0] + ':' + timeArr[1];
-      } else if (
-        now.getFullYear() === msgYear &&
-        now.getMonth() === msgMonth &&
-        now.getDate() === msgDate
-      ) {
-        //today
-        time = timeArr[0] ? timeArr[0] + ':' + timeArr[1] : '';
-      } else if (now.getTime() - msgTime.getTime() < 0) {
-        time =
-          months[msgMonth] +
-          ' ' +
-          msgDate +
-          ' ' +
-          msgYear +
-          ' ' +
-          msgTime.toTimeString().split(' ')[0];
-      }
-    }
-
-    /*marginLeft: 20*/
     return (
       <View
         style={[

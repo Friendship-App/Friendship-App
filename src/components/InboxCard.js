@@ -7,17 +7,20 @@ import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { colors } from '../styles';
 import rest from '../utils/rest';
+import apiRoot from '../utils/api.config';
+import io from 'socket.io-client';
 
 const mapStateToProps = state => ({
   currentUserId: state.auth.data.decoded ? state.auth.data.decoded.id : null,
+  auth: state.auth,
 });
 
 const mapDispatchToProps = dispatch => ({
-  openChatView: (chatroomId, id, username, avatar) =>
+  openChatView: (chatroomId, id, username, avatar, messages) =>
     dispatch(
       NavigationActions.navigate({
         routeName: 'ChatView',
-        params: { chatroomId, id, username, avatar },
+        params: { chatroomId, id, username, avatar, messages },
       }),
     ),
   updateReadMessages: (chatroomId, userId) => {
@@ -30,27 +33,36 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-class InboxCard extends React.Component {
-  state = {
-    time: '',
-    totalUnreadMessages: 0,
-    disabled: false,
-  };
+initialState = {
+  disabled: false,
+  isLoading: true,
+  totalUnreadMessages: 0,
+};
 
-  componentDidMount() {
-    this.getTime();
-    this.getUnreadMessages();
+class InboxCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = initialState;
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
+    const newTotalNumberOfMessages = nextProps.data.messages.length;
+    return (
+      newTotalNumberOfMessages !== this.props.data.messages.length ||
+      nextProps.data.messages[newTotalNumberOfMessages - 1].read !==
+        this.props.data.messages[nextProps.data.messages.length - 1].read
+    );
   }
 
   getUnreadMessages = () => {
     const { messages } = this.props.data;
-    console.log(messages);
     const totalUnreadMessages = messages.filter(
       message =>
         message.read === false && message.user_id !== this.props.currentUserId,
     );
 
-    this.setState({ totalUnreadMessages: totalUnreadMessages.length });
+    return totalUnreadMessages.length;
   };
 
   getMessageTime = lastMessageTime => {
@@ -61,7 +73,7 @@ class InboxCard extends React.Component {
     if (currentYear === moment(lastMessageTime).format('YYYY')) {
       if (currentMonth === moment(lastMessageTime).format('MMM')) {
         if (currentDay === moment(lastMessageTime).format('dddd')) {
-          return moment(lastMessageTime).format('hh:mm');
+          return moment(lastMessageTime).format('HH:mm');
         }
         return moment(lastMessageTime).format('dddd');
       }
@@ -73,41 +85,54 @@ class InboxCard extends React.Component {
   getTime = () => {
     const { messages } = this.props.data;
     const lastMessageTime = messages[messages.length - 1].chat_time;
-    let msgTime = this.getMessageTime(lastMessageTime);
-
-    this.setState({ time: msgTime });
+    return this.getMessageTime(lastMessageTime);
   };
 
   render() {
+    console.log(this.props.data);
+    console.log(this.state.totalUnreadMessages);
     const { creator, receiver, messages } = this.props.data;
-    const { totalUnreadMessages, time } = this.state;
+
+    const time = this.getTime();
+    const totalUnreadMessages = this.getUnreadMessages();
 
     const unreadMessagesText =
       totalUnreadMessages > 0
         ? `( ${totalUnreadMessages} unread messages )`
         : '';
+
     const lastMessage = messages[messages.length - 1];
+
     const lastMessageText =
       lastMessage.text_message.length > 35
         ? lastMessage.text_message.slice(0, 35) + '...'
         : lastMessage.text_message;
+
     const userId =
       this.props.currentUserId === creator.id ? receiver.id : creator.id;
+
     const username =
       this.props.currentUserId === creator.id
         ? receiver.username
         : creator.username;
+
     const emoji =
       this.props.currentUserId === creator.id
         ? receiver.avatar
         : creator.avatar;
+
     return (
       <TouchableHighlight
         onPress={() => {
           disableTouchableOpacity(this);
           this.props.updateReadMessages(this.props.data.id, userId);
-          this.props.openChatView(this.props.data.id, userId, username, emoji);
-          this.setState({ totalUnreadMessages: 0 });
+          this.props.openChatView(
+            this.props.data.id,
+            userId,
+            username,
+            emoji,
+            this.props.data.messages,
+          );
         }}
         disabled={this.state.disabled}
         underlayColor={'#ddd'}
