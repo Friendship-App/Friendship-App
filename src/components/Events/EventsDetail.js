@@ -9,11 +9,11 @@ import Card from './Card';
 import { disableTouchableOpacity } from '../../actions';
 
 const mapDispatchToProps = dispatch => ({
-  openEvent: eventId =>
+  openEvent: (eventId, eventTitle, eventImage) =>
     dispatch(
       NavigationActions.navigate({
         routeName: 'EventDetails',
-        params: { eventId },
+        params: { eventId, eventTitle, eventImage, isFromChat: false },
       }),
     ),
 });
@@ -84,7 +84,7 @@ class EventsDetail extends Component {
         disabled={this.state.disabled}
         onPress={() => {
           disableTouchableOpacity(this);
-          this.props.openEvent(id);
+          this.props.openEvent(id, title, srcImage);
         }}
       >
         <Image

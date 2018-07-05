@@ -197,10 +197,17 @@ class HeaderContainer extends Component {
             header
             onPress={() => {
               /*params: { chatroomId, id, username, avatar },*/
-              this.props.navigateTo('ChatView', {
+              this.props.navigation.navigate('ChatView', {
                 chatroomId: this.props.navigation.state.routes[
                   this.props.navigation.state.routes.length - 1
                 ].params.eventId,
+                username: this.props.navigation.state.routes[
+                  this.props.navigation.state.routes.length - 1
+                ].params.eventTitle,
+                avatar: this.props.navigation.state.routes[
+                  this.props.navigation.state.routes.length - 1
+                ].params.eventImage,
+                event: true,
               });
             }}
           />

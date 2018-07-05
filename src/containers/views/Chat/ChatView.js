@@ -30,8 +30,15 @@ const mapDispatchToProps = dispatch => ({
         params: { personId, personName },
       }),
     ),
-  chatRoomMessages: id => {
-    dispatch(rest.actions.chatRoomMessages({ id }));
+  chatRoomMessages: (id, isEvent = false) => {
+    if (!isEvent) {
+      dispatch(
+        rest.actions.chatRoomMessages(
+          { id },
+          { body: JSON.stringify({ isEvent }) },
+        ),
+      );
+    }
   },
   //update all messages that have been read
   updateReadMessages: (chatroomId, userId) => {
@@ -63,6 +70,10 @@ const mapStateToProps = state => ({
 
 class ChatView extends Component {
   static navigationOptions = ({ navigation }) => {
+    let borderStyle = {};
+    if (navigation.state.params.event) {
+      borderStyle = { borderRadius: 17 };
+    }
     return {
       header: props => (
         <HeaderContainer
@@ -76,6 +87,10 @@ class ChatView extends Component {
           titleComponent={
             <TouchableOpacity
               style={{ flexDirection: 'row', alignItems: 'center' }}
+              disabled={
+                navigation.state.params.event &&
+                !navigation.state.params.isFromChat
+              }
               onPress={() =>
                 navigation.dispatch(
                   NavigationActions.navigate({
@@ -89,7 +104,7 @@ class ChatView extends Component {
             >
               <Image
                 source={{ uri: navigation.state.params.avatar }}
-                style={{ width: 35, height: 35, marginRight: 5 }}
+                style={[{ width: 35, height: 35, marginRight: 5 }, borderStyle]}
               />
               <Text style={{ fontFamily: 'NunitoSans-Regular', fontSize: 15 }}>
                 {navigation.state.params.username}
