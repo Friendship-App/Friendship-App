@@ -19,7 +19,7 @@ import rest from '../../utils/rest';
 import { FullscreenCentered } from '../Layout/Layout';
 
 const mapDispatchToProps = dispatch => ({
-  openEvent: (eventId, eventTitle, eventImage, participate) =>
+  openEvent: (eventId, eventTitle, eventImage, participate, chatroomId) =>
     dispatch(
       NavigationActions.navigate({
         routeName: 'EventDetails',
@@ -28,28 +28,15 @@ const mapDispatchToProps = dispatch => ({
           eventTitle,
           eventImage,
           participate,
+          chatroomId,
           isFromChat: false,
         },
       }),
     ),
-  fetchEventParticipants: (eventId, userId) =>
-    dispatch(rest.actions.eventParticipants.get({ eventId, userId })),
-});
-
-const mapStateToProps = state => ({
-  auth: state.auth,
-  eventParticipants: state.eventParticipants,
 });
 
 class EventsDetail extends Component {
   state = { disabled: false };
-
-  componentWillMount() {
-    this.props.fetchEventParticipants(
-      this.props.id,
-      this.props.auth.data.decoded.id,
-    );
-  }
 
   openMap = (city, address) => {
     if (Platform.OS === 'ios') {
@@ -96,18 +83,6 @@ class EventsDetail extends Component {
     }
   };
 
-  getParticipation = () => {
-    for (let i = 0; i < this.props.eventParticipants.data[0].rows.length; i++) {
-      if (
-        this.props.eventParticipants.data[0].rows[i].id ===
-        this.props.auth.data.decoded.id
-      ) {
-        return true;
-      }
-    }
-    return false;
-  };
-
   render = () => {
     const {
       title,
@@ -121,25 +96,18 @@ class EventsDetail extends Component {
     } = this.props;
     const { titleTextStyle } = styles;
 
-    if (
-      this.props.eventParticipants.loading ||
-      this.props.eventParticipants.syncing ||
-      !this.props.eventParticipants.sync
-    ) {
-      return (
-        <FullscreenCentered>
-          <ActivityIndicator />
-        </FullscreenCentered>
-      );
-    }
-
     return (
       <Card
         disabled={this.state.disabled}
         onPress={() => {
-          const userParticipate = this.getParticipation();
           disableTouchableOpacity(this);
-          this.props.openEvent(id, title, srcImage, userParticipate);
+          this.props.openEvent(
+            id,
+            title,
+            srcImage,
+            this.props.userParticipate,
+            this.props.chatroomId,
+          );
         }}
       >
         <Image
@@ -203,4 +171,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventsDetail);
+export default connect(null, mapDispatchToProps)(EventsDetail);

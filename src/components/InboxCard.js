@@ -7,8 +7,6 @@ import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { colors } from '../styles';
 import rest from '../utils/rest';
-import apiRoot from '../utils/api.config';
-import io from 'socket.io-client';
 
 const mapStateToProps = state => ({
   currentUserId: state.auth.data.decoded ? state.auth.data.decoded.id : null,
@@ -89,7 +87,7 @@ class InboxCard extends React.Component {
   };
 
   render() {
-    const { creator, receiver, messages } = this.props.data;
+    const { creator, receiver, messages, event } = this.props.data;
 
     const time = this.getTime();
     const totalUnreadMessages = this.getUnreadMessages();
@@ -105,6 +103,8 @@ class InboxCard extends React.Component {
       lastMessage.text_message.length > 35
         ? lastMessage.text_message.slice(0, 35) + '...'
         : lastMessage.text_message;
+
+    return <View />;
 
     const userId =
       this.props.currentUserId === creator.id ? receiver.id : creator.id;

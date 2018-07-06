@@ -13,7 +13,7 @@ import _ from 'lodash';
 
 import rest from '../../utils/rest';
 import { connect } from 'react-redux';
-import { IconImage } from '../../components/Layout/Layout';
+import { FullscreenCentered, IconImage } from '../../components/Layout/Layout';
 import EventsHeader from '../../components/EventsHeader';
 import EventsList from '../../components/Events/EventsList';
 import Background from '../../components/Background';
@@ -137,56 +137,46 @@ export class EventsView extends Component {
   // render
   renderContent = () => {
     const { events, eventParticipantsNum } = this.props;
-    if (events.loading || eventParticipantsNum.loading) {
-      return <ActivityIndicator />;
-    } else if (events.data.id || events.data.data) {
-      return <ActivityIndicator />;
-    } else {
-      switch (this.state.sorting) {
-        case 'My Events':
-          let userEvents = events.data.filter(
-            event => event.userIsJoining === true,
+    switch (this.state.sorting) {
+      case 'My Events':
+        let userEvents = events.data.filter(
+          event => event.userIsJoining === true,
+        );
+        if (userEvents.length === 0) {
+          return (
+            <Text style={{ alignSelf: 'center', fontSize: 14, marginTop: 20 }}>
+              You have no events
+            </Text>
           );
-          if (userEvents.length === 0) {
-            return (
-              <Text
-                style={{ alignSelf: 'center', fontSize: 14, marginTop: 20 }}
-              >
-                You have no events
-              </Text>
-            );
-          } else {
-            // events.data = userEvents
-            return this.renderEvents(userEvents);
-          }
+        } else {
+          // events.data = userEvents
+          return this.renderEvents(userEvents);
+        }
 
-        case 'By time':
-          events.data = _.orderBy(events.data, ['dateIndex'], ['desc']);
-          return this.renderEvents(events.data);
+      case 'By time':
+        events.data = _.orderBy(events.data, ['dateIndex'], ['desc']);
+        return this.renderEvents(events.data);
 
-        case 'Smallest first':
-          events.data = _.orderBy(
-            events.data,
-            ['numberParticipantsIndex'],
-            ['acs'],
-          );
-          return this.renderEvents(events.data);
+      case 'Smallest first':
+        events.data = _.orderBy(
+          events.data,
+          ['numberParticipantsIndex'],
+          ['acs'],
+        );
+        return this.renderEvents(events.data);
 
-        case 'Closest first':
-          events.data = _.orderBy(events.data, ['locationSortIndex'], ['desc']);
-          return this.renderEvents(events.data);
-        default:
-          events.data = _.orderBy(
-            events.data,
-            ['reccomendationIndex'],
-            ['desc'],
-          );
-          return this.renderEvents(events.data);
-      }
+      case 'Closest first':
+        events.data = _.orderBy(events.data, ['locationSortIndex'], ['desc']);
+        return this.renderEvents(events.data);
+      default:
+        events.data = _.orderBy(events.data, ['reccomendationIndex'], ['desc']);
+        return this.renderEvents(events.data);
     }
   };
 
   render = () => {
+    const { events, eventParticipantsNum } = this.props;
+
     if (!this.props.auth.data.decoded) {
       return (
         <View style={{ marginTop: 30 }}>
@@ -194,6 +184,15 @@ export class EventsView extends Component {
         </View>
       );
     }
+
+    if (events.loading || eventParticipantsNum.loading) {
+      return (
+        <FullscreenCentered>
+          <ActivityIndicator />
+        </FullscreenCentered>
+      );
+    }
+
     return (
       <Background color="grey">
         <EventsHeader headerText="Events" rightText={this.rightText()} />

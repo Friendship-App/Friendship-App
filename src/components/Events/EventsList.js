@@ -12,8 +12,10 @@ const EventsList = ({
   let index = 0;
   const renderItem = ({ item }) => {
     const avatars = [];
+    let userParticipate = false;
     eventParticipantsNum.data.data.map(participant => {
       if (participant.eventId === item.id) {
+        userParticipate = participant.id === item.hostId;
         avatars.push(
           <Image
             source={{ uri: participant.avatar }}
@@ -34,6 +36,8 @@ const EventsList = ({
         srcImage={item.eventImage}
         avatars={avatars}
         hostId={item.hostId}
+        userParticipate={userParticipate}
+        chatroomId={item.chatroomId}
       />
     );
   };

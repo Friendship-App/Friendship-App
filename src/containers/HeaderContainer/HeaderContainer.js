@@ -198,16 +198,12 @@ class HeaderContainer extends Component {
             type="floatingButton"
             header
             onPress={() => {
+              const routePos = this.props.navigation.state.routes.length - 1;
+              const route = this.props.navigation.state.routes[routePos];
               this.props.navigation.navigate('ChatView', {
-                chatroomId: this.props.navigation.state.routes[
-                  this.props.navigation.state.routes.length - 1
-                ].params.eventId,
-                username: this.props.navigation.state.routes[
-                  this.props.navigation.state.routes.length - 1
-                ].params.eventTitle,
-                avatar: this.props.navigation.state.routes[
-                  this.props.navigation.state.routes.length - 1
-                ].params.eventImage,
+                chatroomId: route.params.chatroomId,
+                username: route.params.eventTitle,
+                avatar: route.params.eventImage,
                 event: true,
               });
             }}
