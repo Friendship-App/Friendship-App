@@ -81,43 +81,49 @@ class InboxCard extends React.Component {
   };
 
   getTime = () => {
-    const { messages } = this.props.data;
-    const lastMessageTime = messages[messages.length - 1].chat_time;
+    const { lastMessage } = this.props.data;
+    const lastMessageTime = lastMessage.chat_time;
     return this.getMessageTime(lastMessageTime);
   };
 
   render() {
-    const { creator, receiver, messages, event } = this.props.data;
+    // const { creator, receiver, messages, event } = this.props.data;
+    const {
+      unreadMessages,
+      lastMessage,
+      creatorId,
+      creatorUsername,
+      creatorAvatar,
+      participantId,
+      participantUsername,
+      participantAvatar,
+    } = this.props.data;
 
     const time = this.getTime();
-    const totalUnreadMessages = this.getUnreadMessages();
+    // const totalUnreadMessages = this.getUnreadMessages();
 
     const unreadMessagesText =
-      totalUnreadMessages > 0
-        ? `( ${totalUnreadMessages} unread messages )`
-        : '';
+      unreadMessages > 0 ? `( ${unreadMessages} unread messages )` : '';
 
-    const lastMessage = messages[messages.length - 1];
+    // const lastMessage = messages[messages.length - 1];
 
     const lastMessageText =
       lastMessage.text_message.length > 35
         ? lastMessage.text_message.slice(0, 35) + '...'
         : lastMessage.text_message;
 
-    return <View />;
-
     const userId =
-      this.props.currentUserId === creator.id ? receiver.id : creator.id;
+      this.props.currentUserId === creatorId ? participantId : creatorId;
 
     const username =
-      this.props.currentUserId === creator.id
-        ? receiver.username
-        : creator.username;
+      this.props.currentUserId === creatorId
+        ? participantUsername
+        : creatorUsername;
 
     const emoji =
-      this.props.currentUserId === creator.id
-        ? receiver.avatar
-        : creator.avatar;
+      this.props.currentUserId === creatorId
+        ? participantAvatar
+        : creatorAvatar;
 
     return (
       <TouchableHighlight
@@ -145,7 +151,7 @@ class InboxCard extends React.Component {
               <Text style={styles.inboxCardTime}>{time}</Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              {totalUnreadMessages > 0 ? (
+              {unreadMessages > 0 ? (
                 <Icon
                   name={'md-mail'}
                   color={colors.ORANGE}

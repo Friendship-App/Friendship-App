@@ -57,7 +57,7 @@ class ChatList extends Component {
   };
 
   render() {
-    const { chatroomLoadingStage } = this.props;
+    const { chatroomLoadingStage, chatrooms } = this.props;
 
     if (
       chatroomLoadingStage.syncing ||
@@ -73,8 +73,8 @@ class ChatList extends Component {
 
     const sortedChatrooms = this.props.chatrooms
       ? this.props.chatrooms.sort(function(a, b) {
-          const aLastMessageTime = a.messages[a.messages.length - 1].chat_time;
-          const bLastMessageTime = b.messages[b.messages.length - 1].chat_time;
+          const aLastMessageTime = a.lastMessage.chat_time;
+          const bLastMessageTime = b.lastMessage.chat_time;
           return new Date(bLastMessageTime) - new Date(aLastMessageTime);
         })
       : [];
