@@ -102,6 +102,7 @@ export default class App extends React.Component {
    */
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress');
+    socket.close();
     /*this.keyboardHideListener.remove();
     this.keyboardDidShowListener.remove();*/
   }
