@@ -14,11 +14,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  openChatView: (chatroomId, id, username, avatar, messages) =>
+  openChatView: (chatroomId, id, username, avatar) =>
     dispatch(
       NavigationActions.navigate({
         routeName: 'ChatView',
-        params: { chatroomId, id, username, avatar, messages },
+        params: { chatroomId, id, username, avatar },
       }),
     ),
   updateReadMessages: (chatroomId, userId) => {
@@ -97,15 +97,20 @@ class InboxCard extends React.Component {
       participantId,
       participantUsername,
       participantAvatar,
+      chatroomId,
     } = this.props.data;
+
+    if (this.props.data.event) {
+      return (
+        <View style={{ backgroundColor: 'red', height: 20, width: '100%' }} />
+      );
+    }
 
     const time = this.getTime();
     // const totalUnreadMessages = this.getUnreadMessages();
 
     const unreadMessagesText =
       unreadMessages > 0 ? `( ${unreadMessages} unread messages )` : '';
-
-    // const lastMessage = messages[messages.length - 1];
 
     const lastMessageText =
       lastMessage.text_message.length > 35
@@ -129,14 +134,8 @@ class InboxCard extends React.Component {
       <TouchableHighlight
         onPress={() => {
           disableTouchableOpacity(this);
-          this.props.updateReadMessages(this.props.data.id, userId);
-          this.props.openChatView(
-            this.props.data.id,
-            userId,
-            username,
-            emoji,
-            this.props.data.messages,
-          );
+          this.props.updateReadMessages(chatroomId, this.props.currentUserId);
+          this.props.openChatView(chatroomId, userId, username, emoji);
         }}
         disabled={this.state.disabled}
         underlayColor={'#ddd'}

@@ -30,16 +30,7 @@ const mapDispatchToProps = dispatch => ({
         params: { personId, personName },
       }),
     ),
-  chatRoomMessages: (id, isEvent = false) => {
-    if (!isEvent) {
-      dispatch(
-        rest.actions.chatRoomMessages(
-          { id },
-          { body: JSON.stringify({ isEvent }) },
-        ),
-      );
-    }
-  },
+  chatRoomMessages: id => dispatch(rest.actions.chatRoomMessages({ id })),
   //update all messages that have been read
   updateReadMessages: (chatroomId, userId) => {
     dispatch(
@@ -124,6 +115,10 @@ class ChatView extends Component {
         this.props.navigation.state.params.chatroomId,
       );
     });
+  }
+
+  componentWillMount() {
+    this.props.chatRoomMessages(this.props.navigation.state.params.chatroomId);
   }
 
   open = () => {

@@ -27,8 +27,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(rest.actions.tagsForUser.get({ userId })),
   refreshPersonalitiesForUser: userId =>
     dispatch(rest.actions.personalitiesForUser.get({ userId })),
-  fetchUserChatrooms: userId =>
-    dispatch(rest.actions.chatRoomsWithUserId.get({ userId })),
+  fetchUserChatrooms: id =>
+    dispatch(rest.actions.chatRoomsWithUserId.get({ id })),
   openChatRequest: (user, previousRoute) =>
     dispatch(
       NavigationActions.navigate({
@@ -171,10 +171,10 @@ class ProfileUser extends React.Component {
     // Load all existing chatrooms and check if one them has a matching users
     this.props.chatrooms.forEach(item => {
       if (
-        item.creator.id === this.props.auth.data.decoded.id &&
-        item.receiver.id === this.props.userDetails.data.id
+        item.creatorId === this.props.auth.data.decoded.id &&
+        item.participantId === this.props.userDetails.data.id
       ) {
-        existingChatRoomId = item.id;
+        existingChatRoomId = item.chatroomId;
       }
     });
 
